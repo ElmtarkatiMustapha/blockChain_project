@@ -1,0 +1,69 @@
+<%- include("../parts/header.ejs") %>
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link disabled"
+              href="#"
+              tabindex="-1"
+              aria-disabled="true"
+              >Disabled</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<div>this is the home page</div>
+<form action="" method="post">
+  <label for="byId">by id</label
+  ><input required type="radio" name="searchType" value="id" id="byId" />
+  <label for="byCin">by cin</label
+  ><input required type="radio" name="searchType" value="cin" id="byCin" />
+  <label for="byCne">by cne</label
+  ><input required type="radio" name="searchType" value="cne" id="byCne" />
+  <label for="bySession">by session</label
+  ><input required type="radio" name="searchType" value="session" id="bySession" />
+  <label for="byName">by name</label
+  ><input required type="radio" name="searchType" value="name" id="byName" /><br>
+  <input required type="text" name="dataToSearch" id="" placeholder="Write here..." />
+  <input type="submit" value="search" />
+</form>
+<% if(typeof(diplomes)!== 'undefined' && diplomes !== null && diplomes !== "" ) { %>
+    <% if (diplomes[0][0] == 0) { %>
+        aucun data to show
+    <% } else { %>
+        <% diplomes.forEach(item => { %>
+            <%- item %><br>
+        <% }) %>
+    <% } %>
+<% }else{ %>
+    aucun data to show
+<% } %>
+<div class="container-fluid"></div>
+<%- include("../parts/footer.ejs") %>
