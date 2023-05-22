@@ -8,10 +8,21 @@ const testSchema = mongoose.Schema({
 // let User = mongoose.model("user", testSchema);
 const urlDb = "mongodb+srv://mstafamt8:mstafa123@cluster0.7ltwxxt.mongodb.net/?retryWrites=true&w=majority"
 
+const Test = mongoose.model("test", testSchema);
 
 mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
     console.log("connnected to the database");
-    mongoose.disconnect();
+    let newTest = new Test({
+        name: "mustapha",
+        age: 21
+    })
+    newTest.save().then((err, res) => {
+        if (err) {
+            console.log("Error: ", err);
+        }
+        console.log(res);
+        mongoose.disconnect();
+    })
 })
 
 // const  mongodb= require("mongodb").MongoClient;

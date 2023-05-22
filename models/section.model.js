@@ -3,6 +3,13 @@
 -reference
 -title
 */
+const mongoose = require("mongoose");
+const urlDb = ""
+const sectionSchema = mongoose.Schema({
+    reference: String,
+    title: String,
+})
+var Section = mongoose.model("section", sectionSchema);
 
 //export model functions
 module.exports = {

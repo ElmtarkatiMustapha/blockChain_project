@@ -8,7 +8,18 @@
 -sexe
 -birthday
 */
-
+const mongoose = require("mongoose");
+const urlDb=""
+const adminSchema = mongoose.Schema({
+    reference: String,
+    firstName: String,
+    lastName: String,
+    userName: String,
+    password: String,
+    sexe: String,
+    birthday: Date,
+})
+var Admin = mongoose.model("admin", adminSchema);
 //export model functions
 module.exports = {
     addNew,

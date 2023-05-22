@@ -1,15 +1,26 @@
 //professeur model
 /*attribute: 
--nom
--prenom
+-firstName
+-lastName
 -reference
 -userName
 -password
 -sexe
--dateNaissance
--specialite
+-birthday
+-specialty
 */
-
+const mongoose = require("mongoose");
+const profSchema = mongoose.Schema({
+    reference: String,
+    firstName: String,
+    lastName: String,
+    userName: String,
+    password: String,
+    sexe: String,
+    birthday: Date,
+    specialty:String
+})
+var Professor = mongoose.model("professor", profSchema);
 //export model functions
 module.exports = {
     addNew,

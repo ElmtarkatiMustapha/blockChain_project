@@ -5,6 +5,14 @@
 -title
 -state
 */
+const mongoose = require("mongoose");
+const diplomeSchema = mongoose.Schema({
+    reference: String,
+    title: String,
+    dateObtained: Date,
+    state: Boolean
+})
+var Diplome = mongoose.model("diplome", diplomeSchema);
 
 //export model functions
 module.exports = {
