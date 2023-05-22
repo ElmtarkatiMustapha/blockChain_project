@@ -4,6 +4,14 @@
 -title
 -description
 */
+require("../globals");
+const mongoose = require("mongoose");
+const filiereSchema = mongoose.Schema({
+    reference: String,
+    title: String,
+    description: String,
+})
+var Filiere = mongoose.model("filiere", filiereSchema);
 
 //export model functions
 module.exports = {

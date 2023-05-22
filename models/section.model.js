@@ -3,6 +3,13 @@
 -reference
 -title
 */
+require("../globals");
+const mongoose = require("mongoose");
+const sectionSchema = mongoose.Schema({
+    reference: String,
+    title: String,
+})
+var Section = mongoose.model("section", sectionSchema);
 
 //export model functions
 module.exports = {

@@ -4,6 +4,14 @@
 -title
 -semester
 */
+require("../globals");
+const mongoose = require("mongoose");
+const moduleSchema = mongoose.Schema({
+    reference: String,
+    title: String,
+    semester: String,
+})
+var Module = mongoose.model("module", moduleSchema);
 
 //export model functions
 module.exports = {
@@ -17,7 +25,7 @@ module.exports = {
 }
 
 //insert function
-function addNew(title) {
+function addNew(title,semester) {
     
 }
 

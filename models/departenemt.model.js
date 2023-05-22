@@ -4,6 +4,14 @@
 -libelle
 -description
 */
+require("../globals");
+const mongoose = require("mongoose");
+const departementSchema = mongoose.Schema({
+    reference: String,
+    label: String,
+    description: String,
+})
+var Departement = mongoose.model("departement", departementSchema);
 
 //export model functions
 module.exports = {

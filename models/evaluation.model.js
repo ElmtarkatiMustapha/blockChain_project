@@ -5,6 +5,17 @@
 -grade
 -date
 */
+require("../globals");
+const { Double } = require("mongodb");
+const mongoose = require("mongoose");
+const evaluationSchema = mongoose.Schema({
+    referenceModule: String,
+    referenceStudent: String,
+    grade: Double,
+    date: Date,
+})
+var Evaluation = mongoose.model("evaluation", evaluationSchema);
+
 
 //export model functions
 module.exports = {

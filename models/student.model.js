@@ -7,9 +7,20 @@
 -userName
 -password
 -sexe
--dateNaissance
+-birthday
 */
-
+require("../globals");
+const mongoose = require("mongoose");
+const studentSchema = mongoose.Schema({
+    reference: String,
+    firstName: String,
+    lastName: String,
+    userName: String,
+    password: String,
+    sexe: String,
+    birthday: Date,
+})
+var Student = mongoose.model("student", studentSchema);
 //export model functions
 module.exports = {
     addNew,

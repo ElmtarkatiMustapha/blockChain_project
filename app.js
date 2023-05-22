@@ -2,9 +2,6 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const path = require("path")
 
-//for test
-const blockChain = require("./models/blockChain.model")
-
 
 const app = express();
 app.use(express.static(path.join(__dirname, "assets")));
@@ -20,6 +17,7 @@ app.use(bodyParser.json())
 app.use("/", homeRouter);
 
 //test add to the blockChain
+const blockChain = require("./models/blockChain.model")
 app.get("/add", (req, res, next) => {
     res.render("pages/addDiplome");
 })
@@ -33,6 +31,7 @@ app.post("/add", (req, res, next) => {
         res.send.redirect("/add")
     })
 })
+//end test
 
 app.listen(3000,(error)=>{
     console.log("server listening to the port 3000");
