@@ -3,8 +3,8 @@
 -reference
 -title
 */
+require("../globals");
 const mongoose = require("mongoose");
-const urlDb = ""
 const sectionSchema = mongoose.Schema({
     reference: String,
     title: String,

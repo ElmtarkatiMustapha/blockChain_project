@@ -4,8 +4,8 @@
 -title
 -description
 */
+require("../globals");
 const mongoose = require("mongoose");
-const urlDb = ""
 const filiereSchema = mongoose.Schema({
     reference: String,
     title: String,

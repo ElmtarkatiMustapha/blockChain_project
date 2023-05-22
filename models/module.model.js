@@ -4,8 +4,8 @@
 -title
 -semester
 */
+require("../globals");
 const mongoose = require("mongoose");
-const urlDb = ""
 const moduleSchema = mongoose.Schema({
     reference: String,
     title: String,

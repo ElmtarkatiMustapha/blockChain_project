@@ -9,8 +9,8 @@
 -sexe
 -birthday
 */
+require("../globals");
 const mongoose = require("mongoose");
-const urlDb = ""
 const studentSchema = mongoose.Schema({
     reference: String,
     firstName: String,

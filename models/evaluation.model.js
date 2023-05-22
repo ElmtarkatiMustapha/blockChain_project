@@ -5,6 +5,7 @@
 -grade
 -date
 */
+require("../globals");
 const { Double } = require("mongodb");
 const mongoose = require("mongoose");
 const evaluationSchema = mongoose.Schema({

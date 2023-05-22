@@ -8,8 +8,8 @@
 -sexe
 -birthday
 */
+require("../globals");
 const mongoose = require("mongoose");
-const urlDb=""
 const adminSchema = mongoose.Schema({
     reference: String,
     firstName: String,
@@ -19,6 +19,7 @@ const adminSchema = mongoose.Schema({
     sexe: String,
     birthday: Date,
 })
+
 var Admin = mongoose.model("admin", adminSchema);
 //export model functions
 module.exports = {

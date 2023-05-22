@@ -9,6 +9,7 @@
 -birthday
 -specialty
 */
+require("../globals");
 const mongoose = require("mongoose");
 const profSchema = mongoose.Schema({
     reference: String,

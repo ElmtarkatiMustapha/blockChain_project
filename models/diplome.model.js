@@ -5,6 +5,7 @@
 -title
 -state
 */
+require("../globals");
 const mongoose = require("mongoose");
 const diplomeSchema = mongoose.Schema({
     reference: String,

@@ -6,8 +6,8 @@ const testSchema = mongoose.Schema({
 })
 
 // let User = mongoose.model("user", testSchema);
-const urlDb = "mongodb+srv://mstafamt8:mstafa123@cluster0.7ltwxxt.mongodb.net/?retryWrites=true&w=majority"
-
+// const urlDb = "mongodb+srv://mstafamt8:mstafa123@cluster0.7ltwxxt.mongodb.net/?retryWrites=true&w=majority"
+require("../globals");
 const Test = mongoose.model("test", testSchema);
 
 mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
@@ -16,13 +16,13 @@ mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
         name: "mustapha",
         age: 21
     })
-    newTest.save().then((err, res) => {
-        if (err) {
-            console.log("Error: ", err);
-        }
-        console.log(res);
+    // newTest.save().then((err, res) => {
+    //     if (err) {
+    //         console.log("Error: ", err);
+    //     }
+    //     console.log(res);
+    // })
         mongoose.disconnect();
-    })
 })
 
 // const  mongodb= require("mongodb").MongoClient;

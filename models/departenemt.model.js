@@ -4,6 +4,7 @@
 -libelle
 -description
 */
+require("../globals");
 const mongoose = require("mongoose");
 const departementSchema = mongoose.Schema({
     reference: String,
