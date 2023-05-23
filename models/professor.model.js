@@ -35,7 +35,8 @@ module.exports = {
     setPassword,
     setSexe,
     setDateNaissance,
-    setSpecialty
+    setSpecialty,
+    Professor
 }
 
 //insert function
