@@ -39,7 +39,7 @@ module.exports = {
 //insert function
 function addNew(fName,lName,sexe,birthday) {
     let ref = "43HGFU";
-    let userName = "testUser";
+    let userName = "Bouchra";
     let password = "pass"
     mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
         let newAdmin = new Admin({
