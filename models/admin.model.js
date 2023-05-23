@@ -37,7 +37,24 @@ module.exports = {
 }
 
 //insert function
-function addNew(fName,lName,ref,sexe,birthday) {
+function addNew(fName,lName,sexe,birthday) {
+    let ref = "43HGFU";
+    let userName = "testUser";
+    let password = "pass"
+    mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
+        let newAdmin = new Admin({
+            reference: ref,
+            firstName: fName,
+            lastName: lName,
+            userName: userName,
+            password: password,
+            sexe: sexe,
+            birthday: birthday,
+        })
+        newAdmin.save().then((result, err) => {
+            mongoose.disconnect();
+        })
+    })
     
 }
 
