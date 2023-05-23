@@ -29,7 +29,6 @@ module.exports = {
     deleteOne,
     setFirsName,
     setLastName,
-    setReference,
     setUserName,
     setPassword,
     setSexe,
@@ -118,7 +117,7 @@ function deleteOne(ref) {
   }
 //update info
 // Update first name
-function setFirstName(ref, nom) {
+function setFirsName(ref, nom) {
     return new Promise((resolve, reject) => {
       mongoose.connect(dbUrl, { useNewUrlParser: true })
         .then(() => {
