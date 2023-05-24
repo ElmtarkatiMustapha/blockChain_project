@@ -34,7 +34,6 @@ module.exports = {
     deleteOne,
     setFirsName,
     setLastName,
-    setReference,
     setUserName,
     setPassword,
     setSexe,
@@ -109,13 +108,40 @@ function addNew(fName,lName,ref,sexe,birthday) {
 
 //Get all
 function getAll() {
-    
-}
+    return new Promise((resolve, reject) => {
+      mongoose.connect(dbUrl, { useNewUrlParser: true })
+        .then(() => {
+          return Admin.find();
+        })
+        .then(admins => {
+          mongoose.disconnect();
+          resolve(admins);
+        })
+        .catch(error => {
+          mongoose.disconnect();
+          reject(error);
+        });
+    });
+  }
 
 //Get one
 function getOne(ref) {
-    
-}
+    return new Promise((resolve, reject) => {
+      mongoose.connect(dbUrl, { useNewUrlParser: true })
+        .then(() => {
+          return Admin.findOne({ reference: ref });
+        })
+        .then(admin => {
+          mongoose.disconnect();
+          resolve(admin);
+        })
+        .catch(error => {
+          mongoose.disconnect();
+          reject(error);
+        });
+    });
+  }
+  
 
 //delete one
 function deleteOne(ref) {
