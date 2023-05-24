@@ -34,6 +34,7 @@ module.exports = {
     setPassword,
     setSexe,
     setBirthday,
+    Student
 }
 
 //insert function
