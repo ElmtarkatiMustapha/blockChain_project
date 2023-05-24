@@ -35,32 +35,100 @@ function addNew(dateObtained,title) {
 
 //Get all
 function getAll() {
-    
-}
+    return new Promise((resolve, reject) => {
+      mongoose.connect(urlDb, { useNewUrlParser: true })
+        .then(() => {
+          return Diplome.find();
+        })
+        .then(diplomes => {
+          mongoose.disconnect();
+          resolve(diplomes);
+        })
+        .catch(error => {
+          mongoose.disconnect();
+          reject(error);
+        });
+    });
+  }
 
 //Get one
 function getOne(ref) {
-    
-}
+    return new Promise((resolve, reject) => {
+      mongoose.connect(urlDb, { useNewUrlParser: true })
+        .then(() => {
+          return Diplome.findOne({ reference: ref });
+        })
+        .then(diplome => {
+          mongoose.disconnect();
+          resolve(diplome);
+        })
+        .catch(error => {
+          mongoose.disconnect();
+          reject(error);
+        });
+    });
+  }
+  
 
 //delete one
 function deleteOne(ref) {
-    
+    return new Promise((resolve, reject) => {
+      mongoose.connect(urlDb, { useNewUrlParser: true })
+        .then(() => {
+          return Diplome.deleteOne({ reference: ref });
+        })
+        .then(result => {
+          mongoose.disconnect();
+          if (result.deletedCount === 1) {
+            resolve("Document supprimé avec succès.");
+          } else {
+            resolve(`Aucun document trouvé avec la référence : ${ref}`);
+          }
+        })
+        .catch(error => {
+          mongoose.disconnect();
+          reject(error);
+        });
+    });
+  }
+
+  function setTitle(ref, label) {
+    return new Promise((resolve, reject) => {
+      mongoose.connect(urlDb, { useNewUrlParser: true })
+        .then(() => {
+          return Diplome.updateOne({ reference:ref }, { title: label });
+        })
+        .then(() => {
+          mongoose.disconnect();
+          resolve("Titre mis à jour avec succès.");
+        })
+        .catch(error => {
+          mongoose.disconnect();
+          reject(error);
+        });
+    });
+  }
+
+function setDateObtained(ref, date) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(urlDb, { useNewUrlParser: true })
+      .then(() => {
+        return Diplome.updateOne({ reference : ref }, { dateObtained: date });
+      })
+      .then(() => {
+        mongoose.disconnect();
+        resolve("Date d'obtention mise à jour avec succès.");
+      })
+      .catch(error => {
+        mongoose.disconnect();
+        reject(error);
+      });
+  });
 }
 
-function setReference(doplome, ref) {
+function setStateDone(ref) {
     
 }
-
-function setTitle(doplome, label) {
-    
-}
-function setDateObtained(diplome,date) {
-    
-}
-function setStateDone(doplome) {
-    
-}
-function setStateNotYet(doplome) {
+function setStateNotYet(ref) {
     
 }
