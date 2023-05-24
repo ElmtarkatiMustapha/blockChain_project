@@ -83,9 +83,9 @@ function checkUserName(userName) {
 function addNew(fName,lName,ref,sexe,birthday) {
     let userName = fName + "_" + lName;
     let password = generator.generate({
-	length: 8,
-	numbers: true
-});
+        length: 8,
+        numbers: true
+    });
     mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
         checkUserName(userName).then(newUserName => {
             let newAdmin = new Admin({
