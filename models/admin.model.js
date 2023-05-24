@@ -96,156 +96,29 @@ function getOne(ref) {
 
 //delete one
 function deleteOne(ref) {
-    return new Promise((resolve, reject) => {
-      mongoose.connect(dbUrl, { useNewUrlParser: true })
-        .then(() => {
-          return Admin.deleteOne({ reference: ref });
-        })
-        .then(result => {
-          mongoose.disconnect();
-          if (result.deletedCount === 1) {
-            resolve("Document supprimé avec succès.");
-          } else {
-            resolve(`Aucun document trouvé avec la référence : ${ref}`);
-          }
-        })
-        .catch(error => {
-          mongoose.disconnect();
-          reject(error);
-        });
-    });
-  }
+    
+}
 
 //update info
-// Update first name
-function setFirsName(ref, nom) {
-    return new Promise((resolve, reject) => {
-      mongoose.connect(dbUrl, { useNewUrlParser: true })
-        .then(() => {
-          return Admin.findOneAndUpdate({ reference: ref }, { $set: { firstName: nom }});
-        })
-        .then(updatedAdmin => {
-          mongoose.disconnect();
-          if (updatedAdmin) {
-            resolve("Prénom mis à jour avec succès.");
-          } else {
-            resolve(`Aucun document trouvé avec la référence : ${ref}`);
-          }
-        })
-        .catch(error => {
-          mongoose.disconnect();
-          reject(error);
-        });
-    });
-  }
+function setFirsName(admin,nom) {
+    
+}
+function setLastName(admin,penom) {
+    
+}
+function setReference(admin,ref) {
+    
+}
 
-  // Update last name
-  function setLastName(ref, nom) {
-    return new Promise((resolve, reject) => {
-      mongoose.connect(dbUrl, { useNewUrlParser: true })
-        .then(() => {
-          return Admin.findOneAndUpdate({ reference: ref }, { lastName: nom }, { new: true });
-        })
-        .then(updatedAdmin => {
-          mongoose.disconnect();
-          if (updatedAdmin) {
-            resolve("Nom de famille mis à jour avec succès.");
-          } else {
-            resolve(`Aucun document trouvé avec la référence : ${ref}`);
-          }
-        })
-        .catch(error => {
-          mongoose.disconnect();
-          reject(error);
-        });
-    });
-  }
-
-  // Update user name
-  function setUserName(ref, userName) {
-    return new Promise((resolve, reject) => {
-      mongoose.connect(dbUrl, { useNewUrlParser: true })
-        .then(() => {
-          return Admin.findOneAndUpdate({ reference: ref }, { $set: { userName: userName } });
-        })
-        .then(updatedAdmin => {
-          mongoose.disconnect();
-          if (updatedAdmin) {
-            resolve("Nom d'utilisateur mis à jour avec succès.");
-          } else {
-            resolve(`Aucun document trouvé avec la référence : ${ref}`);
-          }
-        })
-        .catch(error => {
-          mongoose.disconnect();
-          reject(error);
-        });
-    });
-  }
-
-  // Update password
-  function setPassword(ref, password) {
-    return new Promise((resolve, reject) => {
-      mongoose.connect(dbUrl, { useNewUrlParser: true })
-        .then(() => {
-          return Admin.findOneAndUpdate({ reference: ref }, { password: password }, { new: true });
-        })
-        .then(updatedAdmin => {
-          mongoose.disconnect();
-          if (updatedAdmin) {
-            resolve("Mot de passe mis à jour avec succès.");
-          } else {
-            resolve(`Aucun document trouvé avec la référence : ${ref}`);
-          }
-        })
-        .catch(error => {
-          mongoose.disconnect();
-          reject(error);
-        });
-    });
-  }
-
-  // Update Sexe
-  function setSexe(ref, sexe) {
-    return new Promise((resolve, reject) => {
-      mongoose.connect(dbUrl, { useNewUrlParser: true })
-        .then(() => {
-          return Admin.findOneAndUpdate({ reference: ref }, { sexe: sexe }, { new: true });
-        })
-        .then(updatedAdmin => {
-          mongoose.disconnect();
-          if (updatedAdmin) {
-            resolve("Sexe mis à jour avec succès.");
-          } else {
-            resolve(`Aucun document trouvé avec la référence : ${ref}`);
-          }
-        })
-        .catch(error => {
-          mongoose.disconnect();
-          reject(error);
-        });
-    });
-  }
-  
-  
-  function setDateNaissance(ref, date) {
-    return new Promise((resolve, reject) => {
-      mongoose.connect(dbUrl, { useNewUrlParser: true })
-        .then(() => {
-          return Admin.findOneAndUpdate({ reference: ref }, { birthday: date }, { new: true });
-        })
-        .then(updatedAdmin => {
-          mongoose.disconnect();
-          if (updatedAdmin) {
-            resolve("Date de naissance mise à jour avec succès.");
-          } else {
-            resolve(`Aucun document trouvé avec la référence : ${ref}`);
-          }
-        })
-        .catch(error => {
-          mongoose.disconnect();
-          reject(error);
-        });
-    });
-  }
-  
+function setUserName(admin,userName) {
+    
+}
+function setPassword(admin,password) {
+    
+}
+function setSexe(admin, sexe) {
+    
+}
+function setDateNaissance(admin, date) {
+    
+}
