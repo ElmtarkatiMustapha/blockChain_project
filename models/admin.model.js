@@ -9,6 +9,7 @@
 -birthday
 */
 require("../globals");
+const generator= require("generate-password")
 const { MongoGridFSChunkError } = require("mongodb");
 const mongoose = require("mongoose");
 const Professor = require("./professor.model").Professor;
@@ -82,7 +83,10 @@ function checkUserName(userName) {
 }
 function addNew(fName,lName,ref,sexe,birthday) {
     let userName = fName + "_" + lName;
-    let password = "pass"
+    let password = generator.generate({
+	length: 8,
+	numbers: true
+});
     mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
         checkUserName(userName).then(newUserName => {
             let newAdmin = new Admin({
