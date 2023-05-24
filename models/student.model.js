@@ -115,7 +115,7 @@ function setFirstName(ref, nom) {
         if (updatedStudent) {
           resolve(updatedStudent);
         } else {
-          resolve(`Aucun étudiant trouvé avec la référence : ${student.reference}`);
+          resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
       .catch(error => {
@@ -136,7 +136,7 @@ function setLastName(ref, prenom) {
         if (updatedStudent) {
           resolve(updatedStudent);
         } else {
-          resolve(`Aucun étudiant trouvé avec la référence : ${student.reference}`);
+          resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
       .catch(error => {
@@ -157,7 +157,7 @@ function setCne(ref, cne) {
         if (updatedStudent) {
           resolve(updatedStudent);
         } else {
-          resolve(`Aucun étudiant trouvé avec la référence : ${student.reference}`);
+          resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
       .catch(error => {
@@ -178,7 +178,7 @@ function setUserName(ref, userName) {
         if (updatedStudent) {
           resolve(updatedStudent);
         } else {
-          resolve(`Aucun étudiant trouvé avec la référence : ${student.reference}`);
+          resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
       .catch(error => {
@@ -199,7 +199,7 @@ function setPassword(ref, password) {
         if (updatedStudent) {
           resolve(updatedStudent);
         } else {
-          resolve(`Aucun étudiant trouvé avec la référence : ${student.reference}`);
+          resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
       .catch(error => {
@@ -220,7 +220,7 @@ function setSexe(ref, sexe) {
         if (updatedStudent) {
           resolve(updatedStudent);
         } else {
-          resolve(`Aucun étudiant trouvé avec la référence : ${student.reference}`);
+          resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
       .catch(error => {
@@ -241,7 +241,7 @@ function setBirthday(ref, date) {
         if (updatedStudent) {
           resolve(updatedStudent);
         } else {
-          resolve(`Aucun étudiant trouvé avec la référence : ${student.reference}`);
+          resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
       .catch(error => {
