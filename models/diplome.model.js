@@ -11,7 +11,8 @@ const diplomeSchema = mongoose.Schema({
     reference: String,
     title: String,
     dateObtained: Date,
-    state: Boolean
+    state: Boolean,
+    CNE:String
 })
 var Diplome = mongoose.model("diplome", diplomeSchema);
 
@@ -21,7 +22,6 @@ module.exports = {
     getAll,
     getOne,
     deleteOne,
-    setReference,
     setDateObtained,
     setTitle,
     setStateDone,
@@ -92,15 +92,20 @@ function deleteOne(ref) {
     });
   }
 
-  function setTitle(ref, label) {
+  
+function setTitle(ref, label) {
     return new Promise((resolve, reject) => {
       mongoose.connect(urlDb, { useNewUrlParser: true })
         .then(() => {
-          return Diplome.updateOne({ reference:ref }, { title: label });
+          return Diplome.findOneAndUpdate({ reference: ref }, { title: label }, { new: true });
         })
-        .then(() => {
+        .then(updatedDiplome => {
           mongoose.disconnect();
-          resolve("Titre mis à jour avec succès.");
+          if (updatedDiplome) {
+            resolve("Titre mis à jour avec succès.");
+          } else {
+            resolve(`Aucun document trouvé avec la référence : ${ref}`);
+          }
         })
         .catch(error => {
           mongoose.disconnect();
@@ -108,23 +113,28 @@ function deleteOne(ref) {
         });
     });
   }
-
-function setDateObtained(ref, date) {
-  return new Promise((resolve, reject) => {
-    mongoose.connect(urlDb, { useNewUrlParser: true })
-      .then(() => {
-        return Diplome.updateOne({ reference : ref }, { dateObtained: date });
-      })
-      .then(() => {
-        mongoose.disconnect();
-        resolve("Date d'obtention mise à jour avec succès.");
-      })
-      .catch(error => {
-        mongoose.disconnect();
-        reject(error);
-      });
-  });
-}
+  
+  function setDateObtained(ref, date) {
+    return new Promise((resolve, reject) => {
+      mongoose.connect(urlDb, { useNewUrlParser: true })
+        .then(() => {
+          return Diplome.findOneAndUpdate({ reference: ref }, { dateObtained: date }, { new: true });
+        })
+        .then(updatedDiplome => {
+          mongoose.disconnect();
+          if (updatedDiplome) {
+            resolve("Date d'obtention mise à jour avec succès.");
+          } else {
+            resolve(`Aucun document trouvé avec la référence : ${ref}`);
+          }
+        })
+        .catch(error => {
+          mongoose.disconnect();
+          reject(error);
+        });
+    });
+  }
+  
 
 function setStateDone(ref) {
     
