@@ -27,7 +27,7 @@ module.exports = {
     getAll,
     getOne,
     deleteOne,
-    setFirsName,
+    setFirstName,
     setLastName,
     setUserName,
     setPassword,
