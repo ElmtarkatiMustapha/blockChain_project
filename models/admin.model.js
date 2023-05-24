@@ -9,7 +9,12 @@
 -birthday
 */
 require("../globals");
+const generator= require("generate-password")
+const { MongoGridFSChunkError } = require("mongodb");
 const mongoose = require("mongoose");
+const Professor = require("./professor.model").Professor;
+const Student = require("./student.model").Student;
+
 const adminSchema = mongoose.Schema({
     reference: String,
     firstName: String,
@@ -29,7 +34,6 @@ module.exports = {
     deleteOne,
     setFirsName,
     setLastName,
-    setReference,
     setUserName,
     setPassword,
     setSexe,
@@ -37,36 +41,107 @@ module.exports = {
 }
 
 //insert function
-function addNew(fName,lName,sexe,birthday) {
-    let ref = "43HGFU";
-    let userName = "testUser";
-    let password = "pass"
+function checkUserName(userName) {
+    return new Promise((resolve, reject) => {
+        mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
+            Admin.find({
+                userName: userName
+            }).then((res) => {
+                if (res.length === 0) {
+                    Professor.find({
+                        userName: userName
+                    }).then((res) => {
+                        if (res.length === 0) {
+                            Student.find({
+                                userName:userName
+                            }).then((res) => {
+                                if (res.length === 0) {
+                                    mongoose.disconnect();
+                                    resolve(userName);
+                                } else {
+                                    mongoose.disconnect();
+                                    userName += (Math.random() * 10);
+
+                                    checkUserName(userName);
+                                }
+                            })
+                        } else {
+                            mongoose.disconnect();
+                            userName += (Math.random() * 10);
+                            checkUserName(userName);
+                        }
+                    })
+                } else {
+                    mongoose.disconnect();
+                    userName += (Math.random() * 10);
+                    checkUserName(userName);
+                }
+            })
+        })
+    })
+}
+function addNew(fName,lName,ref,sexe,birthday) {
+    let userName = fName + "_" + lName;
+    let password = generator.generate({
+	length: 8,
+	numbers: true
+});
     mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
-        let newAdmin = new Admin({
-            reference: ref,
-            firstName: fName,
-            lastName: lName,
-            userName: userName,
-            password: password,
-            sexe: sexe,
-            birthday: birthday,
+        checkUserName(userName).then(newUserName => {
+            let newAdmin = new Admin({
+                reference: ref,
+                firstName: fName,
+                lastName: lName,
+                userName: newUserName,
+                password: password,
+                sexe: sexe,
+                birthday: birthday,
+            })
+            newAdmin.save().then((result, err) => {
+                mongoose.disconnect();
+            })
         })
-        newAdmin.save().then((result, err) => {
-            mongoose.disconnect();
-        })
+        
     })
     
 }
 
 //Get all
 function getAll() {
-    
-}
+    return new Promise((resolve, reject) => {
+      mongoose.connect(dbUrl, { useNewUrlParser: true })
+        .then(() => {
+          return Admin.find();
+        })
+        .then(admins => {
+          mongoose.disconnect();
+          resolve(admins);
+        })
+        .catch(error => {
+          mongoose.disconnect();
+          reject(error);
+        });
+    });
+  }
 
 //Get one
 function getOne(ref) {
-    
-}
+    return new Promise((resolve, reject) => {
+      mongoose.connect(dbUrl, { useNewUrlParser: true })
+        .then(() => {
+          return Admin.findOne({ reference: ref });
+        })
+        .then(admin => {
+          mongoose.disconnect();
+          resolve(admin);
+        })
+        .catch(error => {
+          mongoose.disconnect();
+          reject(error);
+        });
+    });
+  }
+  
 
 //delete one
 function deleteOne(ref) {
