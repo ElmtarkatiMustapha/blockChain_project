@@ -100,7 +100,7 @@ function getAll() {
           if (updatedModule) {
             resolve(updatedModule);
           } else {
-            resolve(`Aucun module trouvé avec la référence : ${module.reference}`);
+            resolve(`Aucun module trouvé avec la référence : ${ref}`);
           }
         })
         .catch(error => {
@@ -109,3 +109,25 @@ function getAll() {
         });
     });
   }
+
+  function setSemester(ref, semester) {
+    return new Promise((resolve, reject) => {
+      mongoose.connect(ref, { useNewUrlParser: true })
+        .then(() => {
+          return Module.findOneAndUpdate({ reference:ref }, { semester: semester }, { new: true });
+        })
+        .then(updatedModule => {
+          mongoose.disconnect();
+          if (updatedModule) {
+            resolve(updatedModule);
+          } else {
+            resolve(`Aucun module trouvé avec la référence : ${ref}`);
+          }
+        })
+        .catch(error => {
+          mongoose.disconnect();
+          reject(error);
+        });
+    });
+  }
+  
