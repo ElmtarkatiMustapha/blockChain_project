@@ -10,10 +10,10 @@
 */
 require("../globals");
 const generator = require("generate-password");
-const { MongoGridFSChunkError } = require("mongodb");
 const mongoose = require("mongoose");
 const Professor = require("./professor.model").Professor;
 const Student = require("./student.model").Student;
+// const functions = require("./functions");
 
 const adminSchema = mongoose.Schema({
   reference: String,
@@ -25,7 +25,7 @@ const adminSchema = mongoose.Schema({
   birthday: Date,
 });
 
-var Admin = mongoose.model("admin", adminSchema);
+const Admin = mongoose.model("admin", adminSchema);
 //export model functions
 module.exports = {
   addNew,
@@ -110,33 +110,38 @@ function addNew(fName, lName, ref, sexe, birthday) {
       .then((res) => {
         if (res) {
           checkUserName(userName).then((newUserName) => {
-            mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
-              let newAdmin = new Admin({
-                reference: ref,
-                firstName: fName,
-                lastName: lName,
+            mongoose
+              .connect(urlDb, { useNewUrlParser: true })
+              .then((err) => {
+                let newAdmin = new Admin({
+                  reference: ref,
+                  firstName: fName,
+                  lastName: lName,
 
-                userName: newUserName,
-                password: password,
-                sexe: sexe,
-                birthday: birthday,
-              });
-              newAdmin
-                .save()
-                .then((result, err) => {
-                  if (err === undefined) {
-                    mongoose.disconnect();
-                    resolve(result);
-                  } else {
+                  userName: newUserName,
+                  password: password,
+                  sexe: sexe,
+                  birthday: birthday,
+                });
+                newAdmin
+                  .save()
+                  .then((result, err) => {
+                    if (err === undefined) {
+                      mongoose.disconnect();
+                      resolve(result);
+                    } else {
+                      mongoose.disconnect();
+                      reject(err);
+                    }
+                  })
+                  .catch((err) => {
                     mongoose.disconnect();
                     reject(err);
-                  }
-                })
-                .catch((err) => {
-                  mongoose.disconnect();
-                  reject(err);
-                });
-            });
+                  });
+              })
+              .catch((err) => {
+                reject(err);
+              });
           });
         }
       })

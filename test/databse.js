@@ -1,5 +1,59 @@
-require("../globals")
-// const mongoose = require("mongoose")
+require("../globals");
+const mongoose = require("mongoose");
+const Student = require("../models/student.model");
+const Professor = require("../models/professor.model").Professor;
+const Departement = require("../models/departenemt.model");
+const Filiere = require("../models/filiere.model");
+const Section = require("../models/section.model");
+const Module = require("../models/module.model");
+const Diplome = require("../models/diplome.model");
+const Evaluation = require("../models/evaluation.model");
+const dbLink = "mongodb://127.0.0.1:27017/test";
+let fName = "achraf";
+let lName = "kabbou";
+let ref = "M2Y6587H";
+let sexe = "homme";
+let birthday = "02/08/2001";
+let section = "TMW2023";
+let specialite = "developpement web";
+let departement = "informatique";
+
+// mongoose.connect(dbLink, { useNewUrlParser: true }).then((err) => {
+//   Professor.find(
+//     {
+//       reference: "REF534G5",
+//     },
+//     (err, res) => {
+//       console.log("error: ", err);
+//       console.log("Result: ", res);
+//       mongoose.disconnect();
+//     }
+//   );
+// });
+
+// Diplome.addNew("licence profisionnel en TMW", Date(), "M2Y6587H")
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log("Error: ", err);
+//   });
+
+Evaluation.addNew("646f5b14821348f3216a3804", "M2Y6587H", 15, Date())
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log("Error: ", err);
+  });
+// Student.addNew(fName, lName, ref, sexe, birthday, section)
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
 // const testSchema = mongoose.Schema({
 //     name: String,
 //     age:Number
@@ -46,14 +100,14 @@ require("../globals")
 //     client.close();
 // })
 
-
 // const message = encrypt("hello mustapha");
 // console.log("encrypted: ", message);
 // console.log("decrypted: ", decrypt(message));
 
 const crypto = require("crypto");
+const { ObjectId } = require("mongodb");
 
-const algorithm = "aes-256-cbc"; 
+const algorithm = "aes-256-cbc";
 
 // generate 16 bytes of random data
 const initVector = crypto.randomBytes(16);
