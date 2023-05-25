@@ -7,14 +7,14 @@ contract Diplomes {
     // string value;
     // State public myState;
     struct diplome {
-        uint idDiplom;
+        string idDiplom;
         string FullName;
         string cin;
         string cne;
         string dateNaissance;
         string sector;
         string diplomaType;
-        uint section;
+        string section;
         string institution;
     }
 
@@ -42,13 +42,14 @@ contract Diplomes {
     }
 
     function addDiplome(
+        string memory _id,
         string memory _name,
         string memory _cin,
         string memory _cne,
         string memory _dateNaissance,
         string memory _sector,
         string memory _type,
-        uint _section,
+        string memory _section,
         string memory _insti
     ) public {
         // if (!checkDiplome(_cin)) {
@@ -57,7 +58,7 @@ contract Diplomes {
         require(checkDiplome(_cin), "diplome already exist");
         countDiplome++;
         diplomes[countDiplome] = diplome(
-            countDiplome + _section * 5,
+            _id,
             _name,
             _cin,
             _cne,
@@ -74,9 +75,14 @@ contract Diplomes {
         );
     }
 
-    function searchByid(uint _id) public view returns (diplome memory) {
+    function searchByid(
+        string memory _id
+    ) public view returns (diplome memory) {
         for (uint i = 1; i <= countDiplome; i++) {
-            if (diplomes[i].idDiplom == _id) {
+            if (
+                keccak256(abi.encodePacked(diplomes[i].idDiplom)) ==
+                keccak256(abi.encodePacked(_id))
+            ) {
                 return diplomes[i];
             }
         }
@@ -129,12 +135,15 @@ contract Diplomes {
     }
 
     function searchBySection(
-        uint _section
+        string memory _section
     ) public view returns (diplome[] memory) {
         uint count = 0;
         diplome[] memory twinsDiplome = new diplome[](countDiplome);
         for (uint i = 1; i <= countDiplome; i++) {
-            if (diplomes[i].section == _section) {
+            if (
+                keccak256(abi.encodePacked(diplomes[i].section)) ==
+                keccak256(abi.encodePacked(_section))
+            ) {
                 twinsDiplome[count] = diplomes[i];
                 count++;
             }

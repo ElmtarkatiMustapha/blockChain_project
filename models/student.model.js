@@ -10,52 +10,188 @@
 -birthday
 */
 require("../globals");
+const generator = require("generate-password");
+const { ObjectId } = require("mongodb");
+const Admin = require("./admin.model").Admin;
+const Professor = require("./professor.model").Professor;
 const mongoose = require("mongoose");
 const studentSchema = mongoose.Schema({
-    reference: String,
-    firstName: String,
-    lastName: String,
-    userName: String,
-    password: String,
-    sexe: String,
-    birthday: Date,
-    CNE:String,
-    section:String
-})
+  reference: String,
+  firstName: String,
+  lastName: String,
+  userName: String,
+  password: String,
+  sexe: String,
+  birthday: Date,
+  section: ObjectId,
+});
 var Student = mongoose.model("student", studentSchema);
+
+// const profSchema = mongoose.Schema({
+//   reference: String,
+//   firstName: String,
+//   lastName: String,
+//   userName: String,
+//   password: String,
+//   sexe: String,
+//   birthday: Date,
+//   specialty: String,
+//   departement: String,
+// });
+// const Professor = mongoose.model("professor", profSchema);
+
+// const adminSchema = mongoose.Schema({
+//   reference: String,
+//   firstName: String,
+//   lastName: String,
+//   userName: String,
+//   password: String,
+//   sexe: String,
+//   birthday: Date,
+// });
+
+// const Admin = mongoose.model("admin", adminSchema);
+
 //export model functions
 module.exports = {
-    addNew,
-    getAll,
-    getOne,
-    deleteOne,
-    setFirstName,
-    setLastName,
-    setCne,
-    setUserName,
-    setPassword,
-    setSexe,
-    setBirthday,
-    Student
+  addNew,
+  getAll,
+  getOne,
+  deleteOne,
+  setFirstName,
+  setLastName,
+  setCne,
+  setUserName,
+  setPassword,
+  setSexe,
+  setBirthday,
+  Student,
+};
+
+function checkUserName(userName) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
+      Admin.find({
+        userName: userName,
+      }).then((res) => {
+        if (res.length === 0) {
+          Professor.find({
+            userName: userName,
+          }).then((res) => {
+            if (res.length === 0) {
+              Student.find({
+                userName: userName,
+              }).then((res) => {
+                if (res.length === 0) {
+                  mongoose.disconnect();
+                  resolve(userName);
+                } else {
+                  mongoose.disconnect();
+                  userName += Math.floor(Math.random() * 10) + 1;
+                  resolve(checkUserName(userName));
+                }
+              });
+            } else {
+              mongoose.disconnect();
+              userName += Math.floor(Math.random() * 10) + 1;
+              resolve(checkUserName(userName));
+            }
+          });
+        } else {
+          mongoose.disconnect();
+          userName += Math.floor(Math.random() * 10) + 1;
+          resolve(checkUserName(userName));
+        }
+      });
+    });
+  });
+}
+
+function checkRef(ref) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
+      Student.find({
+        reference: ref,
+      }).then((result) => {
+        if (result.length === 0) {
+          mongoose.disconnect();
+          resolve(true);
+        } else {
+          mongoose.disconnect();
+          reject(false);
+        }
+      });
+    });
+  });
 }
 
 //insert function
-function addNew(fName,lName,cne,sexe,birthday) {
-    
+function addNew(fName, lName, ref, sexe, birthday, section) {
+  return new Promise((resolve, reject) => {
+    let userName = fName + "_" + lName;
+    userName = userName.replaceAll(" ", "");
+    let password = generator.generate({
+      length: 8,
+      numbers: true,
+    });
+    checkRef(ref)
+      .then((res) => {
+        if (res) {
+          checkUserName(userName).then((newUserName) => {
+            mongoose
+              .connect(urlDb, { useNewUrlParser: true })
+              .then((err) => {
+                let newStudent = new Student({
+                  reference: ref,
+                  firstName: fName,
+                  lastName: lName,
+                  userName: newUserName,
+                  password: password,
+                  sexe: sexe,
+                  birthday: birthday,
+                  section: section,
+                });
+                newStudent
+                  .save()
+                  .then((result, err) => {
+                    if (err === undefined) {
+                      mongoose.disconnect();
+                      resolve(result);
+                    } else {
+                      mongoose.disconnect();
+                      reject(err);
+                    }
+                  })
+                  .catch((err) => {
+                    mongoose.disconnect();
+                    reject(err);
+                  });
+              })
+              .catch((err) => {
+                reject(err);
+              });
+          });
+        }
+      })
+      .catch((err) => {
+        reject("le reference est deja exist");
+      });
+  });
 }
 
 //Get all
 function getAll() {
   return new Promise((resolve, reject) => {
-    mongoose.connect(urlDb, { useNewUrlParser: true })
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
         return Student.find();
       })
-      .then(students => {
+      .then((students) => {
         mongoose.disconnect();
         resolve(students);
       })
-      .catch(error => {
+      .catch((error) => {
         mongoose.disconnect();
         reject(error);
       });
@@ -64,11 +200,12 @@ function getAll() {
 
 function getOne(ref) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(urlDb, { useNewUrlParser: true })
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
         return Student.findOne({ reference: ref });
       })
-      .then(student => {
+      .then((student) => {
         mongoose.disconnect();
         if (student) {
           resolve(student);
@@ -76,7 +213,7 @@ function getOne(ref) {
           resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         mongoose.disconnect();
         reject(error);
       });
@@ -85,11 +222,12 @@ function getOne(ref) {
 
 function deleteOne(ref) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(urlDb, { useNewUrlParser: true })
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
         return Student.deleteOne({ reference: ref });
       })
-      .then(result => {
+      .then((result) => {
         mongoose.disconnect();
         if (result.deletedCount > 0) {
           resolve(`Étudiant supprimé avec succès.`);
@@ -97,7 +235,7 @@ function deleteOne(ref) {
           resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         mongoose.disconnect();
         reject(error);
       });
@@ -106,11 +244,16 @@ function deleteOne(ref) {
 
 function setFirstName(ref, nom) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(urlDb, { useNewUrlParser: true })
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
-        return Student.findOneAndUpdate({reference:ref}, { firstName: nom }, { new: true });
+        return Student.findOneAndUpdate(
+          { reference: ref },
+          { firstName: nom },
+          { new: true }
+        );
       })
-      .then(updatedStudent => {
+      .then((updatedStudent) => {
         mongoose.disconnect();
         if (updatedStudent) {
           resolve(updatedStudent);
@@ -118,7 +261,7 @@ function setFirstName(ref, nom) {
           resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         mongoose.disconnect();
         reject(error);
       });
@@ -127,11 +270,16 @@ function setFirstName(ref, nom) {
 
 function setLastName(ref, prenom) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(urlDb, { useNewUrlParser: true })
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
-        return Student.findOneAndUpdate({reference:ref}, { lastName: prenom }, { new: true });
+        return Student.findOneAndUpdate(
+          { reference: ref },
+          { lastName: prenom },
+          { new: true }
+        );
       })
-      .then(updatedStudent => {
+      .then((updatedStudent) => {
         mongoose.disconnect();
         if (updatedStudent) {
           resolve(updatedStudent);
@@ -139,7 +287,7 @@ function setLastName(ref, prenom) {
           resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         mongoose.disconnect();
         reject(error);
       });
@@ -148,11 +296,16 @@ function setLastName(ref, prenom) {
 
 function setCne(ref, cne) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(urlDb, { useNewUrlParser: true })
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
-        return Student.findOneAndUpdate({reference:ref}, { CNE: cne }, { new: true });
+        return Student.findOneAndUpdate(
+          { reference: ref },
+          { CNE: cne },
+          { new: true }
+        );
       })
-      .then(updatedStudent => {
+      .then((updatedStudent) => {
         mongoose.disconnect();
         if (updatedStudent) {
           resolve(updatedStudent);
@@ -160,7 +313,7 @@ function setCne(ref, cne) {
           resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         mongoose.disconnect();
         reject(error);
       });
@@ -169,11 +322,16 @@ function setCne(ref, cne) {
 
 function setUserName(ref, userName) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(urlDb, { useNewUrlParser: true })
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
-        return Student.findOneAndUpdate({reference:ref}, { userName: userName }, { new: true });
+        return Student.findOneAndUpdate(
+          { reference: ref },
+          { userName: userName },
+          { new: true }
+        );
       })
-      .then(updatedStudent => {
+      .then((updatedStudent) => {
         mongoose.disconnect();
         if (updatedStudent) {
           resolve(updatedStudent);
@@ -181,7 +339,7 @@ function setUserName(ref, userName) {
           resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         mongoose.disconnect();
         reject(error);
       });
@@ -190,11 +348,16 @@ function setUserName(ref, userName) {
 
 function setPassword(ref, password) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(urlDb, { useNewUrlParser: true })
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
-        return Student.findOneAndUpdate({reference:ref}, { password: password }, { new: true });
+        return Student.findOneAndUpdate(
+          { reference: ref },
+          { password: password },
+          { new: true }
+        );
       })
-      .then(updatedStudent => {
+      .then((updatedStudent) => {
         mongoose.disconnect();
         if (updatedStudent) {
           resolve(updatedStudent);
@@ -202,7 +365,7 @@ function setPassword(ref, password) {
           resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         mongoose.disconnect();
         reject(error);
       });
@@ -211,11 +374,16 @@ function setPassword(ref, password) {
 
 function setSexe(ref, sexe) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(urlDb, { useNewUrlParser: true })
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
-        return Student.findOneAndUpdate({reference:ref}, { sexe: sexe }, { new: true });
+        return Student.findOneAndUpdate(
+          { reference: ref },
+          { sexe: sexe },
+          { new: true }
+        );
       })
-      .then(updatedStudent => {
+      .then((updatedStudent) => {
         mongoose.disconnect();
         if (updatedStudent) {
           resolve(updatedStudent);
@@ -223,7 +391,7 @@ function setSexe(ref, sexe) {
           resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         mongoose.disconnect();
         reject(error);
       });
@@ -232,11 +400,16 @@ function setSexe(ref, sexe) {
 
 function setBirthday(ref, date) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(urlDb, { useNewUrlParser: true })
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
-        return Student.findOneAndUpdate({reference:ref}, { birthday: date }, { new: true });
+        return Student.findOneAndUpdate(
+          { reference: ref },
+          { birthday: date },
+          { new: true }
+        );
       })
-      .then(updatedStudent => {
+      .then((updatedStudent) => {
         mongoose.disconnect();
         if (updatedStudent) {
           resolve(updatedStudent);
@@ -244,10 +417,9 @@ function setBirthday(ref, date) {
           resolve(`Aucun étudiant trouvé avec la référence : ${ref}`);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         mongoose.disconnect();
         reject(error);
       });
   });
 }
-
