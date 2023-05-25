@@ -40,6 +40,7 @@ module.exports = {
   setSexe,
   setDateNaissance,
   setSpecialty,
+  getByUserName,
   Professor,
 };
 function checkUserName(userName) {
@@ -168,6 +169,25 @@ function getAll() {
       .catch((error) => {
         mongoose.disconnect();
         reject(error);
+      });
+  });
+}
+function getByUserName(userName) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
+      .then(() => {
+        return Professor.findOne({
+          userName: userName,
+        });
+      })
+      .then((prof) => {
+        mongoose.disconnect();
+        resolve(prof);
+      })
+      .catch((err) => {
+        mongoose.disconnect();
+        reject(err);
       });
   });
 }

@@ -8,6 +8,7 @@ const Section = require("../models/section.model");
 const Module = require("../models/module.model");
 const Diplome = require("../models/diplome.model");
 const Evaluation = require("../models/evaluation.model");
+const Admin = require("../models/admin.model");
 const dbLink = "mongodb://127.0.0.1:27017/test";
 let fName = "achraf";
 let lName = "kabbou";
@@ -39,13 +40,13 @@ let departement = "informatique";
 //     console.log("Error: ", err);
 //   });
 
-Evaluation.addNew("646f5b14821348f3216a3804", "M2Y6587H", 15, Date())
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log("Error: ", err);
-  });
+// Evaluation.addNew("646f5b14821348f3216a3804", "M2Y6587H", 15, Date())
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log("Error: ", err);
+//   });
 // Student.addNew(fName, lName, ref, sexe, birthday, section)
 //   .then((res) => {
 //     console.log(res);
@@ -104,28 +105,36 @@ Evaluation.addNew("646f5b14821348f3216a3804", "M2Y6587H", 15, Date())
 // console.log("encrypted: ", message);
 // console.log("decrypted: ", decrypt(message));
 
-const crypto = require("crypto");
-const { ObjectId } = require("mongodb");
+// const crypto = require("crypto");
+// const { ObjectId } = require("mongodb");
 
-const algorithm = "aes-256-cbc";
+// const algorithm = "aes-256-cbc";
 
-// generate 16 bytes of random data
-const initVector = crypto.randomBytes(16);
+// // generate 16 bytes of random data
+// const initVector = crypto.randomBytes(16);
 
-// protected data
-const message = "This is a secret message";
+// // protected data
+// const message = "This is a secret message";
 
-// secret key generate 32 bytes of random data
-const Securitykey = crypto.randomBytes(32);
+// // secret key generate 32 bytes of random data
+// const Securitykey = crypto.randomBytes(32);
 
-// the cipher function
-const cipher = crypto.createCipheriv(algorithm, Securitykey, initVector);
+// // the cipher function
+// const cipher = crypto.createCipheriv(algorithm, Securitykey, initVector);
 
-// encrypt the message
-// input encoding
-// output encoding
-let encryptedData = cipher.update(message, "utf-8", "hex");
+// // encrypt the message
+// // input encoding
+// // output encoding
+// let encryptedData = cipher.update(message, "utf-8", "hex");
 
-encryptedData += cipher.final("hex");
+// encryptedData += cipher.final("hex");
 
-console.log("Encrypted message: " + encryptedData);
+// console.log("Encrypted message: " + encryptedData);
+
+Admin.getByUserName("amal_elmtarkati")
+  .then((res) => {
+    console.log("result: ", res);
+  })
+  .catch((err) => {
+    console.log("Error: ", err);
+  });

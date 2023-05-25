@@ -1,0 +1,24 @@
+<%- include("../parts/header.ejs") %>
+<div class="container-fluid">
+  <form action="" method="post" class="row g-3 m-3">
+    <div class="col-6">
+      <label for="userName" class="form-label">userName: </label>
+      <input type="text" name="userName" id="userName" class="form-control" />
+    </div>
+    <div class="col-6">
+      <label for="password" class="form-label">password: </label>
+      <input type="text" name="password" id="password" class="form-control" />
+    </div>
+    <div class="col-6">
+      <input type="submit" value="login" />
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-6 bg-danger">
+      <% if (typeof(error) != 'undefined' && error != "" && error != null) { %>
+      <%- error %> <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include("../parts/footer.ejs") %>
