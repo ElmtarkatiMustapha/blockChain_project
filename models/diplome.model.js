@@ -169,5 +169,39 @@ function setDateObtained(id, date) {
   });
 }
 
-function setStateDone(ref) {}
-function setStateNotYet(ref) {}
+// Mise à jour de l'état d'un diplôme à "Terminé"
+function setStateDone(id) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(dbUrl, { useNewUrlParser: true })
+      .then(() => {
+        return Diplome.findOneAndUpdate({ _id: id }, { state: true });
+      })
+      .then(() => {
+        mongoose.disconnect();
+        resolve("État du diplôme mis à jour avec succès (Terminé).");
+        
+      })
+      .catch(error => {
+        mongoose.disconnect();
+        reject(error);
+      });
+  });
+}
+
+// Mise à jour de l'état d'un diplôme à "Pas encore terminé"
+function setStateNotYet(id) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(dbUrl, { useNewUrlParser: true })
+      .then(() => {
+        return Diplome.findOneAndUpdate({ _id: id}, { state: false });
+      })
+      .then(() => {
+        mongoose.disconnect();
+        resolve("État du diplôme mis à jour avec succès (Pas encore terminé).");
+      })
+      .catch(error => {
+        mongoose.disconnect();
+        reject(error);
+      });
+  });
+}
