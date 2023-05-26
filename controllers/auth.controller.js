@@ -5,6 +5,11 @@ const Student = require("../models/student.model");
 module.exports = {
   getLoginPage: getLoginPage,
   login: login,
+  isNotLogged: isNotLogged,
+  islogged: isLogged,
+  isAdmin: isAdmin,
+  isProfessor: isProfessor,
+  isStudent: isStudent,
 };
 
 function getLoginPage(req, res, next) {
@@ -23,7 +28,9 @@ function login(req, res, next) {
     Admin.getByUserName(userName)
       .then((user) => {
         if (user.password === password) {
-          res.send("login with succeflly");
+          req.session.userRef = user.reference;
+          req.session.userType = "admin";
+          res.redirect("/dashbord");
         } else {
           res.render("pages/login", {
             error: "les information incorrect",
@@ -34,7 +41,9 @@ function login(req, res, next) {
         Professor.getByUserName(userName)
           .then((user) => {
             if (user.password === password) {
-              res.send("login with succeflly");
+              req.session.userRef = user.reference;
+              req.session.userType = "professor";
+              res.redirect("/dashbord");
             } else {
               res.render("pages/login", {
                 error: "les information incorrect",
@@ -48,7 +57,9 @@ function login(req, res, next) {
             Student.getByUserName(userName)
               .then((user) => {
                 if (user.password === password) {
-                  res.send("login with succeflly");
+                  req.session.userRef = user.reference;
+                  req.session.userType = "student";
+                  res.redirect("/dashbord");
                 } else {
                   res.render("pages/login", {
                     error: "les information incorrect",
@@ -65,6 +76,38 @@ function login(req, res, next) {
   }
 }
 
-function adminLogin(usserName, password) {}
-function professorLogin(usserName, password) {}
-function studentLogin(usserName, password) {}
+function isNotLogged(req, res, next) {
+  if (req.session.userRef === undefined) {
+    next();
+  } else {
+    res.redirect("/Dashbord");
+  }
+}
+function isLogged(req, res, next) {
+  if (req.session.userRef === undefined) {
+    res.redirect("/login");
+  } else {
+    next();
+  }
+}
+function isAdmin(req, res, next) {
+  if (req.session.userRef == "admin") {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
+function isProfessor(req, res, next) {
+  if (req.session.userRef == "professor") {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
+function isStudent(req, res, next) {
+  if (req.session.userRef == "student") {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}

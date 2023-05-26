@@ -55,6 +55,17 @@ let departement = "informatique";
 //     console.log(err);
 //   });
 
+Departement.addNew(
+  "physique et chemique",
+  "departement de physique et chemique"
+)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log("Error: ", err);
+  });
+
 // const testSchema = mongoose.Schema({
 //     name: String,
 //     age:Number
@@ -131,10 +142,10 @@ let departement = "informatique";
 
 // console.log("Encrypted message: " + encryptedData);
 
-Admin.getByUserName("amal_elmtarkati")
-  .then((res) => {
-    console.log("result: ", res);
-  })
-  .catch((err) => {
-    console.log("Error: ", err);
-  });
+// Admin.getByUserName("amal_elmtarkati")
+//   .then((res) => {
+//     console.log("result: ", res);
+//   })
+//   .catch((err) => {
+//     console.log("Error: ", err);
+//   });
