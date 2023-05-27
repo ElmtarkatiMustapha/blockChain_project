@@ -24,6 +24,8 @@ module.exports = {
   deleteOne,
   setTitle,
   setSemester,
+  getByFiliere,
+  Module,
 };
 
 //insert function
@@ -166,6 +168,24 @@ function setSemester(id, semester) {
       .catch((error) => {
         mongoose.disconnect();
         reject(error);
+      });
+  });
+}
+
+function getByFiliere(idFiliere) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb)
+      .then(() => {
+        return Module.find({
+          filiere: idFiliere,
+        });
+      })
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((err) => {
+        reject(err);
       });
   });
 }

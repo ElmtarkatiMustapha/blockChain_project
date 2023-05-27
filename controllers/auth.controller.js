@@ -10,6 +10,7 @@ module.exports = {
   isAdmin: isAdmin,
   isProfessor: isProfessor,
   isStudent: isStudent,
+  logout,
 };
 
 function getLoginPage(req, res, next) {
@@ -91,23 +92,46 @@ function isLogged(req, res, next) {
   }
 }
 function isAdmin(req, res, next) {
-  if (req.session.userRef == "admin") {
-    next();
-  } else {
-    res.redirect("/login");
-  }
+  Admin.getOne(req.session.userRef)
+    .then((data) => {
+      if (data) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    })
+    .catch((err) => {
+      res.redirect("/login");
+    });
 }
 function isProfessor(req, res, next) {
-  if (req.session.userRef == "professor") {
-    next();
-  } else {
-    res.redirect("/login");
-  }
+  Professor.getOne(req.session.userRef)
+    .then((data) => {
+      if (data) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    })
+    .catch((err) => {
+      res.redirect("/login");
+    });
 }
 function isStudent(req, res, next) {
-  if (req.session.userRef == "student") {
-    next();
-  } else {
-    res.redirect("/login");
-  }
+  Student.getOne(req.session.userRef)
+    .then((data) => {
+      if (data) {
+        next();
+      } else {
+        res.redirect("/login");
+      }
+    })
+    .catch((err) => {
+      res.redirect("/login");
+    });
+}
+
+function logout(req, res, next) {
+  req.session.destroy();
+  res.redirect("/");
 }

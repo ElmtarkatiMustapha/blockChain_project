@@ -14,7 +14,7 @@ router.post("/", (req, res, next) => {
   } else if (req.body.searchType == "cne") {
     homeController.getDiplomesByCne(req, res, next);
   } else if (req.body.searchType == "session") {
-    homeController.getDiplomesBySession(req, res, next);
+    homeController.getDiplomesBySection(req, res, next);
   } else if (req.body.searchType == "name") {
     homeController.getDiplomesByName(req, res, next);
   }

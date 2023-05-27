@@ -29,7 +29,7 @@ function addNew(label, desc) {
   return new Promise((resolve, reject) => {
     mongoose
       .connect(urlDb, { useNewUrlParser: true })
-      .then((err) => {
+      .then((res) => {
         let newDepartement = new Departement({
           label: label,
           description: desc,
@@ -156,7 +156,7 @@ function setlabel(id, label) {
         if (updatedDepartement) {
           resolve("Libellé mis à jour avec succès.");
         } else {
-          resolve(`Aucun document trouvé avec la référence : ${ref}`);
+          resolve(`Aucun document trouvé avec la référence : ${id}`);
         }
       })
       .catch((error) => {

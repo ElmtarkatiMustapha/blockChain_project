@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, "assets")));
 
 const homeRouter = require("./routes/home.router");
 const authRouter = require("./routes/auth.router");
+const adminRouter = require("./routes/admin.router");
 const dashbordRouter = require("./routes/dashbord.router");
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -34,8 +35,14 @@ app.use(bodyParser.json());
 
 app.use("/", homeRouter);
 app.use("/", authRouter);
-app.use("/", dashbordRouter);
+app.use("/", authRouter);
+app.use("/dashbord", dashbordRouter);
+app.use("/", adminRouter);
 
+//not found middlware
+app.use((req, res, next) => {
+  res.status(404).render("404");
+});
 //test add to the blockChain
 const blockChain = require("./models/blockChain.model");
 app.get("/add", (req, res, next) => {

@@ -55,17 +55,31 @@ let departement = "informatique";
 //     console.log(err);
 //   });
 
-Departement.addNew(
-  "physique et chemique",
-  "departement de physique et chemique"
-)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log("Error: ", err);
-  });
-
+// Departement.addNew(
+//   "physique et chemique",
+//   "departement de physique et chemique"
+// )
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log("Error: ", err);
+//   });
+const adm = Admin.Admin;
+mongoose.connect(dbLink).then(() => {
+  adm
+    .find({
+      reference: "",
+    })
+    .then((data) => {
+      mongoose.disconnect();
+      console.log("RESULT: " + data);
+    })
+    .catch((err) => {
+      mongoose.disconnect();
+      console.log("ERROR: " + err);
+    });
+});
 // const testSchema = mongoose.Schema({
 //     name: String,
 //     age:Number
