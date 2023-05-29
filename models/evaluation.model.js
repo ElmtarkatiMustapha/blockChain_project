@@ -24,6 +24,7 @@ module.exports = {
   deleteOne,
   setDate,
   setGrade,
+  Evaluation,
 };
 
 //insert function
@@ -180,6 +181,3 @@ function setGrade(refStudent, refModule, grade) {
       });
   });
 }
-
-
-

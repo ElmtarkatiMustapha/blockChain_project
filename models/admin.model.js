@@ -9,6 +9,7 @@
 -birthday
 */
 require("../globals");
+const { resolve } = require("@truffle/contract/lib/promievent");
 const generator = require("generate-password");
 const mongoose = require("mongoose");
 const Professor = require("./professor.model").Professor;
@@ -38,6 +39,7 @@ module.exports = {
   setPassword,
   setSexe,
   setDateNaissance,
+  getByUserName,
   Admin,
 };
 
@@ -166,6 +168,26 @@ function getAll() {
       .catch((error) => {
         mongoose.disconnect();
         reject(error);
+      });
+  });
+}
+
+function getByUserName(userName) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
+      .then(() => {
+        return Admin.findOne({
+          userName: userName,
+        });
+      })
+      .then((admin) => {
+        mongoose.disconnect();
+        resolve(admin);
+      })
+      .catch((err) => {
+        mongoose.disconnect();
+        reject(err);
       });
   });
 }

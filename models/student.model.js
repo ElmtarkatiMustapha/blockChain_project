@@ -23,7 +23,11 @@ const studentSchema = mongoose.Schema({
   password: String,
   sexe: String,
   birthday: Date,
-  section: ObjectId,
+  currentSemester: Number,
+  section: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "section",
+  },
 });
 var Student = mongoose.model("student", studentSchema);
 
@@ -65,6 +69,7 @@ module.exports = {
   setPassword,
   setSexe,
   setBirthday,
+  getByUserName,
   Student,
 };
 
@@ -197,7 +202,25 @@ function getAll() {
       });
   });
 }
-
+function getByUserName(userName) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
+      .then(() => {
+        return Student.findOne({
+          userName: userName,
+        });
+      })
+      .then((student) => {
+        mongoose.disconnect();
+        resolve(student);
+      })
+      .catch((err) => {
+        mongoose.disconnect();
+        reject(err);
+      });
+  });
+}
 function getOne(ref) {
   return new Promise((resolve, reject) => {
     mongoose

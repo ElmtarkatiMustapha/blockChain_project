@@ -1,16 +1,21 @@
 //filiere model
 /*attribute: 
--reference
+-iderence
 -title
 -description
 */
 require("../globals");
+const { resolve } = require("@truffle/contract/lib/promievent");
 const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 const filiereSchema = mongoose.Schema({
   title: String,
   description: String,
-  departement: ObjectId,
+  departement: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "departement",
+  },
+  cycle: String,
 });
 var Filiere = mongoose.model("filiere", filiereSchema);
 
@@ -19,14 +24,18 @@ module.exports = {
   addNew,
   getAll,
   getOne,
+  getByDepartement,
+  getByCycle,
+  getCustom,
   deleteOne,
   setTitle,
   setDesc,
+  update,
   Filiere,
 };
 
 //insert function
-function addNew(title, desc, departement) {
+function addNew(title, desc, cycle, departement) {
   return new Promise((resolve, reject) => {
     mongoose
       .connect(urlDb, { useNewUrlParser: true })
@@ -35,6 +44,7 @@ function addNew(title, desc, departement) {
           title: title,
           description: desc,
           departement: departement,
+          cycle: cycle,
         });
         newFiliere
           .save()
@@ -91,6 +101,66 @@ function getOne(id) {
   });
 }
 
+function getCustom(departement, cycle) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
+      .then(() => {
+        return Filiere.find({
+          departement: departement,
+          cycle: cycle,
+        });
+      })
+      .then((filiere) => {
+        mongoose.disconnect();
+        resolve(filiere);
+      })
+      .catch((error) => {
+        mongoose.disconnect();
+        reject(error);
+      });
+  });
+}
+
+function getByDepartement(departement) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
+      .then(() => {
+        return Filiere.find({
+          departement: departement,
+        });
+      })
+      .then((filiere) => {
+        mongoose.disconnect();
+        resolve(filiere);
+      })
+      .catch((error) => {
+        mongoose.disconnect();
+        reject(error);
+      });
+  });
+}
+function getByCycle(cycle) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
+      .then(() => {
+        return Filiere.find({
+          cycle: cycle,
+        });
+      })
+      .then((filiere) => {
+        mongoose.disconnect();
+        resolve(filiere);
+      })
+      .catch((error) => {
+        mongoose.disconnect();
+        reject(error);
+      });
+  });
+}
+
 // Suppression d'une filière par référence
 function deleteOne(id) {
   return new Promise((resolve, reject) => {
@@ -104,7 +174,7 @@ function deleteOne(id) {
         if (result.deletedCount === 1) {
           resolve("Document supprimé avec succès.");
         } else {
-          resolve(`Aucun document trouvé avec la référence : ${ref}`);
+          resolve(`Aucun document trouvé avec la référence : ${id}`);
         }
       })
       .catch((error) => {
@@ -131,7 +201,7 @@ function setTitle(id, label) {
         if (updatedFiliere) {
           resolve("Titre mis à jour avec succès.");
         } else {
-          resolve(`Aucun document trouvé avec la référence : ${ref}`);
+          resolve(`Aucun document trouvé avec la référence : ${id}`);
         }
       })
       .catch((error) => {
@@ -158,7 +228,38 @@ function setDesc(id, desc) {
         if (updatedFiliere) {
           resolve("Description mise à jour avec succès.");
         } else {
-          resolve(`Aucun document trouvé avec la référence : ${ref}`);
+          resolve(`Aucun document trouvé avec la référence : ${id}`);
+        }
+      })
+      .catch((error) => {
+        mongoose.disconnect();
+        reject(error);
+      });
+  });
+}
+
+function update(id, title, desc, departement, cycle) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
+      .then(() => {
+        return Filiere.findOneAndUpdate(
+          { _id: id },
+          {
+            title: title,
+            description: desc,
+            departement: departement,
+            cycle: cycle,
+          },
+          { new: true }
+        );
+      })
+      .then((updatedFiliere) => {
+        mongoose.disconnect();
+        if (updatedFiliere) {
+          resolve("Description mise à jour avec succès.");
+        } else {
+          resolve(`Aucun document trouvé avec la référence : ${id}`);
         }
       })
       .catch((error) => {

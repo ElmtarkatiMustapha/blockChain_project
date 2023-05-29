@@ -1,0 +1,22 @@
+<%- include("../parts/header.ejs") %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="h1">this is the student dashbord</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="h1"></div>
+      <div class="card"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 bg-danger">
+      <% if (typeof(error) != 'undefined' && error != "" && error != null) { %>
+      <%- error %> <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include("../parts/footer.ejs") %>

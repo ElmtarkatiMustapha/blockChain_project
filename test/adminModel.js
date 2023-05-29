@@ -13,17 +13,28 @@ let birthday = "02/08/2001";
 let section = "TMW2023";
 let specialite = "developpement web";
 let departement = "informatique";
-mongoose.connect(dbLink, { useNewUrlParser: true }).then((err) => {
-  Professor.find(
-    {
-      reference: "REF534G5",
-    },
-    (err, res) => {
-      console.log("error: ", err);
-      console.log("Result: ", res);
-    }
-  );
-});
+// mongoose.connect(dbLink, { useNewUrlParser: true }).then((err) => {
+//   Professor.find(
+//     {
+//       reference: "REF534G5",
+//     },
+//     (err, res) => {
+//       console.log("error: ", err);
+//       console.log("Result: ", res);
+//     }
+//   );
+// });
+
+const fs = require("fs");
+const path = require("path");
+const csv = require("fast-csv");
+
+fs.createReadStream(path.resolve(__dirname, "..", "assets", "testCSV.csv"))
+  .pipe(csv.parse({ headers: true, delimiter: ";" }))
+  .on("error", (error) => console.error(error))
+  .on("data", (row) => console.log(row.name))
+  .on("end", (rowCount) => console.log(`Parsed ${rowCount} rows`));
+
 // .then((res) => {
 //       mongoose.disconnect();
 //       console.log(res);
