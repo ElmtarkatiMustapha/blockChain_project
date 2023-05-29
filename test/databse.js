@@ -10,14 +10,18 @@ const Diplome = require("../models/diplome.model");
 const Evaluation = require("../models/evaluation.model");
 const Admin = require("../models/admin.model");
 const dbLink = "mongodb://127.0.0.1:27017/test";
-let fName = "achraf";
-let lName = "kabbou";
-let ref = "M2Y6587H";
+let fName = "mustapha";
+let lName = "el mtarkati";
+let ref = "M2Y6589G";
 let sexe = "homme";
 let birthday = "02/08/2001";
-let section = "TMW2023";
+let section = "646f5483372afc737e3ae8d1";
 let specialite = "developpement web";
 let departement = "informatique";
+
+Module.getStudentsValide("646f5b14821348f3216a3804").then((res) => {
+  console.log(res);
+});
 
 // mongoose.connect(dbLink, { useNewUrlParser: true }).then((err) => {
 //   Professor.find(
@@ -40,13 +44,14 @@ let departement = "informatique";
 //     console.log("Error: ", err);
 //   });
 
-// Evaluation.addNew("646f5b14821348f3216a3804", "M2Y6587H", 15, Date())
+// Evaluation.addNew("6473b128fded05a0b7cb3e10", "M2Y6589G", 7, Date())
 //   .then((res) => {
 //     console.log(res);
 //   })
 //   .catch((err) => {
 //     console.log("Error: ", err);
 //   });
+
 // Student.addNew(fName, lName, ref, sexe, birthday, section)
 //   .then((res) => {
 //     console.log(res);
@@ -65,21 +70,79 @@ let departement = "informatique";
 //   .catch((err) => {
 //     console.log("Error: ", err);
 //   });
-const adm = Admin.Admin;
-mongoose.connect(dbLink).then(() => {
-  adm
-    .find({
-      reference: "",
-    })
-    .then((data) => {
-      mongoose.disconnect();
-      console.log("RESULT: " + data);
-    })
-    .catch((err) => {
-      mongoose.disconnect();
-      console.log("ERROR: " + err);
-    });
-});
+
+// Module.addNew("reseau", 1, "REF534G5").then((data) => {
+//   console.log(data);
+// });
+
+// const modules = Module.Module;
+// mongoose.connect(dbLink).then(() => {
+//   modules
+//     .aggregate([
+//       {
+//         $lookup: {
+//           from: "professors", // Target collection name
+//           localField: "professor",
+//           foreignField: "reference",
+//           as: "joinedData", // Output field for the joined data
+//         },
+//       },
+//     ])
+//     .then((result) => {
+//       console.log(result[0].joinedData);
+//       mongoose.disconnect();
+//     })
+//     .catch((error) => {
+//       mongoose.disconnect();
+//       console.log(error);
+//     });
+// });
+
+// const filiere = Filiere.Filiere;
+// mongoose.connect(dbLink).then(() => {
+//   filiere
+//     .aggregate([
+//       {
+//         $match: {
+//           title: "TMW",
+//         },
+//       },
+//       {
+//         $lookup: {
+//           from: "departements", // Target collection name
+//           localField: "departement",
+//           foreignField: "_id",
+//           as: "joinData", // Output field for the joined data
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: "$cycle",
+//           filieres: { $push: "$$ROOT" },
+//         },
+//       },
+//     ])
+//     .then((res) => {
+//       mongoose.disconnect();
+//       console.log(res[0].filieres);
+//     });
+// });
+
+// const adm = Admin.Admin;
+// mongoose.connect(dbLink).then(() => {
+//   adm
+//     .find({
+//       reference: "",
+//     })
+//     .then((data) => {
+//       mongoose.disconnect();
+//       console.log("RESULT: " + data);
+//     })
+//     .catch((err) => {
+//       mongoose.disconnect();
+//       console.log("ERROR: " + err);
+//     });
+// });
 // const testSchema = mongoose.Schema({
 //     name: String,
 //     age:Number

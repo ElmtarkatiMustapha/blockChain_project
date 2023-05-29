@@ -11,7 +11,10 @@ const mongoose = require("mongoose");
 const filiereSchema = mongoose.Schema({
   title: String,
   description: String,
-  departement: ObjectId,
+  departement: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "departement",
+  },
   cycle: String,
 });
 var Filiere = mongoose.model("filiere", filiereSchema);

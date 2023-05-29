@@ -3,6 +3,7 @@ const authController = require("../controllers/auth.controller");
 const dashbord = require("../controllers/dashbord.controller");
 const departementRouter = require("./departements.router");
 const filieresRouter = require("./filieres.router");
+const modulesRouter = require("./modules.router");
 router.use(
   "/departements",
   authController.islogged,
@@ -15,7 +16,12 @@ router.use(
   authController.isAdmin,
   filieresRouter
 );
-// router.use("/modules");
+router.use(
+  "/modules",
+  authController.islogged,
+  authController.isAdmin,
+  modulesRouter
+);
 // router.use("/diplomes");
 // router.use("/students");
 // router.use("/professors");

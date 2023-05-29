@@ -1,0 +1,75 @@
+<%- include("../parts/header") %>
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">brand</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link disabled"
+              href="#"
+              tabindex="-1"
+              aria-disabled="true"
+              >Disabled</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<div class="container-fluid">
+  <div class="row"></div>
+  <div class="row"><%- moduleInfo %></div>
+</div>
+<div class="container-fluid">
+  <form action="/modules/saveFile" method="post" enctype="multipart/form-data">
+    <label for="">uploade file </label>
+    <input type="file" name="file" id="" />
+    <input type="submit" value="send File" />
+  </form>
+  <form method="post" action="/modules/saveGrades" class="row">
+    <% students.forEach(item => { %> <% let studentInfo = item.student[0]; %>
+    <label for=""><%- studentInfo.firstName+" "+studentInfo.LastName %></label>
+    <input
+      type="hidden"
+      name="studentRef[]"
+      value="<%-studentInfo.reference %>"
+    />
+    <input type="number" name="grade[]" value="<%- item.grade %>" id="" />
+    <% }) %>
+    <input type="submit" value="valider tout" class="btn btn-primary" />
+  </form>
+</div>
+<div class=""><%- //successMessage %></div>
+<!-- <% //students.forEach(item => { %>
+<div class="col-12 p-1">
+  <div class="h1"><%- //item.grade %></div>
+  <div class="h5">student <%- //Object.values(item.student[0]) %></div>
+   <a href="/modules?filiere=<%- //item.id %>" class="btn btn-primary">Edit </a> 
+</div>
+<% //}) %>
+<div><%- //students[0]%></div> -->
+<%- include("../parts/footer") %>

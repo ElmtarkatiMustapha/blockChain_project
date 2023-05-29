@@ -23,7 +23,11 @@ const studentSchema = mongoose.Schema({
   password: String,
   sexe: String,
   birthday: Date,
-  section: ObjectId,
+  currentSemester: Number,
+  section: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "section",
+  },
 });
 var Student = mongoose.model("student", studentSchema);
 

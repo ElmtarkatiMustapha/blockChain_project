@@ -8,11 +8,19 @@ require("../globals");
 const { resolve } = require("@truffle/contract/lib/promievent");
 const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
+const Evaluation = require("./evaluation.model").Evaluation;
+const Student = require("./student.model");
 const moduleSchema = mongoose.Schema({
   title: String,
-  semester: String,
-  professeur: String,
-  filiere: ObjectId,
+  semester: Number,
+  professor: {
+    type: String,
+    ref: "professor",
+  },
+  filiere: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "filiere",
+  },
 });
 var Module = mongoose.model("module", moduleSchema);
 
@@ -25,11 +33,15 @@ module.exports = {
   setTitle,
   setSemester,
   getByFiliere,
+  getCustom,
+  update,
+  getStudentsNoValide,
+  getStudentsValide,
   Module,
 };
 
 //insert function
-function addNew(title, semester, professeur, filiere) {
+function addNew(title, semester, professor, filiere) {
   return new Promise((resolve, reject) => {
     mongoose
       .connect(urlDb, { useNewUrlParser: true })
@@ -37,7 +49,7 @@ function addNew(title, semester, professeur, filiere) {
         let newModule = new Module({
           title: title,
           semester: semester,
-          professeur: professeur,
+          professor: professor,
           filiere: filiere,
         });
 
@@ -58,12 +70,126 @@ function addNew(title, semester, professeur, filiere) {
   });
 }
 
+function getStudentsNoValide(id) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(urlDb, { useNewUrlParser: true }).then(() => {
+      Evaluation.aggregate([
+        {
+          $lookup: {
+            from: "students",
+            localField: "referenceStudent",
+            foreignField: "reference",
+            as: "student",
+          },
+        },
+        {
+          $lookup: {
+            from: "modules",
+            localField: "referenceModule",
+            foreignField: "_id",
+            as: "module",
+          },
+        },
+        {
+          $match: {
+            referenceModule: new ObjectId(id),
+            $expr: {
+              $and: [
+                {
+                  $gte: ["$student.currentSemester", "$module.semester"],
+                },
+              ],
+            },
+            grade: { $lt: 10 },
+          },
+        },
+      ])
+        .then((data) => {
+          mongoose.disconnect();
+          resolve(data);
+        })
+        .catch((err) => {
+          mongoose.disconnect();
+          reject(err.message);
+        });
+    });
+  });
+}
+function getStudentsValide(id) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(urlDb, { useNewUrlParser: true }).then(() => {
+      Evaluation.aggregate([
+        {
+          $lookup: {
+            from: "students",
+            localField: "referenceStudent",
+            foreignField: "reference",
+            as: "student",
+          },
+        },
+        {
+          $lookup: {
+            from: "modules",
+            localField: "referenceModule",
+            foreignField: "_id",
+            as: "module",
+          },
+        },
+        {
+          $lookup: {
+            from: "diplomes",
+            let: { refStudent: "$referenceStudent" },
+            pipeline: [
+              {
+                $match: {
+                  $expr: { $eq: ["$$refStudent", "$student"] },
+                  state: { $eq: true },
+                },
+              },
+            ],
+            as: "diplomes",
+          },
+        },
+        {
+          $match: {
+            referenceModule: new ObjectId(id),
+            diplomes: { $size: 0 },
+            $expr: {
+              $and: [
+                {
+                  $gte: ["$student.currentSemester", "$module.semester"],
+                },
+              ],
+            },
+            grade: { $gte: 10 },
+          },
+        },
+      ])
+        .then((data) => {
+          mongoose.disconnect();
+          resolve(data);
+        })
+        .catch((err) => {
+          mongoose.disconnect();
+          reject(err.message);
+        });
+    });
+  });
+}
 function getAll() {
   return new Promise((resolve, reject) => {
     mongoose
       .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
-        return Module.find({});
+        // return Module.find({});
+        return Module.aggregate([
+          {
+            $group: {
+              _id: "$semester",
+              modules: { $push: "$$ROOT" },
+            },
+          },
+        ]);
       })
       .then((modules) => {
         mongoose.disconnect();
@@ -97,6 +223,70 @@ function getOne(id) {
       });
   });
 }
+
+function getCustom(idFiliere, semester) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb)
+      .then(() => {
+        return Module.find({
+          filiere: idFiliere,
+          semester: semester,
+        });
+      })
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((err) => {
+        reject(err.message);
+      });
+  });
+}
+function getByFiliere(idFiliere) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb)
+      .then(() => {
+        return Module.aggregate([
+          {
+            $match: {
+              filiere: idFiliere,
+            },
+          },
+          {
+            $group: {
+              _id: "$semester",
+              modules: { $push: "$$ROOT" },
+            },
+          },
+        ]);
+      })
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
+// function getBySemester(semester) {
+//   return new Promise((resolve, reject) => {
+//     mongoose
+//       .connect(urlDb)
+//       .then(() => {
+//         return Module.find({
+//           semester: semester,
+//         });
+//       })
+//       .then((data) => {
+//         resolve(data);
+//       })
+//       .catch((err) => {
+//         reject(err);
+//       });
+//   });
+// }
 
 function deleteOne(id) {
   return new Promise((resolve, reject) => {
@@ -171,21 +361,33 @@ function setSemester(id, semester) {
       });
   });
 }
-
-function getByFiliere(idFiliere) {
+function update(id, title, semester, professor, filiere) {
   return new Promise((resolve, reject) => {
     mongoose
-      .connect(urlDb)
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
-        return Module.find({
-          filiere: idFiliere,
-        });
+        return Module.findOneAndUpdate(
+          { _id: id },
+          {
+            title: title,
+            semester: semester,
+            professor: professor,
+            filiere: filiere,
+          },
+          { new: true }
+        );
       })
-      .then((data) => {
-        resolve(data);
+      .then((updatedModule) => {
+        mongoose.disconnect();
+        if (updatedModule) {
+          resolve("le module e été modifier avec success.");
+        } else {
+          reject(`Aucun document trouvé`);
+        }
       })
-      .catch((err) => {
-        reject(err);
+      .catch((error) => {
+        mongoose.disconnect();
+        reject(error);
       });
   });
 }

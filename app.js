@@ -27,12 +27,13 @@ const homeRouter = require("./routes/home.router");
 const authRouter = require("./routes/auth.router");
 const adminRouter = require("./routes/admin.router");
 const dashbordRouter = require("./routes/dashbord.router");
+const fileUpload = require("express-fileupload");
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(fileUpload());
 app.use("/", homeRouter);
 app.use("/", authRouter);
 app.use("/", authRouter);

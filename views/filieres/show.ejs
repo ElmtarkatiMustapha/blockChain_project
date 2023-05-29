@@ -45,5 +45,11 @@
   <div class="row"><%- filiere %></div>
 </div>
 <div class=""><%- //successMessage %></div>
+<% modules.forEach(item => { %>
+<div class="col-12 p-1">
+  <div class="h1">module <%- item.title %></div>
+  <a href="/modules?filiere=<%- item.id %>" class="btn btn-primary">Edit </a>
+</div>
+<% }) %>
 <div><%- modules%></div>
 <%- include("../parts/footer") %>

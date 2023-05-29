@@ -34,7 +34,13 @@ function showAll(req, res, next) {
             errorMessage: error,
           });
         } else {
-          res.render("404");
+          res.render("filieres/index", {
+            filieres: "",
+            cycle: req.query.cycle,
+            departement: req.query.departement,
+            successMessage: message,
+            errorMessage: error,
+          });
         }
       })
       .catch((err) => {
@@ -53,7 +59,13 @@ function showAll(req, res, next) {
             errorMessage: error,
           });
         } else {
-          res.render("404");
+          res.render("filieres/index", {
+            filieres: "",
+            cycle: req.query.cycle,
+            departement: "",
+            successMessage: message,
+            errorMessage: error,
+          });
         }
       })
       .catch((err) => {
@@ -75,7 +87,13 @@ function showAll(req, res, next) {
             errorMessage: error,
           });
         } else {
-          res.render("404");
+          res.render("filieres/index", {
+            filieres: "",
+            cycle: "",
+            departement: req.query.departement,
+            successMessage: message,
+            errorMessage: error,
+          });
         }
       })
       .catch((err) => {
@@ -94,7 +112,13 @@ function showAll(req, res, next) {
             errorMessage: error,
           });
         } else {
-          res.render("404");
+          res.render("filieres/index", {
+            filieres: "",
+            cycle: "",
+            departement: "",
+            successMessage: message,
+            errorMessage: error,
+          });
         }
       })
       .catch((err) => {
@@ -132,9 +156,9 @@ function show(req, res, next) {
             }
           })
           .catch((err) => {
-            // res.render("404");
-            console.log(err);
-            res.send(err);
+            res.render("404");
+            // console.log(err);
+            // res.send(err);
           });
       } else {
         res.render("404");
@@ -209,8 +233,8 @@ function addNew(req, res, next) {
     .addNew(req.body.title, req.body.desc, req.body.cycle, req.body.departement)
     .then((res) => {
       req.session.successMessage = "la filiere est ajouter avec succes";
-      // res.redirect("/filieres/addNew");
-      res.send("good job");
+      res.redirect("/filieres/addNew");
+      // res.send("good job");
     })
     .catch((err) => {
       req.session.errorMessage = err;
@@ -229,6 +253,7 @@ function edit(req, res, next) {
     )
     .then((data) => {
       req.session.successMessage = data;
+      res.redirect("/filieres" + req.url);
     })
     .catch((err) => {
       req.session.errorMessage = err;
