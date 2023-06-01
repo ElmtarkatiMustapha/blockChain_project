@@ -1,9 +1,14 @@
 const { render } = require("ejs");
+require("../globals");
 const modules = require("../models/module.model");
+const evaluation = require("../models/evaluation.model");
+const Evaluation = evaluation.Evaluation;
 const filiere = require("../models/filiere.model");
 const fs = require("fs");
 const path = require("path");
 const csv = require("fast-csv");
+const { rejects } = require("assert");
+const { default: mongoose } = require("mongoose");
 module.exports = {
   showAll,
   show,
@@ -98,6 +103,7 @@ function show(req, res, next) {
             res.render("modules/show", {
               moduleInfo: data,
               students: students,
+              idModule: id,
               successMessage: message,
               errorMessage: error,
             });
@@ -111,6 +117,7 @@ function show(req, res, next) {
             res.render("modules/show", {
               moduleInfo: data,
               students: students,
+              idModule: id,
               successMessage: message,
               errorMessage: error,
             });
@@ -219,15 +226,24 @@ function remove(req, res, next) {
 function saveGrades(req, res, next) {
   console.log(req.body.grade);
   console.log(req.body.studentRef);
-  res.send("grade: " + req.body.grade + " <br>Student: " + req.body.studentRef);
+  evaluation
+    .setGrade("M2Y6589G", "646f5b14821348f3216a3804", 6)
+    .then((result) => {
+      console.log(result);
+      res.send(
+        "grade: " + req.body.grade + " <br>Student: " + req.body.studentRef
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(
+        "grade: " + req.body.grade + " <br>Student: " + req.body.studentRef
+      );
+    });
 }
 
 function saveFile(req, res, next) {
-  // fs.createReadStream(req.files.file.tempFilePath)
-  //   .pipe(csv.parse({ headers: true, delimiter: ";" }))
-  //   .on("error", (error) => console.error(error))
-  //   .on("data", (row) => console.log(row.name))
-  //   .on("end", (rowCount) => console.log(`Parsed ${rowCount} rows`));
+  let list = [];
   req.files.file
     .mv(path.join(__dirname, "..", "assets", "tesCSV"))
     .then((err) => {
@@ -236,12 +252,53 @@ function saveFile(req, res, next) {
       }
       fs.createReadStream(path.join(__dirname, "..", "assets", "tesCSV"))
         .pipe(csv.parse({ headers: true, delimiter: ";" }))
-        .on("error", (error) => console.error(error))
-        .on("data", (row) => {
-          console.log(row);
+        .on("error", (error) => {
+          req.session.errorMessage = error;
+          res.redirect(
+            "/modules/show/" + req.body.idModule + "?validate=false"
+          );
         })
-        .on("end", (rowCount) => res.send("yes"));
+        .on("data", (row) => {
+          list.push(row);
+        })
+        .on("end", async (rowCount) => {
+          await updateGrade(list, req.body.idModule);
+          res.redirect(
+            "/modules/show/" + req.body.idModule + "?validate=false"
+          );
+        });
+    })
+    .catch((err) => {
+      req.session.errorMessage = err;
+      res.redirect("/modules/show/" + req.body.idModule + "?validate=false");
     });
-  // res.send("no");
-  // console.log(JSON.parse(req.files.file.data.toString()));
+}
+
+async function updateGrade(list, id) {
+  try {
+    await mongoose.connect(urlDb, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to the database");
+
+    for (const data of list) {
+      console.log(data.cne, id, data.note);
+      const updatedUser = await Evaluation.findOneAndUpdate(
+        {
+          referenceStudent: data.cne,
+          referenceModule: id,
+        },
+        { $set: { grade: data.note } },
+        { new: true }
+      );
+
+      console.log("User updated:", updatedUser);
+    }
+
+    mongoose.disconnect();
+    console.log("Disconnected from the database");
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
 }

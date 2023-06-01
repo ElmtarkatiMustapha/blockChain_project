@@ -60,7 +60,7 @@ function addNew(refModule, refStudent, grade, date) {
 function getAll() {
   return new Promise((resolve, reject) => {
     mongoose
-      .connect(dbUrl, { useNewUrlParser: true })
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
         Evaluation.find()
           .then((evaluations) => {
@@ -82,7 +82,7 @@ function getAll() {
 function getOne(refStudent, refModule) {
   return new Promise((resolve, reject) => {
     mongoose
-      .connect(dbUrl, { useNewUrlParser: true })
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
         Evaluation.findOne({
           referenceModule: refModule,
@@ -107,7 +107,7 @@ function getOne(refStudent, refModule) {
 function deleteOne(refStudent, refModule) {
   return new Promise((resolve, reject) => {
     mongoose
-      .connect(dbUrl, { useNewUrlParser: true })
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
         Evaluation.deleteOne({
           referenceModule: refModule,
@@ -137,7 +137,7 @@ function deleteOne(refStudent, refModule) {
 function setDate(refStudent, refModule, date) {
   return new Promise((resolve, reject) => {
     mongoose
-      .connect(dbUrl, { useNewUrlParser: true })
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
         Evaluation.findOneAndUpdate(
           { referenceModule: refModule, referenceStudent: refStudent },
@@ -161,15 +161,18 @@ function setDate(refStudent, refModule, date) {
 function setGrade(refStudent, refModule, grade) {
   return new Promise((resolve, reject) => {
     mongoose
-      .connect(dbUrl, { useNewUrlParser: true })
+      .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
-        Evaluation.findOneAndUpdate(
-          { referenceModule: refModule, referenceStudent: refStudent },
-          { grade: grade }
+        Evaluation.updateOne(
+          {
+            referenceModule: new ObjectId(refModule),
+            referenceStudent: refStudent,
+          },
+          { $set: { grade: grade } }
         )
-          .then(() => {
+          .then((res) => {
             mongoose.disconnect();
-            resolve("Note de l'évaluation mise à jour avec succès.");
+            resolve(res);
           })
           .catch((err) => {
             mongoose.disconnect();

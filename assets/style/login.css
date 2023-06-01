@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&family=Rubik:wght@300;400;500;600&display=swap');
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #ececec;
+}
+/* ------------------ login container ------------- */
+.box-area{
+    width: 930px;
+}
+
+
+/* ------------------ right box ------------- */
+.right-box{
+    padding: 40px 30px 40px 40px;
+}
+
+
+/* ------------------ Custom Placeholder ------------- */
+
+
+
+/* ------------------ For small screens ------------- */

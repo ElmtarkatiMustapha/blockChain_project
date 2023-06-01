@@ -41,9 +41,9 @@ app.use("/dashbord", dashbordRouter);
 app.use("/", adminRouter);
 
 //not found middlware
-app.use((req, res, next) => {
-  res.status(404).render("404");
-});
+// app.use((req, res, next) => {
+//   res.status(404).render("404");
+// });
 //test add to the blockChain
 const blockChain = require("./models/blockChain.model");
 app.get("/add", (req, res, next) => {
@@ -54,6 +54,7 @@ app.post("/add", (req, res, next) => {
   blockChain
     .addDiplome(
       data.account,
+      "646eb3ce29ee3388b44682fb",
       data.name,
       data.cin,
       data.cne,
@@ -69,7 +70,7 @@ app.post("/add", (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      res.send.redirect("/add");
+      res.redirect("/add");
     });
 });
 //end test

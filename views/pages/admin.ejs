@@ -1,25 +1,5 @@
 <%- include("../parts/header.ejs") %>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
-      <div class="h1">this is the admin dashbord</div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <div class="h1">all departement here!!!</div>
-      <div class="card">
-        <% if (typeof(departements) != undefined && departements.length !=0) {
-        %> <%- departements[0]._id %> <% } %>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-6 bg-danger">
-      <% if (typeof(error) != 'undefined' && error != "" && error != null) { %>
-      <%- error %> <% } %>
-    </div>
-  </div>
-</div>
+<%- include("../parts/menus.ejs") %>
+
 
 <%- include("../parts/footer.ejs") %>

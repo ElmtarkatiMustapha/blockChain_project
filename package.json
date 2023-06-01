@@ -22,6 +22,7 @@
     "generate-password": "^1.7.0",
     "mongodb": "^5.5.0",
     "mongoose": "^7.2.0",
+    "qrcode": "^1.5.3",
     "solc": "^0.8.20",
     "truffle": "^5.9.0",
     "truffle-contract": "^4.0.31",

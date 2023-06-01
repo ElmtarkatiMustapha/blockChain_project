@@ -19,9 +19,156 @@ let section = "646f5483372afc737e3ae8d1";
 let specialite = "developpement web";
 let departement = "informatique";
 
-Module.getStudentsValide("646f5b14821348f3216a3804").then((res) => {
-  console.log(res);
+
+// Evaluation.setGrade("M2Y6589G", "646f5b14821348f3216a3804", "10").then(res => {
+//   console.log("result: ",res)
+// }).catch(err => {
+//   console.log("Erorro: ", err);
+// })
+const eval = Evaluation.Evaluation;
+let table = [3, 4, 7];
+async function run() {
+  const err=await mongoose.connect(dbLink, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  table.forEach(async value => {
+    let result = await eval.updateOne(
+      {
+        referenceModule: "646f5b14821348f3216a3804",
+        referenceStudent: "M2Y6589G",
+      },
+      { $set: { grade: value } }
+    );
+    console.log(result);
+  })
+  
+  await mongoose.disconnect();
+}
+
+// run();
+
+
+
+
+
+async function updateGrade(dataArray) {
+  try {
+    await mongoose.connect(dbLink, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to the database");
+
+    for (const data of dataArray) {
+
+      console.log(data.student, data.module, data.grade);
+      const updatedUser = await eval.findOneAndUpdate(
+        {
+          referenceStudent: data.student,
+          referenceModule: data.module,
+        },
+        { $set: { grade: data.grade } },
+        { new: true }
+      );
+
+      console.log("User updated:", updatedUser);
+    }
+
+    mongoose.disconnect();
+    console.log("Disconnected from the database");
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+}
+
+// Usage example
+const dataArray = [
+  {
+    student: "M2Y6589G",
+    module: "646f5b14821348f3216a3804",
+    grade: 2 ,
+  },
+  {
+    student: "M2Y6587H",
+    module: "646f5b14821348f3216a3804",
+    grade: 2 ,
+  },
+  // Add more data items as needed
+];
+
+updateUsers(dataArray);
+
+
+const userSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  age: {
+    type: Number,
+    required: true,
+  },
 });
+
+const User = mongoose.model("User", userSchema);
+
+async function insertOrUpdateData(dataArray) {
+  try {
+    await mongoose.connect(dbLink, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to the database");
+
+    for (const data of dataArray) {
+      const { userId, name, age } = data;
+
+      // Check if the user already exists
+      const existingUser = await User.findById(userId);
+
+      if (existingUser) {
+        // User already exists, update the data
+        existingUser.name = name;
+        existingUser.age = age;
+        await existingUser.save();
+        console.log("User updated:", existingUser);
+      } else {
+        // User doesn't exist, create a new user
+        const newUser = new User({ _id: userId, name, age });
+        await newUser.save();
+        console.log("New user created:", newUser);
+      }
+    }
+
+    mongoose.disconnect();
+    console.log("Disconnected from the database");
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+}
+
+// Usage example
+// const dataArray = [
+//   { userId: "609f9be1c6b6564c948c5467", name: "John Doe", age: 40 },
+//   { userId: "609f9be1c6b6564c948c5468", name: "Jane Smith", age: 45 },
+//   // Add more data items as needed
+// ];
+
+// insertOrUpdateData(dataArray);
+
+
+
+
+
+
+// Module.getStudentsValide("646f5b14821348f3216a3804").then((res) => {
+//   console.log(res);
+// });
 
 // mongoose.connect(dbLink, { useNewUrlParser: true }).then((err) => {
 //   Professor.find(

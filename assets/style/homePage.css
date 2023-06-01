@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    background-color: white;
+}
+
+.btn-orange {
+    background-color: #EF8823;
+    color: white;
+    font-family: 'jost', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all ease 500ms;
+}
+
+.btn-orange:hover {
+    text-decoration: underline;
+}
+
+.btn-blue {
+    background-color: #19263C;
+    color: white;
+    font-family: 'jost', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all ease 500ms;
+}
+
+.btn-blue:hover {
+    text-decoration: underline;
+}
+
+.img-brand {
+    width: 25%;
+}
+
+.navbar-brand {
+    padding-left: 3%;
+    padding-right: 1%;
+}
+
+.nav-link {
+    font-family: 'Jost', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+    color: black;
+    font-size: 20px;
+}
+
+.btn-custom-orange {
+    font-family: 'Jost', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    color: white;
+    border-radius: 50px;
+    background-color: #EF8823;
+    border: 2px solid #EF8823;
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+}
+
+.btn-custom-orange:hover {
+    background-color: white;
+    border: 2px solid #EF8823;
+    color: #EF8823;
+}
+
+.offcanvas-body .navbar-nav {
+    text-align: center;
+    text-align: webkit-center-;
+}
+
+/* section1 */
+.section1 {
+    padding: 2% 0%;
+}
+
+.section1 .title {
+    color: #2F4383 !important;
+    font-family: "jost", sans-serif !important;
+    font-weight: bold !important;
+}
+
+.section1 .sub-title {
+    color: #000000c0 !important;
+    font-family: "jost", sans-serif !important;
+    font-weight: 400 !important;
+}
+
+.search-part {
+    padding: 2.5rem 1rem !important;
+}
+
+.search-part .search-div {
+    border: none;
+    border-radius: 50px;
+    padding: 0px;
+    background-color: #F2F1F9;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.082));
+}
+
+.search-part .input-search {
+    border: 0px solid black;
+    background-color: transparent;
+    margin: 0px;
+    font-family: 'jost', sans-serif;
+    font-size: 30px;
+    padding: 0.7rem 2%;
+    border-radius: 50px;
+    width: 70%;
+}
+
+.search-part .input-search:focus {
+    outline: none;
+}
+
+.search-part .btn-search {
+    margin: 0px;
+    font-family: 'Jost', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 25px;
+    color: white;
+    border-radius: 50px;
+    background-color: #EF8823;
+    border: 2px solid #EF8823;
+    padding: 0.8rem 1.1rem;
+    /* padding-left: 1.1rem;
+    padding-right: 1.1rem; */
+    float: right;
+}
+
+.search-part .btn-search:hover {
+    color: #EF8823;
+    background-color: #F2F1F9;
+}
+
+.search-part .form-check-label {
+    font-family: "jost", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+
+}
+
+.mobile-search {
+    padding: 2% 0%;
+}
+
+.mobile-search .search-div {
+    padding: 2% 1%;
+}
+
+.mobile-search .search-div .input-search {
+    font-family: "jost", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 50px;
+    width: 100%;
+    background-color: #F2F1F9;
+    filter: drop-shadow(0px 0px 3px #00000021);
+}
+
+.mobile-search .search-div .input-search:focus {
+    outline: 1px solid #2f438378;
+}
+
+.mobile-search .search-div .btn-search {
+    margin: 0px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-style: italic;
+    color: white;
+    border-radius: 50px;
+    background-color: #EF8823;
+    border: 2px solid #EF8823;
+}
+
+.mobile-search .search-div .btn-search:hover {
+    color: #EF8823;
+    background-color: white;
+}
+
+
+
+
+/* certificats */
+.result-section {
+    /* padding: 6%; */
+}
+
+.result-section .certificat {
+    border-radius: 20px;
+    filter: drop-shadow(0px 0px 5px #00000021);
+    background-color: white;
+    padding: 3%;
+}
+
+.result-section .certificat .row-1 {}
+
+.result-section .certificat .row-1 .logo {
+    width: 90%;
+}
+
+.result-section .certificat .row-1 .company-name {
+    font-family: "jost", sans-serif;
+    color: #19263C;
+    font-size: 1.4vw;
+    font-weight: 500;
+    padding: 2%;
+}
+
+.result-section .certificat .row-1 .shape1 {
+    width: 35%;
+}
+
+.result-section .certificat .row-2 {}
+
+.result-section .certificat .row-2 .title {
+    font-size: 4vw;
+    font-family: "jost", sans-serif;
+    font-weight: 500;
+    color: #19263C;
+    padding: 2%;
+}
+
+.result-section .certificat .row-2 .sub-title {
+    font-size: 1.5vw;
+    color: #19263C;
+
+}
+
+.result-section .certificat .row-2 .student-name {
+    font-size: 3vw;
+    color: #604C46;
+    text-decoration: underline;
+}
+
+.result-section .certificat .row-2 .student-infos {
+    font-size: 1.2vw;
+    font-family: 'jost', sans-serif;
+    color: #19263C;
+    padding: 2% 2%;
+}
+
+.result-section .certificat .row-2 .student-infos .info {}
+
+.result-section .certificat .row-3 {}
+
+.result-section .certificat .row-3 .signature {
+    width: 80%;
+}
+
+.result-section .certificat .row-3 .name-person {
+    font-family: "jost", sans-serif;
+    font-size: 1.2vw;
+    color: #604C46;
+    text-decoration: underline;
+}
+
+.result-section .certificat .row-3 .profession {
+    color: #19263C;
+    font-size: 1.2vw;
+    font-family: "jost", sans-serif;
+    font-weight: 600;
+}
+
+.result-section .certificat .row-3 .qrCode {
+    width: 80%;
+}
+
+.result-section .certificat .row-2 .student-infos .info span {
+    font-weight: bold;
+}
+
+
+.contact {
+    padding: 2%;
+}
+
+.contact .elem {
+    border-radius: 20px;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.137));
+    background-color: white;
+}
+
+.contact .row-1 {}
+
+.contact .row-1 .title {
+    color: #2F4383;
+    font-family: "jost", sans-serif;
+    font-weight: bold;
+}
+
+.contact .row-2 {}
+
+.contact .row-2 .title {
+    color: #2F4383;
+    font-family: "jost", sans-serif;
+    font-weight: 600;
+}
+
+.contact .row-2 .icon {
+    font-size: 3rem;
+    color: #2F4383;
+}
+
+.contact .row-2 .content {
+    font-family: "jost", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.contact .row-3 {
+    padding: 2% 0%;
+}
+
+.contact .row-3 .link {
+    text-decoration: none;
+    padding: 2%;
+
+}
+
+.contact .row-3 .link i {
+    color: #2F4383;
+    font-size: 3rem;
+}
+
+.footer {
+    margin-top: -8rem;
+    background-color: #2F4383;
+}
+
+.footer .void-box {
+    min-height: 9rem;
+    width: 100%;
+}
+
+.footer .logo-img {
+    width: 50%;
+}
+
+.footer .title {
+    color: white;
+}
+
+.footer .content {
+    color: white;
+}
+
+.footer .content .nav {}
+
+.footer .content .nav .nav-link {
+    font-size: 1rem;
+    font-family: "jost", sans-serif;
+    text-decoration: none;
+    font-weight: 500;
+    font-style: normal;
+    padding-bottom: 0%;
+}
+
+.footer .content .nav .nav-link a {
+    text-decoration: none;
+    color: white;
+}
