@@ -223,23 +223,24 @@ function remove(req, res, next) {
     });
 }
 
-function saveGrades(req, res, next) {
-  console.log(req.body.grade);
-  console.log(req.body.studentRef);
-  evaluation
-    .setGrade("M2Y6589G", "646f5b14821348f3216a3804", 6)
-    .then((result) => {
-      console.log(result);
-      res.send(
-        "grade: " + req.body.grade + " <br>Student: " + req.body.studentRef
-      );
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send(
-        "grade: " + req.body.grade + " <br>Student: " + req.body.studentRef
-      );
-    });
+async function saveGrades(req, res, next) {
+  let list = [];
+  let studentList = req.body.studentRef;
+  let gradeList = req.body.grade;
+  if (typeof studentList == "undefined") {
+    res.redirect("/modules/show/" + req.body.idModule + "?validate=true");
+  } else {
+    for (let i = 0; i < studentList.length; i++) {
+      list.push({ cne: studentList[i], note: gradeList[i] });
+    }
+    await updateGrade(list, req.body.idModule);
+    req.session.successMessage = "les notes sont mise a jourer";
+    if (req.query.validate) {
+      res.redirect("/modules/show/" + req.body.idModule + "?validate=true");
+    } else {
+      res.redirect("/modules/show/" + req.body.idModule + "?validate=false");
+    }
+  }
 }
 
 function saveFile(req, res, next) {
@@ -263,6 +264,7 @@ function saveFile(req, res, next) {
         })
         .on("end", async (rowCount) => {
           await updateGrade(list, req.body.idModule);
+          req.session.successMessage = "les notes sont mise a jourer";
           res.redirect(
             "/modules/show/" + req.body.idModule + "?validate=false"
           );
@@ -280,7 +282,6 @@ async function updateGrade(list, id) {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("Connected to the database");
 
     for (const data of list) {
       console.log(data.cne, id, data.note);
@@ -292,10 +293,7 @@ async function updateGrade(list, id) {
         { $set: { grade: data.note } },
         { new: true }
       );
-
-      console.log("User updated:", updatedUser);
     }
-
     mongoose.disconnect();
     console.log("Disconnected from the database");
   } catch (error) {

@@ -97,7 +97,7 @@ const dataArray = [
   // Add more data items as needed
 ];
 
-updateUsers(dataArray);
+// updateUsers(dataArray);
 
 
 const userSchema = new mongoose.Schema({
@@ -183,7 +183,7 @@ async function insertOrUpdateData(dataArray) {
 //   );
 // });
 
-// Diplome.addNew("licence profisionnel en TMW", Date(), "M2Y6587H")
+// Diplome.addNew("licence profisionnel en TMW", Date(), "M2Y6589G")
 //   .then((res) => {
 //     console.log(res);
 //   })

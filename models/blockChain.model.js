@@ -107,7 +107,7 @@ function getDiplomesByName(name) {
 
 function addDiplome(
   account,
-  idDiolome,
+  idDiplome,
   name,
   cin,
   cne,
@@ -123,7 +123,7 @@ function addDiplome(
       .deployed()
       .then((deployedContract) => {
         return deployedContract.addDiplome(
-          idDiolome.toUpperCase(),
+          idDiplome.toUpperCase(),
           name.toUpperCase(),
           cin.toUpperCase(),
           cne.toUpperCase(),
@@ -136,9 +136,10 @@ function addDiplome(
         );
       })
       .then((res) => {
-        resolve("diplome added");
+        resolve(res);
       })
       .catch((err) => {
+        console.log(err);
         reject(err);
       });
   });

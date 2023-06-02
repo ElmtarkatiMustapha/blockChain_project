@@ -9,6 +9,7 @@ const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 const sectionSchema = mongoose.Schema({
   title: String,
+  year: Number,
   filiere: ObjectId,
 });
 var Section = mongoose.model("section", sectionSchema);
@@ -23,13 +24,14 @@ module.exports = {
 };
 
 //insert function
-function addNew(title, filiere) {
+function addNew(title, year, filiere) {
   return new Promise((resolve, reject) => {
     mongoose
       .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
         let newSection = new Section({
           title: title,
+          year: year,
           filiere: filiere,
         });
         newSection

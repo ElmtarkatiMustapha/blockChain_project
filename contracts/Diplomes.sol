@@ -28,12 +28,12 @@ contract Diplomes {
         owner = msg.sender;
     }
 
-    function checkDiplome(string memory _cin) public view returns (bool) {
+    function checkDiplome(string memory _cne) public view returns (bool) {
         bool test = true;
         for (uint i = 1; i <= countDiplome; i++) {
             if (
-                keccak256(abi.encodePacked(diplomes[i].cin)) ==
-                keccak256(abi.encodePacked(_cin))
+                keccak256(abi.encodePacked(diplomes[i].cne)) ==
+                keccak256(abi.encodePacked(_cne))
             ) {
                 test = false;
             }
@@ -55,7 +55,7 @@ contract Diplomes {
         // if (!checkDiplome(_cin)) {
         //     return false;
         // }
-        require(checkDiplome(_cin), "diplome already exist");
+        require(checkDiplome(_cne), "diplome already exist");
         countDiplome++;
         diplomes[countDiplome] = diplome(
             _id,

@@ -17,9 +17,9 @@ App = {
             App.web3Provider = web3.currentProvider
             web3 = new Web3(web3.currentProvider)
         } else {
-            App.web3Provider = new Web3.providers.HttpProvider("http://localhost:7545");
-            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
-            // window.alert("Please connect to Metamask.")
+          // App.web3Provider = new Web3.providers.HttpProvider("http://localhost:7545");
+          // web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+          window.alert("Please connect to Metamask.");
         }
         // Modern dapp browsers...
         if (window.ethereum) {

@@ -21,6 +21,7 @@ const studentSchema = mongoose.Schema({
   lastName: String,
   userName: String,
   password: String,
+  cin: String,
   sexe: String,
   birthday: Date,
   currentSemester: Number,
@@ -131,7 +132,7 @@ function checkRef(ref) {
 }
 
 //insert function
-function addNew(fName, lName, ref, sexe, birthday, section) {
+function addNew(fName, lName, ref, cin, sexe, birthday, section) {
   return new Promise((resolve, reject) => {
     let userName = fName + "_" + lName;
     userName = userName.replaceAll(" ", "");
@@ -152,6 +153,7 @@ function addNew(fName, lName, ref, sexe, birthday, section) {
                   lastName: lName,
                   userName: newUserName,
                   password: password,
+                  cin: cin,
                   sexe: sexe,
                   birthday: birthday,
                   section: section,
