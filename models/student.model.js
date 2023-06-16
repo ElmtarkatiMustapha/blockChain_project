@@ -10,6 +10,8 @@
 -birthday
 */
 require("../globals");
+const { resolve } = require("@truffle/contract/lib/promievent");
+const { urlencoded } = require("express");
 const generator = require("generate-password");
 const { ObjectId } = require("mongodb");
 const Admin = require("./admin.model").Admin;
@@ -448,3 +450,7 @@ function setBirthday(ref, date) {
       });
   });
 }
+
+//get diplomes
+
+

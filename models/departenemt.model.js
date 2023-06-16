@@ -7,9 +7,11 @@
 require("../globals");
 const { resolve } = require("@truffle/contract/lib/promievent");
 const mongoose = require("mongoose");
+const { getCustom } = require("./filiere.model");
 const departementSchema = mongoose.Schema({
   label: String,
   description: String,
+  icone: String,
 });
 var Departement = mongoose.model("departement", departementSchema);
 
@@ -17,6 +19,7 @@ var Departement = mongoose.model("departement", departementSchema);
 module.exports = {
   addNew,
   getAll,
+  getCustomNbr,
   getOne,
   deleteOne,
   setlabel,
@@ -25,7 +28,7 @@ module.exports = {
 };
 
 //insert function
-function addNew(label, desc) {
+function addNew(label, desc, icone) {
   return new Promise((resolve, reject) => {
     mongoose
       .connect(urlDb, { useNewUrlParser: true })
@@ -33,6 +36,7 @@ function addNew(label, desc) {
         let newDepartement = new Departement({
           label: label,
           description: desc,
+          icone: icone,
         });
         newDepartement
           .save()
@@ -70,6 +74,23 @@ function getAll() {
   });
 }
 
+function getCustomNbr(nbr) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
+      .then(() => {
+        return Departement.find().limit(nbr).exec();
+      })
+      .then((departements) => {
+        mongoose.disconnect();
+        resolve(departements);
+      })
+      .catch((error) => {
+        mongoose.disconnect();
+        reject(error);
+      });
+  });
+}
 // Récupération d'un département par référence
 function getOne(id) {
   return new Promise((resolve, reject) => {

@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const filiereSchema = mongoose.Schema({
   title: String,
   description: String,
+  pseudo: String,
   departement: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "departement",
@@ -88,7 +89,7 @@ function getOne(id) {
     mongoose
       .connect(urlDb, { useNewUrlParser: true })
       .then(() => {
-        return Filiere.findOne({ _id: id });
+        return Filiere.findOne({ _id: id }).populate("departement");
       })
       .then((filiere) => {
         mongoose.disconnect();

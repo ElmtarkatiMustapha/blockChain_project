@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table</title>
+
+    <!-- Bootstrap5 css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!-- external css -->
+    <link rel="stylesheet" href="./filiere.css">
+
+    <!--google material icon-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-W+0v6r/vCuhRtLmwtMk5bNDwykUunfmiVk9ujUz+o6Lhso70waz75tXAPY00pCTN57H8eP0IT8efKakJihYSKQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+</head>
+
+
+<body>
+
+        <!-- py-5 pour ajouter du marges en heut et en bas de page -->
+        <div class="container py-5 ">
+            <div class="row row-cols-1 row-cols-md-3  g-4 py-5 ">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="text-start" style="font-weight: bold;">Filière:  <span style="color: #EF8823;">LP-TMW</span></h3>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card card-blue d-flex justify-content-center align-items-center py-4">
+                        <img class="img-fluid" src="./images/etudiant.png" alt="" width="60px">
+                        <div class="title-card text-center py-3"><a href="" class="text-white">Gestion des Etudiants</a> </div>
+                    </div>
+                </div>
+                <div class="col" >
+                    <div class="card card-orange d-flex justify-content-center align-items-center py-4">
+                        <img class="img-fluid" src="./images/notes.png" alt="" width="60px">
+                        <div class="text-center py-3"><a href="" class="text-white">Gestion des Notes</a></div>
+                    </div>
+                </div>
+                <div class="col" >
+                    <div class="card card-blue d-flex justify-content-center align-items-center py-4">
+                        <img class="img-fluid" src="./images/diplome.png" alt="" width="60px">
+                        <div class="text-center py-3"><a href="" class="text-white">Gestion des Diplomes</a></div>
+                    </div>
+                </div>
+            </div>
+            <!-- table  -->
+            <main class="table">
+                <section class="table_header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="text-start">les informations <span style="color: #EF8823;">  </span></h4>
+                        <input type="submit" value="Modifier" class="btn" style="background-color: #2E4383;">
+                    </div>
+                </section>
+                <section class="table_body">
+                    <table>
+                        <tbody>
+                            <tr style="font-weight: bold;">
+                                <td>Cycle de fonction:</th>
+                                <td>Département:</th>
+                                <td>Titre</th>
+                            </tr>
+                            <tr>
+                                <td> Licence Professionnel</td>
+                                <td>Infromatique</td>
+                                <td>Technologie de multimédia et du web </td>
+                            </tr> 
+                            <tr style="font-weight: bold;">
+                                <td>Nombre Etudiants: </td>
+                                <td>Semestre </td>
+                            </tr>
+                                <td>30</td>
+                                <td>s5, s6</td>
+                            </td>
+                        </tbody>
+                    </table>
+                </section>
+                <section class="table_body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Modules</th>
+                                <th>Semestre</th>
+                                <th>Professeur</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tr2">
+                                <td>Programmation orienté objet en java</td>
+                                <td>Semestre 6</td>
+                                <td>Professeur </td>
+                            </tr>
+                            <tr class="tr2">
+                                <td>Programmation orienté objet en java</td>
+                                <td>Semestre 6</td>
+                                <td>Professeur </td>
+                            </tr>
+                            <tr class="tr2">
+                                <td>Programmation orienté objet en java</td>
+                                <td>Semestre 6</td>
+                                <td>Professeur </td>
+                            </tr>
+                            <tr class="tr2">
+                                <td>Programmation orienté objet en java</td>
+                                <td>Semestre 6</td>
+                                <td>Professeur </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </main>
+        </div>
+
+
+
+
+    <!-- Bootstrap 5 js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>

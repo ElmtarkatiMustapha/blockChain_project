@@ -9,7 +9,10 @@ require("../globals");
 const { Double, ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 const evaluationSchema = mongoose.Schema({
-  referenceModule: ObjectId,
+  referenceModule: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "module",
+  },
   referenceStudent: String,
   grade: Number,
   date: Date,
@@ -24,6 +27,7 @@ module.exports = {
   deleteOne,
   setDate,
   setGrade,
+  getLastGrades,
   Evaluation,
 };
 
@@ -168,7 +172,12 @@ function setGrade(refStudent, refModule, grade) {
             referenceModule: new ObjectId(refModule),
             referenceStudent: refStudent,
           },
-          { $set: { grade: grade } }
+          {
+            $set: {
+              grade: grade,
+              date: new Date(),
+            },
+          }
         )
           .then((res) => {
             mongoose.disconnect();
@@ -182,5 +191,29 @@ function setGrade(refStudent, refModule, grade) {
       .catch((err) => {
         reject(err);
       });
+  });
+}
+
+function getLastGrades(ref, nbr) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(urlDb, { useNewUrlParser: true }).then((err) => {
+      Evaluation.find({
+        referenceStudent: ref,
+        grade: { $gt: 0 },
+      })
+        .sort({ date: -1 }) // Sort by date in descending order
+        .limit(nbr) // Limit the result to 5 documents
+        .populate("referenceModule")
+        .exec()
+        .then((grades) => {
+          mongoose.disconnect();
+          resolve(grades);
+          // Handle the retrieved documents
+        })
+        .catch((err) => {
+          mongoose.disconnect();
+          reject(err);
+        });
+    });
   });
 }

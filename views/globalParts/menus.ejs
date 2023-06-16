@@ -1,0 +1,99 @@
+<div class="sticky-top menu">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6 col-menu  text-start">
+        <a class="btn" data-bs-toggle="offcanvas" href="#leftMenu" role="button" aria-controls="leftMenu">
+          <i style="color:#2F4383;" class="fa-solid fa-bars"></i>
+        </a>
+      </div>
+      <div class="col-6 col-menu text-end">
+        <a class="btn" role="button" data-bs-toggle="offcanvas" href="#rightMenu" aria-controls="rightMenu">
+          <i class="fas fa-user-circle"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- left menu -->
+<div class="offcanvas offcanvas-start menu-content" tabindex="-1" id="leftMenu" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header justify-content-end">
+    <button type="button" class="text-reset" data-bs-dismiss="offcanvas" aria-label="Close"> <i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <ul class="nav flex-column">
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/dashbord">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-gauge-high"></i></div>
+          <div class="col-8 align-self-center">Dashboard</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/departements">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-building"></i></div>
+          <div class="col-8 align-self-center">Departements</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/filieres">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-shapes"></i></div>
+          <div class="col-8 align-self-center">Filières</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/modules">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-boxes-stacked"></i></div>
+          <div class="col-8 align-self-center">Modules</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/sections">
+          <div class="col-2 align-self-center "><i class="fa-regular fa-object-ungroup"></i></div>
+          <div class="col-8 align-self-center">Sections</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/students">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="col-8 align-self-center">Etudiants</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/professsors">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-user-tie"></i></div>
+          <div class="col-8 align-self-center">Professeurs</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/diplomes">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-certificate"></i></i></div>
+          <div class="col-8 align-self-center">Gestion diplômes</div>
+        </a>
+      </li>
+    </ul>
+    </div>
+  </div>
+</div>
+
+<!-- right menu -->
+<div class="offcanvas offcanvas-end rightMenu" tabindex="-1" id="rightMenu" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel"></h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body container-fluid">
+    <div class="row text-center ">
+        <div class="col-12">
+            <i class="fas fa-user-circle"></i>
+        </div>
+        <ul class="nav col-12 justify-content-center pt-4">
+            <li class="nav-item text-center">
+                <a href="" class="nav-link">Parametre du profile</a>
+            </li>
+            <li class="nav-item">
+                <a  href="/logout" class="nav-link text-danger">Se deconnecter</a>
+            </li>
+        </ul>
+    </div>
+  </div>
+</div>

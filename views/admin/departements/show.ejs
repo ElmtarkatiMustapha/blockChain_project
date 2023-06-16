@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../../globalParts/header.ejs") %>
+    <link rel="stylesheet" href="/style/adminDepartements.css">
+    <title>Departements</title>
+</head>
+<body style="background-color: #FAFAFA;">
+    <%- include("../parts/menus.ejs") %>
+    <%- include("../../globalParts/messages.ejs") %>
+    <%- include("../../globalParts/preload.ejs") %>
+    <div class="container-fluid section-1 p-4">
+      <div class="row">
+        <div class="col-8 title">
+          Departement: <label><%- departement.label %></label>
+        </div>
+        <div class="col-4 text-end">
+          <a class="btn btn-orange text-center" href="/departements/edit/<%- departement._id %>">Modifier</a>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid section-2 p-3">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-11 col-lg-10">
+                <div class="container-fluid p-3">
+                    <div class="row row-1 text-center justify-content-center">
+                      <div class="col-12 col-md-6 col-lg-5 p-4">
+                          <div class="elem elem-1 p-3">
+                              <div class="icon pt-1 pb-1">
+                                  <i class="fa-solid fa-boxes-stacked"></i>
+                              </div>
+                              <div class="title pt-1 pb-1">
+                                  <a href="/filieres?departement=<%- departement._id  %>">Gestion des filières</a>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-12 col-md-6 col-lg-6 p-4">
+                          <div class="elem elem-2 p-3">
+                              <div class="icon pt-1 pb-1">
+                                  <i class="fa-solid fa-user-tie"></i>
+                              </div>
+                              <div class="title pt-1 pb-1">
+                                  <a href="/professors?departement=<%- departement._id  %>">Gestion des professeurs</a>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include("../../globalParts/footer.ejs") %>
+</body>
+</html>

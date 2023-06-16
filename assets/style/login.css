@@ -1,23 +1,179 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&family=Rubik:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
-body{
-    font-family: 'Poppins', sans-serif;
-    background-color: #ececec;
-}
-/* ------------------ login container ------------- */
-.box-area{
-    width: 930px;
-}
-
-
-/* ------------------ right box ------------- */
-.right-box{
-    padding: 40px 30px 40px 40px;
+:root {
+    --white: #fafafa;
+    --black: #000000;
+    --orange: #EF8823;
+    --blue: #2E4383;
+    --grey: #2E4281;
+    --green: #00E77F;
+    --white: #fafafa;
+    --light-white: #aaa;
+    /* --black: #3d3d3d; */
+    --light-bg: #4b4b4b;
 }
 
+body {
+    background-color: white;
+}
 
-/* ------------------ Custom Placeholder ------------- */
+.btn-orange {
+    background-color: #EF8823;
+    color: white;
+    font-family: 'jost', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all ease 500ms;
+}
 
+.btn-orange:hover {
+    text-decoration: underline;
+}
 
+.btn-blue {
+    background-color: #2E4383;
+    border: 2px solid #2E4383;
+    border-radius: 40px;
+    color: white;
+    font-family: 'jost', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all ease 500ms;
+}
 
-/* ------------------ For small screens ------------- */
+.btn-blue:hover {
+    color: #2E4383;
+    background-color: white;
+    border: 2px solid #2E4383;
+
+}
+
+.img-brand {
+    width: 25%;
+}
+
+.navbar-brand {
+    padding-left: 3%;
+    padding-right: 1%;
+}
+
+.nav-link {
+    font-family: 'Jost', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+    color: black;
+    font-size: 20px;
+}
+
+.btn-custom-orange {
+    font-family: 'Jost', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    color: white;
+    border-radius: 50px;
+    background-color: #EF8823;
+    border: 2px solid #EF8823;
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+}
+
+.btn-custom-orange:hover {
+    background-color: white;
+    border: 2px solid #EF8823;
+    color: #EF8823;
+}
+
+.offcanvas-body .navbar-nav {
+    text-align: center;
+    text-align: webkit-center-;
+}
+
+.section-1 {
+    min-height: 72vh;
+
+}
+
+.section-1 .scene-1 {
+    width: 100%;
+}
+
+.section-1 .elem {
+    font-family: "jost", sans-serif;
+    border-radius: 20px;
+    background-color: white;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.082));
+}
+
+.section-1 .elem .title {
+    font-weight: bold;
+    font-size: 2rem;
+    color: #2E4383;
+}
+.section-1 .elem .sub-title {
+    font-size: 1rem;
+    color: #2E4383;
+}
+
+.section-1 .elem .caption {
+    font-size: 1rem;
+    color: #2E4383;
+    font-style: italic;
+}
+
+.input-field {
+    width: 100%;
+    height: 55px;
+    background-color: #f0f0f0;
+    margin: 10px 0;
+    border-radius: 55px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 0 .4rem;
+}
+
+.input-field i {
+    text-align: center;
+    line-height: 55px;
+    color: #acacac;
+    font-size: 1.1rem;
+}
+
+.input-field input {
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+    width: 100%;
+}
+
+.input-field input::placeholder {
+    color: #aaa;
+    font-weight: 500;
+}
+
+/*section 2*/
+.section-2 {
+    background-image: url("/images/circle.png");
+    background-position: top;
+    background-size: auto;
+    font-family: "jost", sans-serif;
+    text-align: center;
+}
+
+.section-2 .title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.section-2 .sub-title {
+    color: white;
+    font-size: 1rem;
+}

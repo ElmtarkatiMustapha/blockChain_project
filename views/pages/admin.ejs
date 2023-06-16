@@ -1,5 +1,99 @@
-<%- include("../parts/header.ejs") %>
-<%- include("../parts/menus.ejs") %>
-<%- include("../parts/messages.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../globalParts/header.ejs") %>
+    <title>Document</title>
+</head>
+<body>
+    <%- include("../admin/parts/menus.ejs") %>
+    <%- include("../globalParts/messages.ejs") %>
+    <%- include("../globalParts/preload.ejs") %>
+    <!-- py-5 pour ajouter du marges en heut et en bas de page -->
+        <div class="container py-5 ">
+            <h1 class="text-center"><span style="color: #2E4383;">Bienvennue</span> <span style="color: #EF8823;;">Mustapha</span>, </h1>
+            <p class="text-center text" > Dans cet espace vous pouvez consultez vos notes <br> obtenez une version numérique de votre diplome </p>
+            <!-- La classe "g-4" ajoute un espace (marge) de 4 unités entre les éléments de la rangée pour créer un espacement horizontal. -->
 
-<%- include("../parts/footer.ejs") %>
+            
+            <div class="row row-cols-1 row-cols-md-3  g-4 py-5 ">
+
+                <div class="col-12">
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <h4 class="text-start"> Départements <span style="color: #EF8823;">(11)</span></h4>
+                        <a href="#" class="text-end "><span style="color: #EF8823;">Afficher Plus  </span> </a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card card-blue d-flex justify-content-center align-items-center py-4">
+
+                        <img class="img-fluid" src="info.png" alt="" width="60px">
+                        
+                        <div class="title-card text-center py-3">Informatique</div>
+                      
+                    
+                    </div>
+                </div>
+
+                <div class="col" >
+                    <div class="card card-orange d-flex justify-content-center align-items-center py-4" ">
+
+                        <img class="img-fluid" src="info.png" alt="" width="60px">
+                        
+                        <div class="text-center py-3">Physique et Chimie</div>
+                      
+                    
+                    </div>
+                </div>
+
+                <div class="col" >
+                    <div class="card card-blue d-flex justify-content-center align-items-center py-4">
+
+                        <img class="img-fluid" src="info.png" alt="" width="60px">
+                        
+                        <div class="text-center py-3">Histoire et Géographique</div>
+                      
+                    
+                    </div>
+                </div>
+
+                <div class="col" >
+                    <div class="card card-orange d-flex justify-content-center align-items-center py-4" >
+
+                        <img class="img-fluid" src="info.png" alt="" width="60px">
+                        
+                        <div class="text-center py-3">Sceiences de L'Education</div>
+                      
+                    
+                    </div>
+                </div>
+
+                <div class="col "  >
+                    <div class="card card-blue d-flex justify-content-center align-items-center py-4" >
+
+                        <img class="img-fluid" src="info.png" alt="" width="60px">
+                        
+                        <div class="text-center py-3">Sciences de la Terre</div>
+                      
+                    
+                    </div>
+                </div>
+
+                <div class="col" >
+                    <div class="card card-orange d-flex justify-content-center align-items-center py-4" >
+
+                        <img class="img-fluid" src="info.png" alt="" width="60px">
+                        
+                        <div class="text-center py-3">Sciences de la Vie</div>
+                      
+                    
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    <%- include("../globalParts/footer.ejs") %>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!-- 
+    the variables:
+    -diplomes: containe all diplomes ready to delivred
+    -filiereChecked: container the current filiere 
+    -filieres: all filieres
+    -delivered: true,
+    year: false,
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../parts/header.ejs') %>
+    <link rel="stylesheet" href="/style/diplomesPage.css">
+    <title>Diplomes</title>
+</head>
+<body style="background-color: #FAFAFA;">
+<%- include('../parts/preload.ejs') %>
+<%- include("../parts/menus.ejs") %>
+<%- include("../parts/messages.ejs") %>
+<div  class="content">
+    <div class="container-fluid p-4 section-1">
+        <div class="row m-0 pt-4 pb-4">
+            <div class=" col-12 col-sm-12 col-md-12 col-lg-5">
+                <div class="title h2">Diplomes: </div>
+            </div>
+            <div class="container-fluid col-12 col-sm-12 col-md-12 col-lg-7">
+                <form id="formSubmit" method="get" action="" class="row">
+                    <div class="col-12 col-sm-12 col-md-4">
+                        <select class="form-select" onchange="changeForm()" name="filiere" id="filiere">
+                            <option value="">Liste des Filières</option>
+                            <% if (typeof filieres != "undefined") { %>
+                                <% filieres.forEach(item => { %>
+                                    <% if (item._id == filiereChecked) { %>
+                                        <option selected value="<%- item._id %>"><%- item.title %></option>
+                                     <% } else { %>
+                                        <option value="<%- item._id %>"><%- item.title %></option>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4">
+                        <select class="form-select" onchange="changeForm()" name="year" id="year">
+                            <option value="false">Année universitaire</option>
+                            <% for( let i = new Date().getFullYear(); i >= 2010 ; i-- ) { %>
+                                <% if (typeof year != undefined && year != false && year == i) { %>
+                                        <option selected value="<%- i %>"><%- i %></option>
+                                    <% } else { %>
+                                        <option value="<%- i %>"><%- i %></option>
+                                <% } %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4">
+                        <select class="form-select" onchange="changeForm()" name="delivered" id="delivered">
+                            <% if (delivered == true) { %>
+                                    <option  value="false">No délivrer</option>
+                                    <option selected value="true">Délivrer</option>
+                                <% } else { %>
+                                    <option selected value="false">No délivrer</option>
+                                    <option  value="true">Délivrer</option>
+                            <% } %>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="section-2 pe-4 ps-4">
+        <div class="box container-fluid p-0">
+            <div class="row row-1 m-0 p-0">
+                <div class="col-12 p-3">
+                    <div class="title h5 m-0">
+                        La liste des étudiants:
+                    </div>
+                </div>
+            </div>
+            <div class="row row-2 p-3 pb-0">
+                <div class=" col-12 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="pt-2 pb-2 ">
+                                <th scope="col">CNE</th>
+                                <th scope="col">Nom complète</th>
+                                <th scope="col">Section</th>
+                                <th scope="col">Etat</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (diplomes != false) { %>
+
+                                <% diplomes.forEach(item => { %>
+                                 <tr>
+                                    <th><%- item.cne %></th>
+                                    <td><%- item.fullName %></td>
+                                    <td><%- item.section %></td>
+                                    <td><%- item.state %></td>
+                                    <td>
+                                        <% if (delivered == true || item.state == true) { %>
+                                                <button disabled  class="btn btn-success">Délivrer</button>
+                                            <% } else { %>
+                                                <button data-reference="<%- item.cne %>" onclick="deliveredOne(this)"  class="btn btn-success">Délivrer</button>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                                <% } else { %>
+                                 
+                            <% } %>
+                            
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th style="border:0px;"></th>
+                                <td style="border:0px;"></td>
+                                <td style="border:0px;"></td>
+                                <td style="border:0px;"></td>
+                                <td style="border:0px;">
+                                    <% if (delivered) { %>
+                                        <button style="border-radius: 20px;" disabled class="btn btn-success">Délivrer Tous</button>
+                                     <% } else { %>
+                                        <button style="border-radius: 20px;" onclick="delivredAll()" class="btn btn-success">Délivrer Tous</button>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="col-12">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../parts/footer.ejs') %>
+<script src="/js/diplomes.js"></script>
+<script>
+    
+</script>
+</body>
+</html>

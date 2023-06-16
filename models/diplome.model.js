@@ -12,13 +12,14 @@ const Student = require("./student.model").Student;
 const Evaluation = require("./evaluation.model").Evaluation;
 const BlockChain = require("./blockChain.model");
 const { resolve } = require("@truffle/contract/lib/promievent");
+const PromiEvent = require("@truffle/contract/lib/promievent");
 const diplomeSchema = mongoose.Schema({
   title: String,
   dateObtained: Date,
   state: Boolean,
   student: String,
 });
-var Diplome = mongoose.model("diplome", diplomeSchema);
+const Diplome = mongoose.model("diplome", diplomeSchema);
 
 //export model functions
 module.exports = {
@@ -34,6 +35,8 @@ module.exports = {
   getStudentsNoDelivered,
   getStudentsDelivered,
   deliveredMany,
+  deliveredOne,
+  getOneByRef,
 };
 
 //insert function
@@ -261,7 +264,7 @@ function getStudentsNoDelivered(idFiliere, year) {
           $unwind: "$filiereData",
         },
       ];
-      if (typeof year == "undefined") {
+      if (typeof year == "undefined" || year == "false" || year == "") {
         query.push({
           $match: {
             "filiereData._id": new ObjectId(idFiliere),
@@ -270,7 +273,7 @@ function getStudentsNoDelivered(idFiliere, year) {
       } else {
         query.push({
           $match: {
-            "sectionData.year": year,
+            "sectionData.year": Number(year),
             "filiereData._id": new ObjectId(idFiliere),
           },
         });
@@ -384,7 +387,7 @@ function getStudentsDelivered(idFiliere, year) {
             $unwind: "$filiereInfos",
           },
         ];
-        if (typeof year == "undefined") {
+        if (typeof year == "undefined" || year == "false" || year == "") {
           query.push({
             $match: {
               "filiereInfos._id": new ObjectId(idFiliere),
@@ -394,7 +397,7 @@ function getStudentsDelivered(idFiliere, year) {
         } else {
           query.push({
             $match: {
-              "sectionInfos.year": year,
+              "sectionInfos.year": Number(year),
               "filiereInfos._id": new ObjectId(idFiliere),
               state: true,
             },
@@ -460,7 +463,6 @@ function deliveredMany(students, account) {
         .then((result) => {
           console.log("diplomes was add seccussfully");
           mongoose.disconnect();
-
           resolve("diplomes add");
         })
         .catch((err) => {
@@ -471,4 +473,142 @@ function deliveredMany(students, account) {
   });
 }
 
-function deliveredOne(student, account) {}
+function deliveredOne(account, filiere, reference) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(urlDb).then((err) => {
+      Student.aggregate([
+        {
+          $lookup: {
+            from: "sections",
+            localField: "section",
+            foreignField: "_id",
+            as: "sectionInfos",
+          },
+        },
+        {
+          $unwind: "$sectionInfos",
+        },
+        {
+          $lookup: {
+            from: "filieres",
+            localField: "sectionInfos.filiere",
+            foreignField: "_id",
+            as: "filiereInfos",
+          },
+        },
+        {
+          $unwind: "$filiereInfos",
+        },
+        {
+          $match: {
+            reference: reference,
+          },
+        },
+      ])
+        .then((student) => {
+          addNew(
+            student[0].filiereInfos.cycle + " " + student[0].filiereInfos.title,
+            new Date(),
+            reference
+          ).then((diplomeInfo) => {
+            let studentInfo = student[0];
+            let filiereInfo = student[0].filiereInfos;
+            let sectionInfo = student[0].sectionInfos;
+            BlockChain.addDiplome(
+              account,
+              diplomeInfo._id.toString(),
+              studentInfo.firstName + " " + studentInfo.lastName,
+              studentInfo.cin,
+              studentInfo.reference,
+              new Date(studentInfo.birthday).toLocaleDateString("en-US"),
+              filiereInfo.title,
+              filiereInfo.cycle,
+              sectionInfo.title,
+              "ENS de Rabat"
+            )
+              .then((result) => {
+                resolve(result);
+              })
+              .catch((err) => {
+                reject(err);
+              });
+          });
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  });
+}
+
+function getOneByRef(ref) {
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(urlDb, { useNewUrlParser: true })
+      .then((err) => {
+        Diplome.aggregate([
+          {
+            $lookup: {
+              from: "students",
+              localField: "student",
+              foreignField: "reference",
+              as: "studentInfos",
+            },
+          },
+          {
+            $unwind: "$studentInfos",
+          },
+          {
+            $lookup: {
+              from: "sections",
+              localField: "studentInfos.section",
+              foreignField: "_id",
+              as: "sectionInfos",
+            },
+          },
+          {
+            $unwind: "$sectionInfos",
+          },
+          {
+            $lookup: {
+              from: "filieres",
+              localField: "sectionInfos.filiere",
+              foreignField: "_id",
+              as: "filiereInfos",
+            },
+          },
+          {
+            $unwind: "$filiereInfos",
+          },
+          {
+            $lookup: {
+              from: "departements",
+              localField: "filiereInfos.departement",
+              foreignField: "_id",
+              as: "departementInfos",
+            },
+          },
+          {
+            $unwind: "$departementInfos",
+          },
+          {
+            $match: {
+              student: ref,
+              state: true,
+            },
+          },
+        ])
+          .then((result) => {
+            mongoose.disconnect();
+            resolve(result);
+          })
+          .catch((err) => {
+            mongoose.disconnect();
+            reject(err);
+          });
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}

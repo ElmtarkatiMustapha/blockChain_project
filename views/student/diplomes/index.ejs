@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../globalParts/header.ejs') %>
+    <link rel="stylesheet" href="/style/studentDiplome.css">
+    <title>diplomes</title>
+</head>
+<body style="background-color: #FAFAFA;">
+    <%- include('../../globalParts/preload.ejs') %>
+    <%- include('../parts/menus.ejs') %>
+    <%- include('../../globalParts/messages.ejs') %>
+
+    <% if (typeof diplome != "undefined" && diplome != "") { %>
+        <!-- if the diplome is delivred -->
+        <div id="boom1" class="boom boom1"></div>
+        <div id="boom2" class="boom boom2"></div>
+        <div id="boom3" class="boom boom3"></div>
+        <div class="content">
+            <div class="container-fluid section-1">
+                <div class="row justify-content-center m-0">
+                    <div class="col-2 col-md-2 col-lg-1  align-self-center p-0 m-0">
+                        <div class="d-inline-block animation" id="box-1"></div>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-1 align-self-center p-0 m-0">
+                        <div class="d-inline-block animation" id="box-2"></div>
+                    </div>
+                    <div class="col-4 align-self-center">
+                        <div class="d-inline-block title" >Félicitation!!</div>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-1 align-self-center p-0 m-0">
+                        <div class="d-inline-block animation" id="box-3"></div>
+                    </div>
+                    <div style="overflow-x: clip;" class="col-2 col-md-2 col-lg-1 align-self-center p-0 m-0">
+                        <div class="d-inline-block animation" id="box-4"></div>
+                    </div>
+                </div>
+                <div class="row justify-content-center m-0">
+                    <div class="col-sm-12 col-md-8 col-lg-6 text-center ">
+                        <div class="sub-title">Vous avez terminer votre <%- diplome.title %> avec réussir </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid section-2 pb-4">
+                <div class="row ">
+                    <div class="col-8 col-lg-4 m-auto part-1">
+                        <div class="elem container-fluid p-3">
+                            <div class="row m-0">
+                                <div class="col-5 title">
+                                    <i class="fas fa-user-circle profile"></i>
+                                </div>
+                                <div class="col-7 sub-title align-self-center">
+                                    <%- diplome.filiereInfos.cycle %>
+                                </div>
+                            </div>
+                            <div class="row m-0">
+                                <div class="col-5 title">Filière</div>
+                                <div class="col-7 sub-title"><%- diplome.filiereInfos.title %></div>
+
+                                <div class="col-5 title">Date d'obtention</div>
+                                <div class="col-7 sub-title"><%- new Date(diplome.dateObtained).toLocaleDateString("en-US")  %></div>
+
+                                <div class="col-5 title">Section</div>
+                                <div class="col-7 sub-title"><%- diplome.sectionInfos.title %></div>
+
+                                <div class="col-5 title">Départements</div>
+                                <div class="col-7 sub-title"><%- diplome.departementInfos.label %></div>
+                            </div>
+                        </div>
+                        <div class="container-fluid pb-4 pt-4">
+                            <div class="row">
+                                <div class="col-6 ">
+                                    <button onclick="shareCertificateOnLinkedIn()" class="btn btn-share">Partager <i class="fa-solid fa-share-nodes"></i> </button>
+                                </div>
+                                <div class="col-6 ">
+                                    <button onclick="printCerti()" class="btn btn-download">Télècharger <i class="fa-solid fa-cloud-arrow-down"></i> </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8 part-2">
+                        <div  class="container-fluid">
+                            <div class="row justify-content-center">
+                            <div class="col-11 col-md-11">
+                                <div id="toPrint" class="result-section ">
+                                <div class="certificat container-fluid">
+                                    <div class="row row-1">
+                                    <div class="col-2 text-center">
+                                        <img src="/images/logo1.png" class="logo" alt="">
+                                    </div>
+                                    <div class="col-8 text-center">
+                                        <div class="company-name">Université Mohammed V de RABAT <br> Ecole Normale Supérieur </div>
+                                        <img src="/images/shape1.png" class="shape1" alt="">
+                                    </div>
+                                    <div class="col-2 text-center">
+                                        <img src="/images/logo2.png" class="logo" alt="">
+                                    </div>
+                                    </div>
+                                    <div class="row row-2 justify-content-center">
+                                    <div class="col-11 text-center">
+                                        <div class="title"><%- diplome.filiereInfos.cycle %></div>
+                                        <div class="sub-title"> <span style="font-weight: bold;">Filiere:</span> <%- diplome.filiereInfos.title %></div>
+                                        <div class="student-name"><%-diplome.studentInfos.firstName + " "+ diplome.studentInfos.lastName %></div>
+                                        <div class="student-infos container-fluid">
+                                        <div class="row">
+                                            <div class="col-3 text-center">
+                                            <div class="info"><span>Date naissance: </span> <%- new Date(diplome.studentInfos.birthday).toLocaleDateString("en-US") %> </div>
+                                            </div>
+                                            <div class="col-3 text-center">
+                                            <div class="info"><span>CIN: </span> <%- diplome.studentInfos.cin %> </div>
+                                            </div>
+                                            <div class="col-3 text-center">
+                                            <div class="info"><span>CNE: </span> <%- diplome.studentInfos.reference %> </div>
+                                            </div>
+                                            <div class="col-3 text-center">
+                                            <div class="info"><span>Section: </span> <%- diplome.sectionInfos.title %> </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row row-3">
+                                    <div class="col-10 pt-3 container-fluid">
+                                        <div class="row">
+                                        <div class="col-4 text-center">
+                                            <img src="/images/signature1.png" alt="" class="signature">
+                                            <div class="name-person">Mr M.GAROUM</div>
+                                            <div class="profession">Directeur d'ENS</div>
+                                        </div>
+                                        <div class="col-4 text-center">
+                                            <img src="<%- qrData %>" alt="" class="qrCode">
+                                            <div style="font-size: 0.7rem;">
+                                                <%- diplome._id %>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 text-center">
+                                            <img src="/images/signature2.png" alt="" class="signature">
+                                            <div class="name-person">Pr. Mohammed RHACHI</div>
+                                            <div class="profession">Président</div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+     <% } else { %>
+        <!-- if the diplome not delivred yet -->
+        <div class="container-fluid not-found">
+            <div class="row h-100 row-1 align-items-center justify-content-center">
+                <div class="col-12 col-sm-12 col-md-8 align-self-center">
+                    <div class="title">Votre diplôme n'est pas disponible pour le moment</div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+
+
+    <%- include('../../globalParts/footer.ejs') %>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script> 
+    <script>
+        
+        function shareCertificateOnLinkedIn() {
+            
+            var elementToCapture = document.querySelector("#toPrint"); // Replace with your certificate HTML content
+                // Use html2canvas to capture the element as an image
+                html2canvas(elementToCapture).then(canvas => {
+                // Convert the canvas to a data URL representing the image
+                const dataUrl = canvas.toDataURL('image/jpeg');
+
+                // Set the data URL as the certificate image URL
+                const certificateImageUrl = dataUrl;
+
+                const encodedCertificateUrl = encodeURIComponent("http.//localhost:3000/images/brand.png");
+                const encodedCertificateImageUrl = encodeURIComponent(certificateImageUrl);
+                // const encodedRedirectUrl = encodeURIComponent(redirectUrl);
+
+                // Construct the LinkedIn share URL with the certificate image
+                const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite?url=${encodedCertificateUrl}&media=${encodedCertificateImageUrl}`;
+
+                // Output the share URL
+                console.log(linkedinShareUrl);
+
+                // Now you can use the certificateImageUrl in the LinkedIn share link or any other purpose
+                });
+            
+        }
+        function printCerti(){
+            // var btn = document.getElementById("btn");
+            var createpdf = document.querySelector("#toPrint");
+            var opt = {
+                margin: 0,
+                filename: 'certificate.pdf',
+                html2canvas: {
+                    scale: 4,
+                    width: 2000,
+                },
+                jsPDF: {
+                    unit: 'px',
+                    format: 'A4',
+                    orientation: 'landscape'
+                }
+            };
+            html2pdf().set(opt).from(createpdf).save();
+        }
+
+        var animation = bodymovin.loadAnimation({
+        container: document.getElementById('box-1'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/images/5440-congrats-on-receiving-healthies-and-nairas.json' // Path to your animation JSON file
+        });
+        var animation2 = bodymovin.loadAnimation({
+        container: document.getElementById('box-2'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/images/117507-payment-successful.json' // Path to your animation JSON file
+        });
+        var animation3 = bodymovin.loadAnimation({
+        container: document.getElementById('box-3'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/images/117507-payment-successful.json' // Path to your animation JSON file
+        });
+        var animation4 = bodymovin.loadAnimation({
+        container: document.getElementById('box-4'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/images/5440-congrats-on-receiving-healthies-and-nairas.json' // Path to your animation JSON file
+        });
+        var animation5 = bodymovin.loadAnimation({
+        container: document.getElementById('boom1'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/images/86428-congrats-animation.json' // Path to your animation JSON file
+        });
+        var animation6 = bodymovin.loadAnimation({
+        container: document.getElementById('boom2'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/images/86428-congrats-animation.json' // Path to your animation JSON file
+        });
+        var animation7 = bodymovin.loadAnimation({
+        container: document.getElementById('boom3'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/images/86428-congrats-animation.json' // Path to your animation JSON file
+        });
+    </script>
+</body>
+</html>

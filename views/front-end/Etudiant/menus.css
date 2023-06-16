@@ -1,0 +1,221 @@
+background-color{
+               color:white;
+               filter : drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.106));
+               padding : 0.5% 0%;
+               font-family: JOST;
+}
+
+
+.menu .col-menu .fa-bars {
+color: #2F4383;
+font-size: 2.3rem;
+}
+
+.menu .col-menu .fa-user-circle {
+color: #EF8823;
+font-size: 2.5rem;
+}
+
+.menu-content .text-reset {
+border: none;
+background-color: transparent;
+}
+
+.menu-content .text-reset i {
+font-size: 2rem;
+color: #2F4383;
+}
+
+.menu-content .custom-link {
+font-size: 1.5rem;
+font-family: "jost", sans-serif;
+color: #2F4383;
+text-decoration: none;
+font-weight: 600;
+font-style: normal;
+transition: all ease 600ms;
+}
+
+.menu-content .parentLink {
+background-color: white;
+border-radius: 10px;
+transition: all ease 600ms;
+}
+
+.menu-content .parentLink:hover {
+background-color: #EF8823;
+}
+
+.menu-content .parentLink:hover .custom-link {
+color: white;
+}
+
+.menu-content .custom-link i {
+font-size: 2rem;
+}
+
+.rightMenu .fa-user-circle {
+color: #EF8823;
+font-size: 6rem;
+}
+
+#blue-text {
+    color:  #2F4383;
+    font-size: 20px;
+    
+  }
+.Bienvenu{
+
+    font-weight: bold;
+    font-size: 40px;
+}
+#nom{
+    color: #EF8823;   
+}
+.box {
+    width: 250px;
+    height: 100px;
+    margin: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 0px solid #000000;
+    border-radius: 10px; /* Coins de la carte arrondis */
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2); /* Ajout de l'ombre */
+   
+    text-align: center;
+  }
+  
+  .box a {
+    color:#ffffff;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  #b1{
+    background-color: #EF8823;
+    margin-left: 20px;
+  }
+  #b2{
+    background-color: #2F4383;
+    margin-left: 60px;
+  }
+
+  #tableau{
+    background-color: #ffffff;
+    border: 0px solid #000000;
+    border-radius: 10px; /* Coins de la carte arrondis */
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2); /* Ajout de l'ombre */
+    margin-top:20px; 
+    padding:20px;
+
+  }
+  #headtitre{
+    text-align: left;
+    font-size: medium;
+    font-weight: bold;
+   
+    
+  }
+  thead{
+    border-bottom: #d1dadf 1px solid;
+  }
+  #nbrnotes{
+    color: #EF8823;
+    margin-left: 5px;
+  }
+ 
+  #tb{
+    border-collapse: separate;
+    border-spacing: 0 20px;  
+  }
+  th{
+    border-bottom: #aaa8a8 solid 1px;
+  }
+/**/
+  #cont1{
+    background-color: #ffffff;
+    border: 0px solid #000000;
+    border-radius: 10px; /* Coins de la carte arrondis */
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2); /* Ajout de l'ombre */ 
+    padding: 0px ;
+
+
+  }
+
+  #t3{
+    background-color: rgb(198, 239, 240);
+   padding:10px;
+   margin: 0px;
+   color: #2F4383;
+   font-weight: bold;
+  }
+  #r1{
+
+   margin-top:20px;
+    margin-left:10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom:30px ;
+
+  }
+  .inputresultat{
+    border: 1px solid #706e6e;
+    border-radius: 10px; /* Coins de la carte arrondis */
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2); /* Ajout de l'ombre */ 
+   width: 50px;
+  }
+ .labelresultat{
+     color: #2F4383;
+     font-weight: bold;
+
+ }
+ .labelSesion{
+  color: #2F4383;
+
+  
+ }
+
+
+ #card {
+  width: 500px;
+  position: relative;
+  border: 0px solid gray;
+  border-radius: 10px; /* Coins de la carte arrondis */
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2); /* Ajout de l'ombre */
+ 
+}
+
+.circle-image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.info-text {
+  color: #2F4383;
+  margin-right: 100px;
+  margin-top: 100px;
+  font-weight: bold;
+}
+.info-text2{
+
+  color: #2F4383;
+  margin-left: 200px;
+  margin-top: 100px;
+  position: absolute;
+  top: 45px;
+  left: 10px;
+
+
+}
+
+
+.imgAcueille{
+  height:40px;
+}
+  /**/
+ 

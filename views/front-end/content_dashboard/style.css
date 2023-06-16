@@ -1,0 +1,61 @@
+:root{
+    --white: #fafafa;
+    --black: #000000;
+    --orange: #EF8823;
+    --blue: #2E4383;
+    --grey: #2E4281;
+    --green: #00E77F;
+    --white: #fafafa;
+    --light-white: #aaa;
+    /* --black: #3d3d3d; */
+    --light-bg: #4b4b4b ; 
+}
+
+
+.card{
+    border-radius: 30px;
+    width: 90%;
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
+    
+    text-decoration: underline;
+    margin: 10px 10px 10px 10px;
+
+}
+
+.card-blue{
+    background-color: var(--blue);
+}
+.card-orange{
+    background-color: var(--orange);
+}
+
+.text{
+    font-size: 20px;
+    text-align: center;
+    margin: 10px 10px 10px 10px;
+    margin-top: 10px;
+    color: var(--blue);
+}
+
+.row{
+    border-radius: 14px; /* Ajustez la valeur selon votre préférence */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    margin-top: 4%;
+}
+
+.text-start{
+    margin-left: 2%;
+}
+
+.text-end{
+    margin-right: 5%;
+}
+
+.text-start, .text-end{
+    font-size: 1.3rem;
+}
+
+
+

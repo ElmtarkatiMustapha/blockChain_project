@@ -27,6 +27,7 @@ const homeRouter = require("./routes/home.router");
 const authRouter = require("./routes/auth.router");
 const adminRouter = require("./routes/admin.router");
 const dashbordRouter = require("./routes/dashbord.router");
+const studentRouter = require("./routes/student/student.router");
 const fileUpload = require("express-fileupload");
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -39,6 +40,7 @@ app.use("/", authRouter);
 app.use("/", authRouter);
 app.use("/dashbord", dashbordRouter);
 app.use("/", adminRouter);
+app.use("/student", studentRouter);
 
 //not found middlware
 // app.use((req, res, next) => {
@@ -46,6 +48,7 @@ app.use("/", adminRouter);
 // });
 //test add to the blockChain
 const blockChain = require("./models/blockChain.model");
+const { Student } = require("./models/student.model");
 app.get("/add", (req, res, next) => {
   res.render("pages/addDiplome");
 });

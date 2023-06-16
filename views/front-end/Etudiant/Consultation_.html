@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="menus.css">
+    <script src="https://kit.fontawesome.com/3b7b82d5db.js" crossorigin="anonymous"></script>   
+    <title>title</title>
+    
+  </head>
+  <body>
+    <!-- start menus -->
+    <div class="top-sticky menu">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6 col-menu  text-start">
+        <a class="btn" data-bs-toggle="offcanvas" href="#leftMenu" role="button" aria-controls="leftMenu">
+          <i style="color:#2F4383;" class="fa-solid fa-bars"></i>
+        </a>
+      </div>
+      <div class="col-6 col-menu text-end">
+        <a class="btn" role="button" data-bs-toggle="offcanvas" href="#rightMenu" aria-controls="rightMenu">
+          <i class="fas fa-user-circle"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- left menu -->
+<div class="offcanvas offcanvas-start menu-content" tabindex="-1" id="leftMenu" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header justify-content-end">
+    <button type="button" class="text-reset" data-bs-dismiss="offcanvas" aria-label="Close"> <i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <ul class="nav flex-column">
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/dashbord">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-gauge-high"></i></div>
+          <div class="col-8 align-self-center">Dashboard</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/departements">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-building"></i></div>
+          <div class="col-8 align-self-center">Departements</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/filieres">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-shapes"></i></div>
+          <div class="col-8 align-self-center">Filières</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/modules">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-boxes-stacked"></i></div>
+          <div class="col-8 align-self-center">Modules</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/sections">
+          <div class="col-2 align-self-center "><i class="fa-regular fa-object-ungroup"></i></div>
+          <div class="col-8 align-self-center">Sections</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/students">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="col-8 align-self-center">Etudiants</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/professsors">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-user-tie"></i></div>
+          <div class="col-8 align-self-center">Professeurs</div>
+        </a>
+      </li>
+      <li class="container-fluid parentLink p-3">
+        <a class="row custom-link" href="/diplomes">
+          <div class="col-2 align-self-center "><i class="fa-solid fa-certificate"></i></i></div>
+          <div class="col-8 align-self-center">Gestion diplômes</div>
+        </a>
+      </li>
+    </ul>
+    </div>
+  </div>
+</div>
+
+<!-- right menu -->
+<div class="offcanvas offcanvas-end rightMenu" tabindex="-1" id="rightMenu" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel"></h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body container-fluid">
+    <div class="row text-center ">
+        <div class="col-12">
+            <i class="fas fa-user-circle"></i>
+        </div>
+        <ul class="nav col-12 justify-content-center pt-4">
+            <li class="nav-item text-center">
+                <a href="" class="nav-link">Parametre du profile</a>
+            </li>
+            <li class="nav-item">
+                <a  href="" class="nav-link text-danger">Se deconnecter</a>
+            </li>
+        </ul>
+    </div>
+  </div>
+</div>
+<!-- end menus -->
+<!-- start content -->
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container text-left" id="blue-text">
+        <p class="Bienvenu">Bienvenu <label id="nom">Bouchra</label>,</p>
+      </div>
+      <div class="container" id="cont1">
+        <P id="t3">Suivi des notes</P>     
+        <div class="row" id="r1">
+          <div class="col-md-4" id="rc1">
+              <div class="form-row">
+                  <div class="col" style="margin-right:20px;">
+                      <label for="anneeUniversitaire" class="labelSesion">Année universitaire :</label>
+                      <select id="anneeUniversitaire" class="form-select form-select-sm" style="height: 30px; width: calc(100% + 15px); font-size: 12px; color: #2F4383;">
+                        <option value="2022-2023">2022-2023</option>
+                        <option value="2023-2024">2023-2024</option>
+                        <option value="2024-2025">2024-2025</option>
+                        <!-- Ajoutez d'autres années universitaires ici -->
+                      </select>
+                  </div>
+                  <div class="col">
+                      <label for="semestre" class="labelSesion">Semestre :</label>
+                       <select id="semestre" class="form-select form-select-sm" style="height: 30px; width: calc(100% + 15px); font-size: 12px; color: #2F4383;">
+                         <option value="1">Semestre 1</option>
+                         <option value="2">Semestre 2</option>
+                         <option value="3">Semestre 3</option>
+      <!-- Ajoutez d'autres semestres ici -->
+                      </select>
+                      
+                  </div>  
+                  <div  style="margin-top:36px;margin-left:18px; "><i class="fa-solid fa-magnifying-glass" style="color: #2F4383;"></i></div>
+                 
+              </div>
+              
+          </div>
+      </div>
+          
+          <table class="table" id="tab1">
+            <thead>
+              <tr>
+                <th>Modules</th>
+                <th>Examen</th>
+                <th>État</th>
+                <th>Notes max</th>
+                <th>Notes min</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Module 1</td>
+                <td>Examen 1</td>
+                <td>État 1</td>
+                <td>10</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>Module 2</td>
+                <td>Examen 2</td>
+                <td>État 2</td>
+                <td>15</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <td>Module 3</td>
+                <td>Examen 3</td>
+                <td>État 3</td>
+                <td>12</td>
+                <td>6</td>
+              </tr>
+              <tr>
+                <td>Module 4</td>
+                <td>Examen 4</td>
+                <td>État 4</td>
+                <td>18</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <td>Module 5</td>
+                <td>Examen 5</td>
+                <td>État 5</td>
+                <td>16</td>
+                <td>9</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <div class="row" style="margin-left:650px ;">
+            <div class="col-md-12">
+                <div class="form-row">
+                    <div class="col">
+                      <label for="noteSemestre" class="labelresultat">Note semestre :</label>
+                      <input type="text" id="noteSemestre" class="inputresultat">                                  
+                      <label for="etat" class="labelresultat" >État :</label>
+                      <input type="text" id="etat" class="inputresultat">
+                    </div>  
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   </body>
+</html>

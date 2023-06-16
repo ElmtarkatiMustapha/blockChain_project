@@ -22,7 +22,7 @@ module.exports = {
   deleteOne,
   setTitle,
 };
-
+ 
 //insert function
 function addNew(title, year, filiere) {
   return new Promise((resolve, reject) => {

@@ -1,5 +1,12 @@
-<%- include("../parts/header.ejs") %> 
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../globalParts/header.ejs") %> 
+  <link rel="stylesheet" href="/style/homePage.css" />
+  <title>Document</title>
+</head>
+<body>
+<%- include('../globalParts/preload.ejs') %>
 <nav class="navbar navbar-expand-md">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
@@ -177,34 +184,21 @@
                     <div class="row">
                       <div class="col-4 text-center">
                         <img src="/images/signature1.png" alt="" class="signature">
-                        <div class="name-person">mr Mustapha El Mtarkati</div>
-                        <div class="profession">developpeur web</div>
+                        <div class="name-person">Mr M.GAROUM</div>
+                        <div class="profession">Directeur d'ENS</div>
                       </div>
                       <div class="col-4 text-center">
                         <img src="<%- qrData %>" alt="" class="qrCode">
+                        <div style="font-size: 0.7rem;"><%- item.idDiplom %></div>
                       </div>
                       <div class="col-4 text-center">
                         <img src="/images/signature2.png" alt="" class="signature">
-                        <div class="name-person">mr Mustapha El Mtarkati</div>
-                        <div class="profession">developpeur web</div>
+                        <div class="name-person">Pr. Mohammed RHACHI</div>
+                        <div class="profession">Président</div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="container-fluid p-4">
-        <div class="row m-0 justify-content-center">
-          <div class="col-11 col-md-11 col-lg-8 container-fluid ">
-            <div class="row m-0">
-              <div class="col-6 text-end">
-                <button class="btn btn-orange" onclick="printCerti(this)"> Télecharger</button>
-              </div>
-              <div class="col-6">
-                <button class="btn btn-blue" onclick=""> Partager</button>
               </div>
             </div>
           </div>
@@ -318,8 +312,8 @@ Ouazzani, BP : 5118. Takaddoum
   </div>
 </div>
 
-
-<script src= "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"> </script>
+<%- include("../globalParts/footer.ejs") %>
+<script src="/js/homePage.js"></script>
 <script>
   //To create a pdf
   function printCerti(elem){
@@ -342,5 +336,6 @@ Ouazzani, BP : 5118. Takaddoum
       html2pdf().set(opt).from(createpdf).save();
   }
 </script>
+</body>
+</html>
 
-<%- include("../parts/footer.ejs") %>

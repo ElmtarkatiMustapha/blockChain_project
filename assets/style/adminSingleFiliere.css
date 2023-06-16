@@ -1,0 +1,184 @@
+:root {
+    --white: #fafafa;
+    --black: #000000;
+    --orange: #EF8823;
+    --blue: #2E4383;
+    --grey: #2E4281;
+    --green: #00E77F;
+    --white: #fafafa;
+    --light-white: #aaa;
+    /* --black: #3d3d3d; */
+    --light-bg: #4b4b4b;
+}
+
+.btn-custom-orange {
+    font-family: 'Jost', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    background-color: #EF8823;
+    border: 2px solid #EF8823;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.115));
+}
+
+.btn-custom-orange:hover {
+    background-color: transparent;
+    border: 2px solid #EF8823;
+    color: #EF8823;
+}
+
+.btn-orange {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    background-color: #EF8823;
+    border: 2px solid #EF8823;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.115));
+}
+
+.btn-orange:hover {
+    background-color: transparent;
+    border: 2px solid #EF8823;
+    color: #EF8823;
+}
+
+.btn-blue {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    background-color: #2E4383;
+    border: 2px solid #2E4383;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.115));
+}
+
+.btn-blue:hover {
+    background-color: transparent;
+    border: 2px solid #2E4383;
+    color: #2E4383;
+}
+
+.btn-green {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    background-color: #208E45;
+    border: 2px solid #208E45;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.115));
+}
+
+.btn-green:hover {
+    background-color: transparent;
+    border: 2px solid #208E45;
+    color: #208E45;
+}
+
+.section-1 {
+    font-family: 'jost', sans-serif;
+}
+
+.section-1 .row-1 .title {
+    font-weight: 600;
+    font-size: 2rem;
+    color: #2E4383;
+}
+
+.section-1 .row-1 .title label {
+    color: #EF8823;
+}
+
+.section-1 .row-2 {}
+
+.section-1 .row-2 .elem {
+    border-radius: 16px;
+    color: white;
+    padding: 10% 2%;
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.119));
+}
+
+
+.section-1 .row-2 .elem-1 {
+    background-color: #2F4383;
+}
+
+.section-1 .row-2 .elem-2 {
+    background-color: #EF8823;
+}
+
+.section-1 .row-2 .elem .icon {
+    padding: 2%;
+}
+
+.section-1 .row-2 .elem .icon i {
+    font-size: 2.7rem;
+}
+
+.section-1 .row-2 .elem .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.section-1 .row-2 .elem .title a {
+    color: white;
+}
+
+.section-2 {
+    font-family: "jost", sans-serif;
+}
+
+.section-2 .elem {
+    border-radius: 20px;
+    background-color: white;
+    overflow: hidden;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.09));
+}
+
+.section-2 .elem .row-1 {
+    background-color: #dcebef91;
+}
+
+.section-2 .elem .row-1 .title {
+    color: #2E4383;
+    font-size: 1.1rem;
+}
+
+.section-2 .elem .row-2 {}
+
+.section-2 .elem .row-2 .title {
+    font-weight: 500;
+}
+
+.section-2 .elem .row-2 .info {
+    padding-left: 2%;
+}
+
+.section-3 {
+    font-family: "jost", sans-serif;
+}
+
+.section-3 .elem {
+    border-radius: 20px;
+    background-color: white;
+    overflow: hidden;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.09));
+}
+
+.section-3 .elem .row-1 {
+    background-color: #dcebef91;
+}
+
+.section-3 .elem .row-1 .title {
+    color: #2E4383;
+    font-size: 1.1rem;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+    --bs-table-accent-bg: #F2FFFC !important;
+}

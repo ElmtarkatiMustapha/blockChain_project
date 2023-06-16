@@ -1,24 +1,167 @@
-<%- include("../parts/header.ejs") %>
-<div class="container-fluid">
-  <form action="" method="post" class="row g-3 m-3">
-    <div class="col-6">
-      <label for="userName" class="form-label">userName: </label>
-      <input type="text" name="userName" id="userName" class="form-control" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../globalParts/header.ejs") %>
+  <link rel="stylesheet" href="/style/login.css">
+  <title>Se connecter</title>
+</head>
+<body>
+  <%- include('../globalParts/preload.ejs') %>
+  <%- include('../globalParts/messages.ejs') %>
+
+<nav class="navbar navbar-expand-md">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img class="img img-brand" src="/images/brand.png" alt="">
+    </a>
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#contact">Contact</a>
+        </li>
+      </ul>
     </div>
-    <div class="col-6">
-      <label for="password" class="form-label">password: </label>
-      <input type="text" name="password" id="password" class="form-control" />
+    
+  </div>
+</nav>
+<div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel"></h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Accueil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#contact">Contact</a>
+      </li>
+    </ul>
+  </div>  
+</div>
+
+
+<div class="container-fluid section-1 p-0">
+  <div class="row m-0 align-items-center">
+    <div class="col-12 col-md-6 d-none d-md-block">
+      <img class="scene-1" src="/images/Groupe 654.png" alt="">
     </div>
-    <div class="col-6">
-      <input type="submit" value="login" />
+    <div class="col-11 col-sm-10 col-md-6 p-1 container-fluid">
+      <div class="row p-3 m-0 justify-content-center">
+        <div class="col-12 col-md-11 col-lg-9">
+          <div class="container-fluid elem p-4">
+            <form action="" method="post" class="row m-0">
+              <div class="col-12 pt-1 pb-3">
+                <div class="title">Bienvenue!!</div>
+                <div class="sub-title">
+                  Entrez votre UserName et votre mot de pass
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Username" name="userName">
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" name="password">
+                </div>
+              </div>
+              <div class="col-12 text-end">
+                <div class="caption">J'ai oublier le mot de pass?</div>
+              </div>
+              <div class="col-12 text-center pt-3 ">
+                <input type="submit" value="Connecter" class="btn btn-blue">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-  </form>
-  <div class="row">
-    <div class="col-6 bg-danger">
-      <% if (typeof(error) != 'undefined' && error != "" && error != null) { %>
-      <%- error %> <% } %>
+  </div>
+</div>
+<div class="container-fluid section-2 pt-4 pb-3">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="title">Bienvenue à l'ENS de RABAT</div>
+      <div class="sub-title">Cet espace réservé pour les étudiants, professeurs,administrateur</div>
     </div>
   </div>
 </div>
 
-<%- include("../parts/footer.ejs") %>
+
+
+
+<!-- header section starts -->
+<!-- <header class="header">
+  <section class="flex">
+      <a href="#home" class="logo"> <img src="/images/Groupe 752.png" alt="" width="120px"> </a>
+      <nav class="navbar">
+          <a href="#home" class="active"><i>Acceuil</i></a>
+          <a href="#contact"><i>Contact</i></a>
+      </nav>
+  </section>
+</header> -->
+<!-- header section ends -->
+<!-- container -->
+<!-- <div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-6 d-none d-md-block">
+      <div class="img">
+        <img src="/images/Groupe 654.png" style="width: 600px;  " alt="">
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6">
+      <div class="forms-container"> 
+        <div class="signin">
+            <form action="" method="post" class="sign-in-form">
+                <h2 class="title">Se connecter</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Username" name="userName">
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" name="password">
+                </div>
+                <a href="" class="mdps-oublie" >j'ai oublié le mot de passe oublié!</a>
+                <input type="submit" value="Connecter" class="btn solid">
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+<!-- <div class="container">
+  <div class="footer">
+    <div class="panels-container">
+          <div class="panel left-panel">
+              <div class="content">
+                  <h2>Bienvenue à l'ENS de Rabat</h2>
+                  <br>
+                  <p>Cet espace est reservé pour les étudiants,<br> professeurs, administrateur
+                  </p>
+              </div>
+          </div>
+    </div>
+  </div>
+</div>  -->
+<%- include("../globalParts/footer.ejs") %>
+</body>
+</html>
+
+

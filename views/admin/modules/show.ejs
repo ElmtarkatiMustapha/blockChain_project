@@ -1,0 +1,184 @@
+<!-- 
+  moduleInfo: data,
+  filiereInfo: filiere,
+  profInfo: prof,
+  students: students,
+  idModule: id,
+  successMessage: message,
+  errorMessage: error,
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../globalParts/header.ejs') %>
+  <link rel="stylesheet" href="/style/adminSingleModule.css">
+  <title>Single Module</title>
+</head>
+<body style="background-color: #fafafa;">
+  <%- include('../../globalParts/preload.ejs') %>
+  <%- include('../parts/menus.ejs') %>
+  <%- include('../../globalParts/messages.ejs') %>
+  <div class="container-fluid section-1 p-4">
+    <div class="row">
+      <div class="col-8 title">
+        Module: <label><%- moduleInfo.title %></label>
+      </div>
+      <div class="col-4 text-end">
+        <a class="btn btn-orange text-center" href="/modules/edit/<%- moduleInfo._id %>">Modifier</a>
+      </div>
+    </div>
+  </div>
+  <div class="section-2 p-4">
+    <div class="elem container-fluid p-0">
+      <div class="row row-1 m-0 p-3">
+        <div class="col-12 title p-1">
+          Les informations du module
+        </div>
+      </div>
+      <div class="row m-0 row-2 p-3">
+        <div class="col-12  col-sm-6 col-lg-4 p-2">
+          <div class="title">Le titre du module: </div>
+          <div class="info"><%- moduleInfo.title %></div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-2">
+          <div class="title">Semestre du module: </div>
+          <div class="info"> semester <%- moduleInfo.semester %></div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-2">
+          <div class="title">Filière: </div>
+          <div class="info"><%- filiereInfo.title %></div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-2">
+          <div class="title">Cycle: </div>
+          <div class="info"><%- filiereInfo.cycle %></div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-2">
+          <div class="title">Professeur: </div>
+          <div class="info"><%- profInfo.firstName+" "+ profInfo.lastName %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="section-3 p-4">
+    <div class="container-fluid elem p-0">
+      <div class="row-1 row m-0 p-3">
+        <div class="col-12 title">La liste des étudiants:</div>
+      </div>
+      <div class="row-2 row m-0 p-3">
+        <div class="col-12 col-lg-8 container-fluid p-1">
+          <form action="" method="post" enctype="multipart/form-data" class="row">
+            <div class="col-12 col-sm-7 p-1">
+              <input required type="file" name="file" class="form-control" />
+              <input type="hidden" name="idModule"  value="<%-idModule%>">
+            </div>
+            <div class="col-6 col-sm-2 p-1">
+              <input type="submit" value="Valider" class="btn btn-green" />
+            </div>
+            <div class="col-3 col-sm-3 p-1">
+              <input type="button" onclick="downloadCSV()" value="Télécharger" class="btn btn-blue" />
+            </div>
+          </form>
+        </div>
+        <form id="formSubmit" method="get" action="" class="col-12 col-lg-4 p-1">
+          <select class="form-select" onchange="changeForm()" name="validate" id="validate">
+            <% if (typeof validate == undefined || validate == "false") { %>
+              <option selected value="false">No Validé</option>
+              <% } else { %>
+                <option value="false">No Validé</option>
+            <% } %>
+            <% if (validate == true) { %>
+              <option selected value="true">Validé</option>
+              <% } else { %>
+                <option value="true">Validé</option>
+            <% } %>  
+            
+          </select>
+        </form>
+      </div>
+      <form method="post" action="/modules/saveGrades" class="row row-3 m-0 p-3">
+        <div class=" col-12 table-responsive">
+          <table class="table table-striped">
+              <thead>
+                  <tr class="pt-2 pb-2 ">
+                      <th scope="col">CNE</th>
+                      <th scope="col">Nom complète</th>
+                      <th scope="col">La Note</th>
+                      <th scope="col">Etat</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <% if (typeof students != undefined && students.length !=0 && students != "" ) { %>
+                      <% students.forEach(item => { %>
+                        <% let studentInfo = item.student[0]; %>
+                        <tr>
+                          <th><%- studentInfo.reference %></th>
+                          <td><%- studentInfo.firstName + " " + studentInfo.lastName %></td>
+                          <td>
+                            <input type="hidden" name="studentRef[]" value="<%-studentInfo.reference %>"/>
+                            <input style="min-width: 4rem;" class="form-control" type="number" name="grade[]" value="<%- item.grade %>">
+                          </td>
+                          <td>
+                            <% if (item.grade >=10) { %>
+                                Valide
+                              <% } else { %>
+                                Non Valide
+                            <% } %>
+                          </td>
+                      </tr>
+                      <% }) %>
+                  <% } %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th style="border:0px;"></th>
+                  <td style="border:0px;"></td>
+                  <td style="border:0px;"></td>
+                  <td style="border:0px;">
+                    <input type="submit" value="Sauvegarder" class="btn btn-green" />
+                  </td>
+                </tr>
+              </tfoot>
+          </table>
+        </div>
+        <input type="hidden" name="idModule" value="<%-idModule%>">
+        <input type="hidden" name="validate" value="<%-validate%>">
+      </form>
+    </div>
+  </div>
+  <%- include('../../globalParts/footer.ejs') %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+  <script>
+    const data = JSON.parse('<%- JSON.stringify(students) %>');
+    let table = []
+    table.push(["cne","Nom et Prenom","note"]);
+    data.forEach(elem => {
+      table.push([elem.referenceStudent,elem.student[0].firstName + " "+elem.student[0].lastName ,elem.grade]);
+    });
+    function convertArrayToCSV(array) {
+      const csv = Papa.unparse(array,{ delimiter: ";" });
+      return csv;
+    }
+    function downloadCSV() {
+      let csvData = convertArrayToCSV(table);
+      const blob = new Blob([csvData], { type: 'text/csv' });
+      // Create a temporary download link
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "la liste";
+      // Trigger a click event on the link to start the download
+      link.click();
+      // Clean up the temporary download link
+      window.URL.revokeObjectURL(link.href);
+      link.remove();
+    }
+    function changeForm() {
+      const form = document.getElementById("formSubmit");
+      form.submit();
+    }
+  </script>
+</body>
+</html>
+

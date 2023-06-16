@@ -1,5 +1,6 @@
 const { render } = require("ejs");
 const filiere = require("../models/filiere.model");
+const departement = require("../models/departenemt.model");
 const modules = require("../models/module.model");
 module.exports = {
   showAll,
@@ -25,23 +26,27 @@ function showAll(req, res, next) {
     filiere
       .getCustom(req.query.departement, req.query.cycle)
       .then((data) => {
-        if (data) {
-          res.render("filieres/index", {
-            filieres: data,
-            cycle: req.query.cycle,
-            departement: req.query.departement,
-            successMessage: message,
-            errorMessage: error,
-          });
-        } else {
-          res.render("filieres/index", {
-            filieres: "",
-            cycle: req.query.cycle,
-            departement: req.query.departement,
-            successMessage: message,
-            errorMessage: error,
-          });
-        }
+        departement.getAll().then((departements) => {
+          if (data) {
+            res.render("admin/filieres/index", {
+              filieres: data,
+              cycle: req.query.cycle,
+              departements: departements,
+              departement: req.query.departement,
+              successMessage: message,
+              errorMessage: error,
+            });
+          } else {
+            res.render("admin/filieres/index", {
+              filieres: "",
+              cycle: req.query.cycle,
+              departements: departements,
+              departement: req.query.departement,
+              successMessage: message,
+              errorMessage: error,
+            });
+          }
+        });
       })
       .catch((err) => {
         res.render("404");
@@ -50,23 +55,27 @@ function showAll(req, res, next) {
     filiere
       .getByCycle(req.query.cycle)
       .then((data) => {
-        if (data) {
-          res.render("filieres/index", {
-            filieres: data,
-            cycle: req.query.cycle,
-            departement: "",
-            successMessage: message,
-            errorMessage: error,
-          });
-        } else {
-          res.render("filieres/index", {
-            filieres: "",
-            cycle: req.query.cycle,
-            departement: "",
-            successMessage: message,
-            errorMessage: error,
-          });
-        }
+        departement.getAll().then((departements) => {
+          if (data) {
+            res.render("admin/filieres/index", {
+              filieres: data,
+              cycle: req.query.cycle,
+              departements: departements,
+              departement: "",
+              successMessage: message,
+              errorMessage: error,
+            });
+          } else {
+            res.render("admin/filieres/index", {
+              filieres: "",
+              cycle: req.query.cycle,
+              departements: departements,
+              departement: "",
+              successMessage: message,
+              errorMessage: error,
+            });
+          }
+        });
       })
       .catch((err) => {
         res.render("404");
@@ -78,23 +87,27 @@ function showAll(req, res, next) {
     filiere
       .getByDepartement(req.query.departement)
       .then((data) => {
-        if (data) {
-          res.render("filieres/index", {
-            filieres: data,
-            cycle: "",
-            departement: req.query.departement,
-            successMessage: message,
-            errorMessage: error,
-          });
-        } else {
-          res.render("filieres/index", {
-            filieres: "",
-            cycle: "",
-            departement: req.query.departement,
-            successMessage: message,
-            errorMessage: error,
-          });
-        }
+        departement.getAll().then((departements) => {
+          if (data) {
+            res.render("admin/filieres/index", {
+              filieres: data,
+              cycle: "",
+              departements: departements,
+              departement: req.query.departement,
+              successMessage: message,
+              errorMessage: error,
+            });
+          } else {
+            res.render("admin/filieres/index", {
+              filieres: "",
+              cycle: "",
+              departements: departements,
+              departement: req.query.departement,
+              successMessage: message,
+              errorMessage: error,
+            });
+          }
+        });
       })
       .catch((err) => {
         res.render("404");
@@ -103,23 +116,27 @@ function showAll(req, res, next) {
     filiere
       .getAll()
       .then((data) => {
-        if (data) {
-          res.render("filieres/index", {
-            filieres: data,
-            cycle: "",
-            departement: "",
-            successMessage: message,
-            errorMessage: error,
-          });
-        } else {
-          res.render("filieres/index", {
-            filieres: "",
-            cycle: "",
-            departement: "",
-            successMessage: message,
-            errorMessage: error,
-          });
-        }
+        departement.getAll().then((departements) => {
+          if (data) {
+            res.render("admin/filieres/index", {
+              filieres: data,
+              cycle: "",
+              departement: "",
+              departements: departements,
+              successMessage: message,
+              errorMessage: error,
+            });
+          } else {
+            res.render("admin/filieres/index", {
+              filieres: "",
+              cycle: "",
+              departement: "",
+              departements: departements,
+              successMessage: message,
+              errorMessage: error,
+            });
+          }
+        });
       })
       .catch((err) => {
         res.render("404");
@@ -140,14 +157,14 @@ function show(req, res, next) {
           .getByFiliere(id)
           .then((modulesData) => {
             if (modulesData) {
-              res.render("filieres/show", {
+              res.render("admin/filieres/show", {
                 filiere: data,
                 modules: modulesData,
                 successMessage: message,
                 errorMessage: error,
               });
             } else {
-              res.render("filieres/show", {
+              res.render("admin/filieres/show", {
                 filiere: data,
                 modules: "",
                 successMessage: message,
@@ -182,14 +199,14 @@ function editPage(req, res, next) {
           .getByFiliere(id)
           .then((modulesData) => {
             if (modulesData) {
-              res.render("filieres/edit", {
+              res.render("admin/filieres/edit", {
                 filiere: data,
                 modules: modulesData,
                 successMessage: message,
                 errorMessage: error,
               });
             } else {
-              res.render("filieres/edit", {
+              res.render("admin/filieres/edit", {
                 filiere: data,
                 modules: "",
                 successMessage: message,
@@ -221,7 +238,7 @@ function addNewPage(req, res, next) {
   if (typeof req.query.cycle != "undefined") {
     cycle = req.query.cycle;
   }
-  res.render("filieres/addNew", {
+  res.render("admin/filieres/addNew", {
     departement: departement,
     cycle: cycle,
     successMessage: message,

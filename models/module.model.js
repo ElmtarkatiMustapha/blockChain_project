@@ -229,10 +229,20 @@ function getCustom(idFiliere, semester) {
     mongoose
       .connect(urlDb)
       .then(() => {
-        return Module.find({
-          filiere: idFiliere,
-          semester: semester,
-        });
+        return Module.aggregate([
+          {
+            $match: {
+              filiere: new ObjectId(idFiliere),
+              $expr: { $eq: ["$semester", Number(semester)] },
+            },
+          },
+          {
+            $group: {
+              _id: "$semester",
+              modules: { $push: "$$ROOT" },
+            },
+          },
+        ]);
       })
       .then((data) => {
         resolve(data);
@@ -249,8 +259,16 @@ function getByFiliere(idFiliere) {
       .then(() => {
         return Module.aggregate([
           {
+            $lookup: {
+              from: "professors",
+              localField: "professor",
+              foreignField: "reference",
+              as: "profInfo",
+            },
+          },
+          {
             $match: {
-              filiere: idFiliere,
+              filiere: new ObjectId(idFiliere),
             },
           },
           {

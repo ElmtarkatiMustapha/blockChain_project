@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../globalParts/header.ejs") %>
+    <link rel="stylesheet" href="/style/adminDashboard.css">
+    <title>Dashbord</title>
+</head>
+<body style="background-color: #FAFAFA;">
+    <%- include("../admin/parts/menus.ejs") %>
+    <%- include("../globalParts/messages.ejs") %>
+    <%- include("../globalParts/preload.ejs") %>
+    <div class="container-fluid section-1 p-4">
+        <div class="row row-1 m-0 justify-content-center">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 text-center">
+                <div class="title">
+                    Bienvenu <label class="name"><%- user.firstName %></label>,
+                </div>
+                <div class="text">
+                    Dans cet espace, vous pouvez consulter vos notes obtenir votre diplôme en version numérique.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid section-2 p-3">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-11">
+                <div class="elem container-fluid p-3">
+                    <div class="row row-1 m-0 pt-2 pb-2 justify-content-between">
+                        <div class="col-6 col-md-4">
+                            <div class="title">Departements: </div>
+                        </div>
+                        <div class="col-6 col-md-4 text-end">
+                            <a class="link" href="/departements">Afficher Plus  <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="row row-2 text-center">
+                        <% if (typeof departements != undefined && departements.length != 0) { %>
+                            <% departements.forEach(item => { %>
+                                <div class="col-12 col-sm-6 col-md-4 p-4">
+                                    <div class="item p-3">
+                                        <div class="icon pt-1 pb-1">
+                                            <i class="<%- item.icone %>"></i>
+                                        </div>
+                                        <div class="title pt-1 pb-1">
+                                            <a href="/departements/show/<%- item._id %>"><%- item.label %></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include("../globalParts/footer.ejs") %>
+</body>
+</html>

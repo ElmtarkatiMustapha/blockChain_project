@@ -20,7 +20,7 @@ function showAll(req, res, next) {
     .getAll()
     .then((data) => {
       if (data) {
-        res.render("departements/index", {
+        res.render("admin/departements/index", {
           departements: data,
           successMessage: message,
           errorMessage: error,
@@ -39,7 +39,7 @@ function show(req, res, next) {
     .getOne(id)
     .then((data) => {
       if (data) {
-        res.render("departements/show", {
+        res.render("admin/departements/show", {
           departement: data,
         });
       } else {
@@ -60,7 +60,7 @@ function editPage(req, res, next) {
     .getOne(id)
     .then((data) => {
       if (data) {
-        res.render("departements/edit", {
+        res.render("admin/departements/edit", {
           departement: data,
           successMessage: message,
           errorMessage: error,
@@ -78,7 +78,7 @@ function addNewPage(req, res, next) {
   let error = req.session.errorMessage;
   req.session.successMessage = "";
   req.session.errorMessage = "";
-  res.render("departements/addNew", {
+  res.render("admin/departements/addNew", {
     successMessage: message,
     errorMessage: error,
   });
@@ -89,11 +89,11 @@ function addNew(req, res, next) {
     .addNew(req.body.label, req.body.desc)
     .then((res) => {
       req.session.successMessage = "la departement est ajouter avec succes";
-      res.redirect("/departements/addNew");
+      res.redirect("/admin/departements/addNew");
     })
     .catch((err) => {
       req.session.errorMessage = err;
-      res.redirect("/departements/addNew");
+      res.redirect("/admin/departements/addNew");
     });
 }
 

@@ -9,6 +9,7 @@ const path = require("path");
 const csv = require("fast-csv");
 const { rejects } = require("assert");
 const { default: mongoose } = require("mongoose");
+const Professor = require("../models/professor.model");
 module.exports = {
   showAll,
   show,
@@ -35,48 +36,56 @@ function showAll(req, res, next) {
     modules
       .getCustom(req.query.filiere, req.query.semester)
       .then((data) => {
-        if (data) {
-          res.render("modules/index", {
-            modules: data,
-            semester: req.query.semester,
-            filiere: req.query.filiere,
-            successMessage: message,
-            errorMessage: error,
-          });
-        } else {
-          res.render("modules/index", {
-            modules: "",
-            semester: req.query.semester,
-            filiere: req.query.filiere,
-            successMessage: message,
-            errorMessage: error,
-          });
-        }
+        filiere.getAll().then((filieres) => {
+          if (data) {
+            res.render("admin/modules/index", {
+              modules: data,
+              semester: req.query.semester,
+              filiere: req.query.filiere,
+              filieres: filieres,
+              successMessage: message,
+              errorMessage: error,
+            });
+          } else {
+            res.render("admin/modules/index", {
+              modules: "",
+              semester: req.query.semester,
+              filiere: req.query.filiere,
+              filieres: filieres,
+              successMessage: message,
+              errorMessage: error,
+            });
+          }
+        });
       })
       .catch((err) => {
         res.render("404");
       });
-  } else if (req.query.filiere != undefined && req.query.filiere != "") {
+  } else if (typeof req.query.filiere != undefined && req.query.filiere != "") {
     modules
       .getByFiliere(req.query.filiere)
       .then((data) => {
-        if (data) {
-          res.render("filieres/index", {
-            modules: data,
-            semester: "",
-            filiere: req.query.filiere,
-            successMessage: message,
-            errorMessage: error,
-          });
-        } else {
-          res.render("filieres/index", {
-            modules: "",
-            semester: "",
-            filiere: req.query.filiere,
-            successMessage: message,
-            errorMessage: error,
-          });
-        }
+        filiere.getAll().then((filieres) => {
+          if (data) {
+            res.render("admin/modules/index", {
+              modules: data,
+              semester: "",
+              filiere: req.query.filiere,
+              filieres: filieres,
+              successMessage: message,
+              errorMessage: error,
+            });
+          } else {
+            res.render("admin/modules/index", {
+              modules: "",
+              semester: "",
+              filiere: req.query.filiere,
+              filieres: filieres,
+              successMessage: message,
+              errorMessage: error,
+            });
+          }
+        });
       })
       .catch((err) => {
         res.render("404");
@@ -97,34 +106,43 @@ function show(req, res, next) {
   modules
     .getOne(id)
     .then((data) => {
-      if (req.query.validate == "true") {
-        modules.getStudentsValide(id).then((students) => {
-          if (data != "") {
-            res.render("modules/show", {
-              moduleInfo: data,
-              students: students,
-              idModule: id,
-              successMessage: message,
-              errorMessage: error,
-            });
-          } else {
-            res.render("404");
-          }
+      if (data != "") {
+        Professor.getOne(data.professor).then((prof) => {
+          filiere.getOne(data.filiere).then((filiere) => {
+            if (
+              typeof req.query.validate != undefined &&
+              req.query.validate == "true"
+            ) {
+              modules.getStudentsValide(id).then((students) => {
+                res.render("admin/modules/show", {
+                  moduleInfo: data,
+                  filiereInfo: filiere,
+                  validate: true,
+                  profInfo: prof,
+                  students: students,
+                  idModule: id,
+                  successMessage: message,
+                  errorMessage: error,
+                });
+              });
+            } else {
+              modules.getStudentsNoValide(id).then((students) => {
+                res.render("admin/modules/show", {
+                  moduleInfo: data,
+                  filiereInfo: filiere,
+                  profInfo: prof,
+                  validate: false,
+                  students: students,
+                  idModule: id,
+                  successMessage: message,
+                  errorMessage: error,
+                });
+              });
+            }
+          });
         });
       } else {
-        modules.getStudentsNoValide(id).then((students) => {
-          if (data != "") {
-            res.render("modules/show", {
-              moduleInfo: data,
-              students: students,
-              idModule: id,
-              successMessage: message,
-              errorMessage: error,
-            });
-          } else {
-            res.render("404");
-          }
-        });
+        res.render("404");
       }
     })
     .catch((err) => {
@@ -141,7 +159,7 @@ function editPage(req, res, next) {
     .getOne(id)
     .then((data) => {
       if (data) {
-        res.render("modules/edit", {
+        res.render("admin/modules/edit", {
           moduleInfo: data,
           successMessage: message,
           errorMessage: error,
@@ -167,7 +185,7 @@ function addNewPage(req, res, next) {
   if (typeof req.query.semester != "undefined") {
     semester = req.query.semester;
   }
-  res.render("modules/addNew", {
+  res.render("admin/modules/addNew", {
     filiere: filiere,
     semester: semester,
     successMessage: message,
@@ -235,7 +253,7 @@ async function saveGrades(req, res, next) {
     }
     await updateGrade(list, req.body.idModule);
     req.session.successMessage = "les notes sont mise a jourer";
-    if (req.query.validate) {
+    if (req.body.validate == "true") {
       res.redirect("/modules/show/" + req.body.idModule + "?validate=true");
     } else {
       res.redirect("/modules/show/" + req.body.idModule + "?validate=false");
@@ -290,7 +308,12 @@ async function updateGrade(list, id) {
           referenceStudent: data.cne,
           referenceModule: id,
         },
-        { $set: { grade: data.note } },
+        {
+          $set: {
+            grade: data.note,
+            date: new Date(),
+          },
+        },
         { new: true }
       );
     }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../globalParts/header.ejs") %>
+  <link rel="stylesheet" href="/style/studentDashbord.css">
+  <title>Dashbord</title>
+</head> 
+<body style="background-color: #FAFAFA;">
+  <%- include('../globalParts/preload.ejs') %>
+  <%- include('../globalParts/messages.ejs') %>
+  <%- include('parts/menus.ejs') %>
+
+  <div class="container-fluid section-1 p-3">
+    <div class="row row-1 m-0 justify-content-center">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-6 text-center">
+        <div class="title">
+          Bienvenu <label id="nom"><%- user.firstName %></label>,
+        </div>
+        <div class="text">
+          Dans cet espace, vous pouvez consulter vos notes obtenir votre diplôme en version numérique.
+        </div>
+      </div>
+    </div>
+    <div class="row row-2 m-0">
+      <div class="col-12 pt-3 pb-3 container-fluid">
+        <div class="row m-0 justify-content-center">
+          <div class="col-11 col-sm-8 col-md-5 col-lg-3 p-3 text-center">
+            <div class="elem elem-1">
+              <div class="icon">
+                <i class="fa-solid fa-award"></i>
+              </div>
+              <div class="title">
+                <a href="/student/grades">Consulter vos notes</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-5 col-lg-3 p-3 text-center">
+            <div class="elem elem-2">
+              <div class="icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <div class="title">
+                <a href="/student/diplomes">Obtenir votre diplôme</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+<div class="container-fluid pb-5">
+  <div  class="container text-start"  id="tableau">
+    <h3 class="title" id="headtitre">Dernières notes 
+      <label id="nbrnotes">
+      <% if (typeof lastGrades != "undefined" && lastGrades!= "undefined" && lastGrades.length != 0) { %>
+        <%- lastGrades.length %>
+        <% } else { %>
+         0
+      <% } %>
+  </label></h3>
+    <table  class="container table-striped table " id="tb">
+      <thead>
+        <tr>
+          <th>Semestre</th>
+          <th>Module</th>
+          <th>Note</th>
+          <th>Commentaire</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (typeof lastGrades != "undefined" && lastGrades!= "undefined" && lastGrades.length != 0) { %>
+          <% lastGrades.forEach(grade => { %>
+           <tr >
+            <td><%- grade.referenceModule.semester %></td>
+            <td><%- grade.referenceModule.title %></td>
+            <td><%- grade.grade %></td>
+            <td>Aucune</td>
+          </tr>
+          <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+  <%- include("../globalParts/footer.ejs") %>
+</body>
+</html>

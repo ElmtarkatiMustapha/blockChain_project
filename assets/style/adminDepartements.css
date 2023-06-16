@@ -1,0 +1,97 @@
+.btn-custom-orange {
+    font-family: 'Jost', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    background-color: #EF8823;
+    border: 2px solid #EF8823;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.115));
+}
+
+.btn-custom-orange:hover {
+    background-color: transparent;
+    border: 2px solid #EF8823;
+    color: #EF8823;
+}
+
+.btn-orange {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    background-color: #EF8823;
+    border: 2px solid #EF8823;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.115));
+}
+
+.btn-orange:hover {
+    background-color: transparent;
+    border: 2px solid #EF8823;
+    color: #EF8823;
+}
+
+.btn-blue {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    background-color: #2E4383;
+    border: 2px solid #2E4383;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.115));
+}
+
+.btn-blue:hover {
+    background-color: transparent;
+    border: 2px solid #2E4383;
+    color: #2E4383;
+}
+
+.section-1 {
+    font-family: "jost", sans-serif;
+}
+
+.section-1 .title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #2E4383;
+}
+
+.section-1 .title label {
+    color: #EF8823;
+}
+
+.section-2 {
+    font-family: "jost", sans-serif;
+}
+
+.section-2 .row-1 {}
+
+.section-2 .row-1 .elem {
+    border-radius: 14px;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.15));
+}
+
+.section-2 .row-1 .elem-1 {
+    background-color: #2E4383;
+}
+
+.section-2 .row-1 .elem-2 {
+    background-color: #EF8823;
+}
+
+.section-2 .row-1 .elem .icon {}
+
+.section-2 .row-1 .elem .icon i {
+    font-size: 3rem;
+    color: white;
+}
+
+.section-2 .row-1 .elem .title a {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-decoration: underline;
+}

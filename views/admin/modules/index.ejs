@@ -1,0 +1,121 @@
+<!-- 
+  variable: 
+  modules: "",
+  semester: req.query.semester,
+  filiere: req.query.filiere,
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../globalParts/header.ejs') %>
+  <link rel="stylesheet" href="/style/adminModule.css">
+  <title>Document</title>
+</head>
+<body style="background-color: #FAFAFA;">
+  <%- include('../../globalParts/preload.ejs') %>
+  <%- include('../parts/menus.ejs') %>
+  <%- include('../../globalParts/messages.ejs') %>
+
+  <div class="container-fluid section-1 p-4">
+    <div class="row align-items-center">
+      <div class="col-12 col-md-4 col-md-5 p-3">
+        <div class="title">
+          Modules
+        </div>
+      </div>
+      <div class="col-12 col-md-8 col-lg-7 container-fluid">
+        <form method="get" action="" id="formSubmit" class="row">
+          <div class="col-12 col-md-5 p-2">
+            <select class="form-select" onchange="changeForm()" name="filiere" id="filiere">
+              <option value="">Liste des Filières</option>
+              <% if (typeof filieres != "undefined") { %>
+                  <% filieres.forEach(item => { %>
+                      <% if (item._id == filiere) { %>
+                          <option selected value="<%- item._id %>"><%- item.title %></option>
+                        <% } else { %>
+                          <option value="<%- item._id %>"><%- item.title %></option>
+                      <% } %>
+                  <% }) %>
+              <% } %>
+            </select>
+          </div>
+          <div class="col-12 col-md-5 p-2">
+            <select class="form-select" onchange="changeForm()" name="semester" id="semester">
+              <option value="">Semestres</option>
+              <% if (semester == 1) { %>
+                <option selected value="1">Semestre 1</option>
+               <% } else { %>
+                <option value="1">Semestre 1</option>
+              <% } %>
+              <% if (semester == 2) { %>
+                <option selected value="2">Semestre 2</option>
+               <% } else { %>
+                <option value="2">Semestre 2</option>
+              <% } %>
+              <% if (semester == 3) { %>
+                <option selected value="3">Semestre 3</option>
+               <% } else { %>
+                <option value="3">Semestre 3</option>
+              <% } %>
+              <% if (semester == 4) { %>
+                <option selected value="4">Semestre 4</option>
+               <% } else { %>
+                <option value="4">Semestre 4</option>
+              <% } %>
+              <% if (semester == 5) { %>
+                <option selected value="5">Semestre 5</option>
+               <% } else { %>
+                <option value="5">Semestre 5</option>
+              <% } %>
+              <% if (semester == 6) { %>
+                <option selected value="6">Semestre 6</option>
+               <% } else { %>
+                <option value="6">Semestre 6</option>
+              <% } %>
+            </select>
+          </div>
+          <div class="col-12 col-md-2 p-2">
+            <a href="/modules/addNew" class="btn btn-custom-orange">Ajouter</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid section-2 p-4">
+    <% if (typeof modules != undefined && modules.length!= "" && modules.length != 0) { %>
+      <% modules.forEach(items => { %>
+        <div class="row row-1 pb-1 p-4">
+          <div class="col-12 p-0 title">Semestre <%- items._id %></div>
+        </div>
+        <div class="row row-2  p-3">
+        <% items.modules.forEach(elem => { %>
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-3">
+            <div class="elem container-fluid p-3">
+              <div class="row text-center p-2">
+                <div class="col-12 title"><%- elem.title %></div>
+              </div>
+              <div class="row text-center p-2">
+                <div class="col-6 text-end">
+                  <a class="btn btn-blue text-center" href="/modules/show/<%- elem._id %>">Afficher</a>
+                </div>
+                <div class="col-6 text-start">
+                  <a class="btn btn-orange text-center" href="/modules/edit/<%- elem._id %>">Modifier</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+
+  <%- include('../../globalParts/footer.ejs') %>
+  <script>
+    function changeForm() {
+      const form = document.getElementById("formSubmit");
+      form.submit();
+    }
+  </script>
+</body>
+</html>

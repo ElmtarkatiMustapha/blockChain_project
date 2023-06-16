@@ -1,0 +1,129 @@
+:root {
+    --white: #fafafa;
+    --black: #000000;
+    --orange: #EF8823;
+    --blue: #2E4383;
+    --grey: #2E4281;
+    --green: #00E77F;
+    --white: #fafafa;
+    --light-white: #aaa;
+    /* --black: #3d3d3d; */
+    --light-bg: #4b4b4b;
+}
+
+.btn-custom-orange {
+    font-family: 'Jost', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    background-color: #EF8823;
+    border: 2px solid #EF8823;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.115));
+}
+
+.btn-custom-orange:hover {
+    background-color: transparent;
+    border: 2px solid #EF8823;
+    color: #EF8823;
+}
+
+.btn-orange {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    background-color: #EF8823;
+    border: 2px solid #EF8823;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.115));
+}
+
+.btn-orange:hover {
+    background-color: transparent;
+    border: 2px solid #EF8823;
+    color: #EF8823;
+}
+
+.btn-blue {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    background-color: #2E4383;
+    border: 2px solid #2E4383;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.115));
+}
+
+.btn-blue:hover {
+    background-color: transparent;
+    border: 2px solid #2E4383;
+    color: #2E4383;
+}
+
+.btn-green {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    background-color: #208E45;
+    border: 2px solid #208E45;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.115));
+}
+
+.btn-green:hover {
+    background-color: transparent;
+    border: 2px solid #208E45;
+    color: #208E45;
+}
+
+.section-1 {
+    font-family: 'jost', sans-serif;
+}
+
+.section-1 .title {
+    font-weight: 600;
+    font-size: 2rem;
+    color: #2E4383;
+}
+
+.section-2 {
+    font-family: "jost", sans-serif;
+}
+
+.section-2 .elem {
+    text-decoration: none;
+    border-radius: 15px;
+    background-color: white;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.122));
+    display: block;
+    transition: all ease 500ms;
+}
+
+.section-2 .elem:hover {
+    background-color: #EF8823;
+}
+
+.section-2 .elem:hover .title {
+    color: white;
+}
+
+.section-2 .elem:hover .cycle {
+    color: white;
+}
+
+.section-2 .elem .title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #2E4383;
+    transition: all ease 500ms;
+}
+
+.section-2 .elem .cycle {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #EF8823;
+    transition: all ease 500ms;
+}
