@@ -34,7 +34,7 @@ function login(req, res, next) {
           res.redirect("/dashbord");
         } else {
           res.render("pages/login", {
-            error: "les information incorrect",
+            errorMessage: "les information incorrect",
           });
         }
       })
@@ -47,10 +47,10 @@ function login(req, res, next) {
               res.redirect("/dashbord");
             } else {
               res.render("pages/login", {
-                error: "les information incorrect",
+                errorMessage: "les information incorrect",
               });
               res.render("pages/login", {
-                error: "les information incorrect",
+                errorMessage: "les information incorrect",
               });
             }
           })
@@ -63,13 +63,13 @@ function login(req, res, next) {
                   res.redirect("/dashbord");
                 } else {
                   res.render("pages/login", {
-                    error: "les information incorrect",
+                    errorMessage: "les information incorrect",
                   });
                 }
               })
               .catch((err) => {
                 res.render("pages/login", {
-                  error: "les information incorrect",
+                  errorMessage: "les information incorrect",
                 });
               });
           });

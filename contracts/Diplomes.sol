@@ -20,7 +20,6 @@ contract Diplomes {
 
     // modifier onlyOwner() {
     //     require(msg.sender == owner);
-    //     _;
     // }
     mapping(uint => diplome) public diplomes;
 

@@ -192,13 +192,21 @@ let departement = "informatique";
 //     console.log("Error: ", err);
 //   });
 
-// Evaluation.addNew("6473b128fded05a0b7cb3e10", "M2Y6589G", 7, Date())
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((err) => {
-//     console.log("Error: ", err);
-//   });
+Evaluation.addNew("6473b128fded05a0b7cb3e10", "M2Y65", 7, Date())
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log("Error: ", err);
+  });
+
+Evaluation.addNew("646f5b14821348f3216a3804", "M2Y65", 7, Date())
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log("Error: ", err);
+  });
 
 // Student.addNew(fName, lName, ref, sexe, birthday, section)
 //   .then((res) => {
@@ -208,64 +216,64 @@ let departement = "informatique";
 //     console.log(err);
 //   });
 
-Departement.addNew(
-  "Histoire et Géographie",
-  "departement de Histoire et Géographie",
-  "fa-solid fa-clock-rotate-left"
-)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log("Error: ", err);
-  });
-Departement.addNew(
-  "Sciences de l’Education",
-  "departement de Sciences de l’Education",
-  "fa-solid fa-user-graduate"
-)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log("Error: ", err);
-  });
+// Departement.addNew(
+//   "Histoire et Géographie",
+//   "departement de Histoire et Géographie",
+//   "fa-solid fa-clock-rotate-left"
+// )
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log("Error: ", err);
+//   });
+// Departement.addNew(
+//   "Sciences de l’Education",
+//   "departement de Sciences de l’Education",
+//   "fa-solid fa-user-graduate"
+// )
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log("Error: ", err);
+//   });
   
-Departement.addNew(
-  "Sciences de la Terre",
-  "departement de Sciences de la Terre",
-  "fa-solid fa-earth-africa"
-)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log("Error: ", err);
-  });
+// Departement.addNew(
+//   "Sciences de la Terre",
+//   "departement de Sciences de la Terre",
+//   "fa-solid fa-earth-africa"
+// )
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log("Error: ", err);
+//   });
 
-Departement.addNew(
-  "Sciences de la Vie",
-  "departement de Sciences de la Vie",
-  "fa-solid fa-dna"
-)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log("Error: ", err);
-  });
+// Departement.addNew(
+//   "Sciences de la Vie",
+//   "departement de Sciences de la Vie",
+//   "fa-solid fa-dna"
+// )
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log("Error: ", err);
+//   });
 
-Departement.addNew(
-  "Mathématiques",
-  "departement de Mathématiques",
-  "fa-solid fa-infinity"
-)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log("Error: ", err);
-  });
+// Departement.addNew(
+//   "Mathématiques",
+//   "departement de Mathématiques",
+//   "fa-solid fa-infinity"
+// )
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log("Error: ", err);
+//   });
 
 // Module.addNew("reseau", 1, "REF534G5").then((data) => {
 //   console.log(data);
